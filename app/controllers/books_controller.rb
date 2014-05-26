@@ -63,7 +63,7 @@ class BooksController < ApplicationController
     if @error_messages.blank?
       @code = "#{Category.find_by_id(@category_id).short_code}~#{@title.strip}~#{Shaft.find_by_id(@shaft_id).name}~#{@block}~#{DateTime.parse(@publication_date).strftime("%d-%m-%y")}~#{Consultant.find_by_id(@consultant_id).name}~#{ArchiveBox.find_by_id(@archive_box_id).name}"
       if Book.find_by_code(@code).blank?
-        Book.create(code: @code, title: @title.strip, description: @description.strip, total_quantity: @total_quantity.to_i, category_id: @category_id, block_id: Block.find_by_name(@block).id, consultant_id: @consultant_id, archive_box_id: @archive_box_id, geographic_position: @geographic_position, publication_date: @publication_date_status)
+        Book.create(code: @code, title: @title.strip, description: @description.strip, total_quantity: @total_quantity.to_i, quantity_in_stock: @total_quantity.to_i, category_id: @category_id, block_id: Block.find_by_name(@block).id, consultant_id: @consultant_id, archive_box_id: @archive_box_id, geographic_position: @geographic_position, publication_date: @publication_date_status)
         @success_messages << "Le document possédant le code: #{@code} a été créé en #{@total_quantity.strip} exemplaire#{(@total_quantity.to_i > 1) ? 's' : ''}"
       else
         @error_messages << "Ce document existe déjà"
@@ -202,8 +202,8 @@ class BooksController < ApplicationController
     terms.each do |term|
       @sql_for_categories << " name ILIKE "+"'%"+term+"%' OR"
     end
-    @sql_for_categories = @sql_for_categories.sub(/OR$/, '') << "))"
-    #@sql_for_categories = @sql_for_categories.sub(/OR$/, '') << ") AND published IS NOT FALSE)"
+    #@sql_for_categories = @sql_for_categories.sub(/OR$/, '') << "))"
+    @sql_for_categories = @sql_for_categories.sub(/OR$/, '') << ") AND published IS NOT FALSE)"
     @categories = Category.where("#{@sql_for_categories}")
     @sql_for_categories = " category_id IN ("
     if @categories.blank?

@@ -34542,3 +34542,1691 @@ ActionController::RoutingError (No route matches [GET] "/assets/logo.png"):
 
 
 Started GET "/assets/arrow_white.png" for 127.0.0.1 at 2014-05-26 12:14:02 +0200
+
+
+Started GET "/departments" for 127.0.0.1 at 2014-05-26 12:53:55 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DepartmentsController#index as HTML
+  [1m[35mActiveRecord::SessionStore::Session Load (334.8ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = 'ebf306f85e3cfae348156b2560ccfac3' ORDER BY "sessions"."id" ASC LIMIT 1
+  [1m[36mUser Load (2.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 2 ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Completed 401 Unauthorized in 611ms
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (15.0ms)[0m  [1mUPDATE "sessions" SET "data" = $1, "updated_at" = $2 WHERE "sessions"."id" = 53[0m  [["data", "BAh7CEkiEF9jc3JmX3Rva2VuBjoGRUZJIjF5WG1MNUZEUzROR1hVVWRnUGJR\nTmNZcGdiOERNREg4MDc2MVQ0eVdSTGdFPQY7AEZJIhN1c2VyX3JldHVybl90\nbwY7AEZJIhEvZGVwYXJ0bWVudHMGOwBUSSIKZmxhc2gGOwBUewdJIgxkaXNj\nYXJkBjsAVFsASSIMZmxhc2hlcwY7AFR7BzoKYWxlcnRJIjhWb3RyZSBzZXNz\naW9uIGEgZXhwaXLDqS4gVmV1aWxsZXogdm91cyByZWNvbm5lY3Rlci4GOwBU\nOg10aW1lZG91dFQ=\n"], ["updated_at", Mon, 26 May 2014 10:53:56 UTC +00:00]]
+  [1m[35m (95.0ms)[0m  COMMIT
+
+
+Started GET "/departments" for 127.0.0.1 at 2014-05-26 12:53:56 +0200
+Processing by DepartmentsController#index as HTML
+  [1m[36mActiveRecord::SessionStore::Session Load (1.1ms)[0m  [1mSELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = 'ebf306f85e3cfae348156b2560ccfac3' ORDER BY "sessions"."id" ASC LIMIT 1[0m
+Completed 401 Unauthorized in 13ms
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-05-26 12:53:56 +0200
+Processing by Devise::SessionsController#new as HTML
+  [1m[35mActiveRecord::SessionStore::Session Load (1.1ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = 'ebf306f85e3cfae348156b2560ccfac3' ORDER BY "sessions"."id" ASC LIMIT 1
+  Rendered layouts/_flash_messages.html.erb (0.8ms)
+  Rendered devise/shared/_links.erb (2.1ms)
+  Rendered devise/sessions/new.html.erb within layouts/sessions (15.3ms)
+Completed 200 OK in 529ms (Views: 214.8ms | ActiveRecord: 1.1ms)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  UPDATE "sessions" SET "data" = $1, "updated_at" = $2 WHERE "sessions"."id" = 53  [["data", "BAh7CEkiEF9jc3JmX3Rva2VuBjoGRUZJIjF5WG1MNUZEUzROR1hVVWRnUGJR\nTmNZcGdiOERNREg4MDc2MVQ0eVdSTGdFPQY7AEZJIhN1c2VyX3JldHVybl90\nbwY7AEZJIhEvZGVwYXJ0bWVudHMGOwBUSSIKZmxhc2gGOwBUewdJIgxkaXNj\nYXJkBjsAVFsHOgphbGVydDoNdGltZWRvdXRJIgxmbGFzaGVzBjsAVHsHOwZJ\nIjhWb3RyZSBzZXNzaW9uIGEgZXhwaXLDqS4gVmV1aWxsZXogdm91cyByZWNv\nbm5lY3Rlci4GOwBUOwdU\n"], ["updated_at", Mon, 26 May 2014 10:53:57 UTC +00:00]]
+  [1m[36m (97.6ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/assets/stylesheets.css?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-1.9.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-ui-1.10.1.custom.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-migrate-1.1.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/jquery/globalize.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/other/jquery.mousewheel.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/other/excanvas.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/bootstrap/bootstrap.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/cookies/jquery.cookies.2.2.0.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/jflot/jquery.flot.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/jflot/jquery.flot.stack.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/jflot/jquery.flot.pie.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/sparklines/jquery.sparkline.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/uniform/jquery.uniform.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/shbrush/XRegExp.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/shbrush/shCore.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushXml.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushJScript.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushCss.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/plugins.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/charts.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:57 +0200
+
+
+Started GET "/assets/actions.js?body=1" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/jquery/ui.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/uniform/uniform.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/select/select.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/icons.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/styling.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/stylesheet.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/opera.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/mystyles.css" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/backgrounds/default.jpg" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started GET "/assets/next.png" for 127.0.0.1 at 2014-05-26 12:53:58 +0200
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2014-05-26 12:54:15 +0200
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"yXmL5FDS4NGXUUdgPbQNcYpgb8DMDH80761T4yWRLgE=", "user"=>{"email"=>"dietricherwane@live.fr", "password"=>"[FILTERED]"}, "Se connecter"=>""}
+  [1m[35mActiveRecord::SessionStore::Session Load (0.9ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = 'ebf306f85e3cfae348156b2560ccfac3' ORDER BY "sessions"."id" ASC LIMIT 1
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."email" = 'dietricherwane@live.fr' ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (1.6ms)[0m  [1mUPDATE "users" SET "current_sign_in_at" = $1, "current_sign_in_ip" = $2, "sign_in_count" = $3, "updated_at" = $4 WHERE "users"."id" = 3[0m  [["current_sign_in_at", Mon, 26 May 2014 10:54:15 UTC +00:00], ["current_sign_in_ip", "127.0.0.1"], ["sign_in_count", 2], ["updated_at", Mon, 26 May 2014 10:54:15 UTC +00:00]]
+  [1m[35m (190.7ms)[0m  COMMIT
+  [1m[36mProfile Load (0.9ms)[0m  [1mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/nouvelle-demande-de-documents
+Completed 302 Found in 722ms (ActiveRecord: 198.6ms)
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mSQL (1.1ms)[0m  [1mDELETE FROM "sessions" WHERE "sessions"."id" = $1[0m  [["id", 53]]
+  [1m[35m (92.9ms)[0m  COMMIT
+  [1m[36mActiveRecord::SessionStore::Session Load (1.1ms)[0m  [1mSELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = '9f3f3ffbf1eccaf3bf883377e64883e5' ORDER BY "sessions"."id" ASC LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (2.3ms)[0m  [1mINSERT INTO "sessions" ("created_at", "data", "session_id", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Mon, 26 May 2014 10:54:16 UTC +00:00], ["data", "BAh7CkkiE3VzZXJfcmV0dXJuX3RvBjoGRUZJIhEvZGVwYXJ0bWVudHMGOwBU\nSSIKZmxhc2gGOwBUewdJIgxkaXNjYXJkBjsAVFsASSIMZmxhc2hlcwY7AFR7\nBjoLbm90aWNlSSIlVm91cyDDqnRlcyBtYWludGVuYW50IGNvbm5lY3TDqS4G\nOwBUSSIZd2FyZGVuLnVzZXIudXNlci5rZXkGOwBUWwdbBmkISSIiJDJhJDEw\nJFlFdy5leFRISnZKVkg3a21wNDliLy4GOwBUSSIdd2FyZGVuLnVzZXIudXNl\nci5zZXNzaW9uBjsAVHsGSSIUbGFzdF9yZXF1ZXN0X2F0BjsAVEl1OglUaW1l\nDUqTHMDC1f3YCToNbmFub19udW1pAg4COg1uYW5vX2RlbmkGOg1zdWJtaWNy\nbyIHUmA6CXpvbmVJIghVVEMGOwBUSSIcX3R1cmJvbGlua3NfcmVkaXJlY3Rf\ndG8GOwBGSSI2aHR0cDovLzAuMC4wLjA6MzAwMC9ub3V2ZWxsZS1kZW1hbmRl\nLWRlLWRvY3VtZW50cwY7AFQ=\n"], ["session_id", "9f3f3ffbf1eccaf3bf883377e64883e5"], ["updated_at", Mon, 26 May 2014 10:54:16 UTC +00:00]]
+  [1m[35m (53.9ms)[0m  COMMIT
+
+
+Started GET "/nouvelle-demande-de-documents" for 127.0.0.1 at 2014-05-26 12:54:16 +0200
+Processing by BooksController#send_request as HTML
+  [1m[36mActiveRecord::SessionStore::Session Load (1.0ms)[0m  [1mSELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = '9f3f3ffbf1eccaf3bf883377e64883e5' ORDER BY "sessions"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (1.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 3 ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mProfile Load (1.0ms)[0m  [1mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1[0m
+  Rendered layouts/_flash_messages.html.erb (0.2ms)
+  [1m[35mBook Load (1.7ms)[0m  SELECT "books".* FROM "books" WHERE (published IS NOT FALSE AND quantity_in_stock > 0) ORDER BY title
+  Rendered books/_search_results.html.erb (3.6ms)
+  Rendered books/send_request.html.erb within layouts/lvs (9.7ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1
+  [1m[36mDepartment Load (1.2ms)[0m  [1mSELECT "departments".* FROM "departments" WHERE "departments"."id" = 3 LIMIT 1[0m
+  [1m[35mQualification Load (1.1ms)[0m  SELECT "qualifications".* FROM "qualifications" WHERE "qualifications"."id" = 6 LIMIT 1
+Completed 200 OK in 571ms (Views: 541.2ms | ActiveRecord: 15.0ms)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.4ms)[0m  UPDATE "sessions" SET "data" = $1, "updated_at" = $2 WHERE "sessions"."id" = 54  [["data", "BAh7CkkiE3VzZXJfcmV0dXJuX3RvBjoGRUZJIhEvZGVwYXJ0bWVudHMGOwBU\nSSIKZmxhc2gGOwBUewdJIgxkaXNjYXJkBjsAVFsGOgtub3RpY2VJIgxmbGFz\naGVzBjsAVHsGOwZJIiVWb3VzIMOqdGVzIG1haW50ZW5hbnQgY29ubmVjdMOp\nLgY7AFRJIhl3YXJkZW4udXNlci51c2VyLmtleQY7AFRbB1sGaQhJIiIkMmEk\nMTAkWUV3LmV4VEhKdkpWSDdrbXA0OWIvLgY7AFRJIh13YXJkZW4udXNlci51\nc2VyLnNlc3Npb24GOwBUewZJIhRsYXN0X3JlcXVlc3RfYXQGOwBUSXU6CVRp\nbWUNSpMcwCpCDNkJOg1uYW5vX251bWkC1QE6DW5hbm9fZGVuaQY6DXN1Ym1p\nY3JvIgdGkDoJem9uZUkiCFVUQwY7AFRJIhBfY3NyZl90b2tlbgY7AEZJIjFj\naVlNMDdqVXU4MEJzTkt1WktkdUx4bXBhdnpSck82WmJDdjB1Nmo0YzcwPQY7\nAEY=\n"], ["updated_at", Mon, 26 May 2014 10:54:17 UTC +00:00]]
+  [1m[36m (87.3ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/assets/archive_boxes.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/blocks.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/books.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/categories.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/cdbd.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/consultants.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/demands.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/departments.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/errors_handling.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:17 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/icons.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/ie.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/informations.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/jquery.bubblepopup.v2.3.1.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/jquery/ui.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/multi-select.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/mystyles.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/no-printing.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/no-selection.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/opera.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/pay_money.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/paypal.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/paypal_payment_validation.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/qualifications.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/products.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/reports.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/reservations.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/select/select.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/send_sms.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/shafts.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/sms.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/statuses.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/stylesheet.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/stylesheets.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/styling.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/uniform/uniform.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/viewer.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-1.9.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-ui-1.10.1.custom.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/jquery.easing.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/jquery.collapse.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/jquery.bubblepopup.v2.3.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-migrate-1.1.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/jquery/globalize.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/other/excanvas.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/bootstrap/bootstrap.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/other/jquery.mousewheel.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/cookies/jquery.cookies.2.2.0.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/uniform/jquery.uniform.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/select/select2.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/tagsinput/jquery.tagsinput.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/maskedinput/jquery.maskedinput-1.3.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/multiselect/jquery.multi-select.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:18 +0200
+
+
+Started GET "/assets/plugins/shbrush/XRegExp.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/plugins/shbrush/shCore.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushXml.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushCss.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushJScript.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/plugins.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/charts.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/actions.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/jquery/ui.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/uniform/uniform.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/select/select.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/icons.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/styling.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/stylesheet.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/opera.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/mystyles.css" for 127.0.0.1 at 2014-05-26 12:54:19 +0200
+
+
+Started GET "/assets/nav_line.jpg" for 127.0.0.1 at 2014-05-26 12:54:20 +0200
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2014-05-26 12:54:20 +0200
+
+ActionController::RoutingError (No route matches [GET] "/assets/logo.png"):
+  actionpack (4.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.0.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `block in call'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `block in tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:25:in `tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `tagged'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.0.0) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/static.rb:64:in `call'
+  railties (4.0.0) lib/rails/engine.rb:511:in `call'
+  railties (4.0.0) lib/rails/application.rb:97:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  rack (1.5.2) lib/rack/handler/webrick.rb:60:in `service'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:138:in `service'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:94:in `run'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb (14.9ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (3.6ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (80.2ms)
+
+
+Started GET "/assets/backgrounds/default.jpg" for 127.0.0.1 at 2014-05-26 12:54:20 +0200
+
+
+Started GET "/assets/navb_plus.png" for 127.0.0.1 at 2014-05-26 12:54:20 +0200
+
+
+Started GET "/assets/arrow_white.png" for 127.0.0.1 at 2014-05-26 12:54:20 +0200
+
+
+Started GET "/assets/next.png" for 127.0.0.1 at 2014-05-26 12:54:20 +0200
+
+
+Started GET "/assets/switch.png" for 127.0.0.1 at 2014-05-26 12:54:20 +0200
+
+
+Started GET "/liste-des-documents-par-categorie" for 127.0.0.1 at 2014-05-26 12:54:32 +0200
+Processing by BooksController#list as HTML
+  [1m[35mActiveRecord::SessionStore::Session Load (1.1ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = '9f3f3ffbf1eccaf3bf883377e64883e5' ORDER BY "sessions"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 3 ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mProfile Load (0.9ms)[0m  SELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1
+  Rendered layouts/_flash_messages.html.erb (0.2ms)
+  [1m[36mCategory Load (1.3ms)[0m  [1mSELECT "categories".* FROM "categories" ORDER BY name ASC[0m
+  [1m[35m (1.2ms)[0m  SELECT COUNT(*) FROM "books" WHERE "books"."category_id" = $1  [["category_id", 1]]
+  [1m[36mBook Load (1.3ms)[0m  [1mSELECT "books".* FROM "books" WHERE "books"."category_id" = $1 ORDER BY title ASC[0m  [["category_id", 1]]
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM "books" WHERE "books"."category_id" = $1  [["category_id", 2]]
+  [1m[36mBook Load (0.5ms)[0m  [1mSELECT "books".* FROM "books" WHERE "books"."category_id" = $1 ORDER BY title ASC[0m  [["category_id", 2]]
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM "books" WHERE "books"."category_id" = $1  [["category_id", 3]]
+  [1m[36mBook Load (0.5ms)[0m  [1mSELECT "books".* FROM "books" WHERE "books"."category_id" = $1 ORDER BY title ASC[0m  [["category_id", 3]]
+  Rendered books/list.html.erb within layouts/lvs (110.8ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1[0m
+  [1m[35mDepartment Load (1.0ms)[0m  SELECT "departments".* FROM "departments" WHERE "departments"."id" = 3 LIMIT 1
+  [1m[36mQualification Load (0.9ms)[0m  [1mSELECT "qualifications".* FROM "qualifications" WHERE "qualifications"."id" = 6 LIMIT 1[0m
+Completed 200 OK in 305ms (Views: 276.5ms | ActiveRecord: 19.1ms)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mUPDATE "sessions" SET "data" = $1, "updated_at" = $2 WHERE "sessions"."id" = 54[0m  [["data", "BAh7CUkiE3VzZXJfcmV0dXJuX3RvBjoGRUZJIhEvZGVwYXJ0bWVudHMGOwBU\nSSIZd2FyZGVuLnVzZXIudXNlci5rZXkGOwBUWwdbBmkISSIiJDJhJDEwJFlF\ndy5leFRISnZKVkg3a21wNDliLy4GOwBUSSIdd2FyZGVuLnVzZXIudXNlci5z\nZXNzaW9uBjsAVHsGSSIUbGFzdF9yZXF1ZXN0X2F0BjsAVEl1OglUaW1lDUqT\nHMBlzQHaCToNbmFub19udW1pAdc6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgch\nUDoJem9uZUkiCFVUQwY7AFRJIhBfY3NyZl90b2tlbgY7AEZJIjFjaVlNMDdq\nVXU4MEJzTkt1WktkdUx4bXBhdnpSck82WmJDdjB1Nmo0YzcwPQY7AEY=\n"], ["updated_at", Mon, 26 May 2014 10:54:32 UTC +00:00]]
+  [1m[35m (84.8ms)[0m  COMMIT
+
+
+Started GET "/assets/archive_boxes.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/blocks.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/books.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/categories.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/cdbd.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/consultants.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/demands.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/departments.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/errors_handling.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/icons.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/ie.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/informations.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/jquery.bubblepopup.v2.3.1.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/jquery/ui.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/multi-select.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/mystyles.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/no-printing.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/no-selection.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/opera.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/pay_money.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/paypal.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/paypal_payment_validation.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/products.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/qualifications.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/reservations.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/reports.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/select/select.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/send_sms.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/shafts.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/sms.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/statuses.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/stylesheet.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/styling.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/stylesheets.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/uniform/uniform.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:33 +0200
+
+
+Started GET "/assets/viewer.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-ui-1.10.1.custom.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-1.9.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/jquery.easing.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/jquery.collapse.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-migrate-1.1.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/jquery.bubblepopup.v2.3.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/jquery/globalize.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/other/excanvas.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/other/jquery.mousewheel.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/bootstrap/bootstrap.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/cookies/jquery.cookies.2.2.0.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/uniform/jquery.uniform.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/select/select2.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/tagsinput/jquery.tagsinput.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/maskedinput/jquery.maskedinput-1.3.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/multiselect/jquery.multi-select.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/shbrush/XRegExp.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/shbrush/shCore.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushXml.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushJScript.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushCss.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/charts.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/actions.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/jquery/ui.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/uniform/uniform.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/select/select.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/icons.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/styling.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/stylesheet.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/opera.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/mystyles.css" for 127.0.0.1 at 2014-05-26 12:54:34 +0200
+
+
+Started GET "/assets/backgrounds/default.jpg" for 127.0.0.1 at 2014-05-26 12:54:35 +0200
+
+
+Started GET "/assets/glyphicons-halflings.png" for 127.0.0.1 at 2014-05-26 12:54:35 +0200
+
+
+Started GET "/assets/nav_line.jpg" for 127.0.0.1 at 2014-05-26 12:54:35 +0200
+
+
+Started GET "/assets/arrow_white.png" for 127.0.0.1 at 2014-05-26 12:54:35 +0200
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2014-05-26 12:54:35 +0200
+
+ActionController::RoutingError (No route matches [GET] "/assets/logo.png"):
+  actionpack (4.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.0.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `block in call'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `block in tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:25:in `tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `tagged'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.0.0) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/static.rb:64:in `call'
+  railties (4.0.0) lib/rails/engine.rb:511:in `call'
+  railties (4.0.0) lib/rails/application.rb:97:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  rack (1.5.2) lib/rack/handler/webrick.rb:60:in `service'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:138:in `service'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:94:in `run'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.7ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb (11.9ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.6ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (85.4ms)
+
+
+Started GET "/assets/navb_plus.png" for 127.0.0.1 at 2014-05-26 12:54:35 +0200
+
+
+Started GET "/assets/arrow_white_active.png" for 127.0.0.1 at 2014-05-26 12:54:40 +0200
+
+
+Started GET "/nouvelle-demande-de-documents" for 127.0.0.1 at 2014-05-26 12:54:41 +0200
+Processing by BooksController#send_request as HTML
+  [1m[36mActiveRecord::SessionStore::Session Load (1.1ms)[0m  [1mSELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = '9f3f3ffbf1eccaf3bf883377e64883e5' ORDER BY "sessions"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (1.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 3 ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mProfile Load (1.2ms)[0m  [1mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1[0m
+  Rendered layouts/_flash_messages.html.erb (0.1ms)
+  [1m[35mBook Load (1.0ms)[0m  SELECT "books".* FROM "books" WHERE (published IS NOT FALSE AND quantity_in_stock > 0) ORDER BY title
+  Rendered books/_search_results.html.erb (1.8ms)
+  Rendered books/send_request.html.erb within layouts/lvs (4.6ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1
+  [1m[36mDepartment Load (1.0ms)[0m  [1mSELECT "departments".* FROM "departments" WHERE "departments"."id" = 3 LIMIT 1[0m
+  [1m[35mQualification Load (0.7ms)[0m  SELECT "qualifications".* FROM "qualifications" WHERE "qualifications"."id" = 6 LIMIT 1
+Completed 200 OK in 206ms (Views: 194.6ms | ActiveRecord: 6.2ms)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  UPDATE "sessions" SET "data" = $1, "updated_at" = $2 WHERE "sessions"."id" = 54  [["data", "BAh7CUkiE3VzZXJfcmV0dXJuX3RvBjoGRUZJIhEvZGVwYXJ0bWVudHMGOwBU\nSSIZd2FyZGVuLnVzZXIudXNlci5rZXkGOwBUWwdbBmkISSIiJDJhJDEwJFlF\ndy5leFRISnZKVkg3a21wNDliLy4GOwBUSSIdd2FyZGVuLnVzZXIudXNlci5z\nZXNzaW9uBjsAVHsGSSIUbGFzdF9yZXF1ZXN0X2F0BjsAVEl1OglUaW1lDUqT\nHMCWLpvaCToNbmFub19udW1pAnoCOg1uYW5vX2RlbmkGOg1zdWJtaWNybyIH\nY0A6CXpvbmVJIghVVEMGOwBUSSIQX2NzcmZfdG9rZW4GOwBGSSIxY2lZTTA3\nalV1ODBCc05LdVpLZHVMeG1wYXZ6UnJPNlpiQ3YwdTZqNGM3MD0GOwBG\n"], ["updated_at", Mon, 26 May 2014 10:54:41 UTC +00:00]]
+  [1m[36m (103.2ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/blocks.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/archive_boxes.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/books.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/categories.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/cdbd.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/consultants.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/demands.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/departments.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/errors_handling.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/icons.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/ie.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/informations.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/jquery.bubblepopup.v2.3.1.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/jquery/ui.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/multi-select.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/mystyles.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/no-selection.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/no-printing.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/opera.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/pay_money.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/paypal.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/paypal_payment_validation.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/products.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/qualifications.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/reports.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/reservations.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/select/select.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/send_sms.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/shafts.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/sms.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/statuses.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/stylesheet.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/stylesheets.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/styling.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:42 +0200
+
+
+Started GET "/assets/uniform/uniform.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/viewer.css?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-1.9.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-ui-1.10.1.custom.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/jquery.easing.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/jquery.collapse.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-migrate-1.1.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/jquery.bubblepopup.v2.3.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/jquery/globalize.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/other/excanvas.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/other/jquery.mousewheel.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/bootstrap/bootstrap.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/cookies/jquery.cookies.2.2.0.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/uniform/jquery.uniform.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/select/select2.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/tagsinput/jquery.tagsinput.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/maskedinput/jquery.maskedinput-1.3.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/shbrush/XRegExp.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/multiselect/jquery.multi-select.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/shbrush/shCore.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushXml.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushJScript.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushCss.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/charts.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/actions.js?body=1" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/jquery/ui.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/uniform/uniform.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/select/select.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/icons.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/styling.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/stylesheet.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/opera.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/mystyles.css" for 127.0.0.1 at 2014-05-26 12:54:43 +0200
+
+
+Started GET "/assets/backgrounds/default.jpg" for 127.0.0.1 at 2014-05-26 12:54:44 +0200
+
+
+Started GET "/assets/arrow_white.png" for 127.0.0.1 at 2014-05-26 12:54:44 +0200
+
+
+Started GET "/assets/next.png" for 127.0.0.1 at 2014-05-26 12:54:44 +0200
+
+
+Started GET "/assets/navb_plus.png" for 127.0.0.1 at 2014-05-26 12:54:44 +0200
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2014-05-26 12:54:44 +0200
+
+ActionController::RoutingError (No route matches [GET] "/assets/logo.png"):
+  actionpack (4.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.0.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `block in call'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `block in tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:25:in `tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `tagged'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.0.0) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/static.rb:64:in `call'
+  railties (4.0.0) lib/rails/engine.rb:511:in `call'
+  railties (4.0.0) lib/rails/application.rb:97:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  rack (1.5.2) lib/rack/handler/webrick.rb:60:in `service'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:138:in `service'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:94:in `run'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb (12.1ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.7ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (152.3ms)
+
+
+Started GET "/assets/nav_line.jpg" for 127.0.0.1 at 2014-05-26 12:54:44 +0200
+
+
+Started GET "/nouvelle-demande-de-documents" for 127.0.0.1 at 2014-05-26 12:55:21 +0200
+Processing by BooksController#send_request as HTML
+  [1m[35mActiveRecord::SessionStore::Session Load (0.5ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."session_id" = '9f3f3ffbf1eccaf3bf883377e64883e5' ORDER BY "sessions"."id" ASC LIMIT 1
+  [1m[36mUser Load (1.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 3 ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mProfile Load (0.9ms)[0m  SELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1
+  Rendered layouts/_flash_messages.html.erb (0.1ms)
+  [1m[36mBook Load (1.1ms)[0m  [1mSELECT "books".* FROM "books" WHERE (published IS NOT FALSE AND quantity_in_stock > 0) ORDER BY title[0m
+  Rendered books/_search_results.html.erb (1.9ms)
+  Rendered books/send_request.html.erb within layouts/lvs (6.2ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "profiles".* FROM "profiles" WHERE "profiles"."id" = 2 LIMIT 1[0m
+  [1m[35mDepartment Load (0.8ms)[0m  SELECT "departments".* FROM "departments" WHERE "departments"."id" = 3 LIMIT 1
+  [1m[36mQualification Load (0.5ms)[0m  [1mSELECT "qualifications".* FROM "qualifications" WHERE "qualifications"."id" = 6 LIMIT 1[0m
+Completed 200 OK in 476ms (Views: 279.3ms | ActiveRecord: 21.4ms)
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mUPDATE "sessions" SET "data" = $1, "updated_at" = $2 WHERE "sessions"."id" = 54[0m  [["data", "BAh7CUkiE3VzZXJfcmV0dXJuX3RvBjoGRUZJIhEvZGVwYXJ0bWVudHMGOwBU\nSSIZd2FyZGVuLnVzZXIudXNlci5rZXkGOwBUWwdbBmkISSIiJDJhJDEwJFlF\ndy5leFRISnZKVkg3a21wNDliLy4GOwBUSSIdd2FyZGVuLnVzZXIudXNlci5z\nZXNzaW9uBjsAVHsGSSIUbGFzdF9yZXF1ZXN0X2F0BjsAVEl1OglUaW1lDUqT\nHMDI/lzdCToNbmFub19udW1pAs0BOg1uYW5vX2RlbmkGOg1zdWJtaWNybyIH\nRhA6CXpvbmVJIghVVEMGOwBUSSIQX2NzcmZfdG9rZW4GOwBGSSIxY2lZTTA3\nalV1ODBCc05LdVpLZHVMeG1wYXZ6UnJPNlpiQ3YwdTZqNGM3MD0GOwBG\n"], ["updated_at", Mon, 26 May 2014 10:55:22 UTC +00:00]]
+  [1m[35m (50.4ms)[0m  COMMIT
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/cdbd.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/books.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/archive_boxes.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/blocks.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/categories.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/consultants.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/demands.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/departments.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/errors_handling.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/icons.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/ie.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/informations.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/jquery.bubblepopup.v2.3.1.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/jquery/ui.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/multi-select.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/mystyles.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/no-printing.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/no-selection.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/opera.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/pay_money.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/paypal.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/paypal_payment_validation.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/products.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/reports.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/qualifications.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/reservations.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/select/select.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/send_sms.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/shafts.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/sms.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:22 +0200
+
+
+Started GET "/assets/statuses.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/stylesheet.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/stylesheets.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/styling.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/uniform/uniform.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/viewer.css?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-1.9.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-ui-1.10.1.custom.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/jquery.easing.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/jquery.collapse.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/jquery.bubblepopup.v2.3.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/jquery/jquery-migrate-1.1.1.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/jquery/globalize.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/other/excanvas.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/other/jquery.mousewheel.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/bootstrap/bootstrap.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/cookies/jquery.cookies.2.2.0.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/uniform/jquery.uniform.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/select/select2.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/tagsinput/jquery.tagsinput.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/maskedinput/jquery.maskedinput-1.3.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/multiselect/jquery.multi-select.min.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/shbrush/XRegExp.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/shbrush/shCore.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushXml.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushJScript.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/shbrush/shBrushCss.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/actions.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/charts.js?body=1" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap.min.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-responsive.min.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/bootstrap/bootstrap-fileupload.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/jquery/ui.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/epiechart/jquery.easy-pie-chart.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/fancybox/jquery.fancybox.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/uniform/uniform.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/select/select.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/tagsinput/jquery.tagsinput.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/multiselect/multiselect.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/validation/validationEngine.jquery.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/stepywizard/jquery.stepy.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/mcustomscrollbar/mCustomScrollbar.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/cleditor/cleditor.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/shbrush/shCoreDefault.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/shbrush/shThemeDefault.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/plugins/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/icons.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/styling.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/stylesheet.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/opera.css" for 127.0.0.1 at 2014-05-26 12:55:23 +0200
+
+
+Started GET "/assets/mystyles.css" for 127.0.0.1 at 2014-05-26 12:55:24 +0200
+
+
+Started GET "/assets/nav_line.jpg" for 127.0.0.1 at 2014-05-26 12:55:24 +0200
+
+
+Started GET "/assets/backgrounds/default.jpg" for 127.0.0.1 at 2014-05-26 12:55:24 +0200
+
+
+Started GET "/assets/arrow_white.png" for 127.0.0.1 at 2014-05-26 12:55:24 +0200
+
+
+Started GET "/assets/navb_plus.png" for 127.0.0.1 at 2014-05-26 12:55:24 +0200
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2014-05-26 12:55:24 +0200
+
+ActionController::RoutingError (No route matches [GET] "/assets/logo.png"):
+  actionpack (4.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.0.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `block in call'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `block in tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:25:in `tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `tagged'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.0.0) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/static.rb:64:in `call'
+  railties (4.0.0) lib/rails/engine.rb:511:in `call'
+  railties (4.0.0) lib/rails/application.rb:97:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  rack (1.5.2) lib/rack/handler/webrick.rb:60:in `service'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:138:in `service'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/httpserver.rb:94:in `run'
+  /home/erwan/.rvm/rubies/ruby-2.0.0-p195/lib/ruby/2.0.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb (13.0ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.6ms)
+  Rendered /home/erwan/.rvm/gems/ruby-2.0.0-p195/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (96.9ms)
+
+
+Started GET "/assets/switch.png" for 127.0.0.1 at 2014-05-26 12:55:24 +0200
+
+
+Started GET "/assets/next.png" for 127.0.0.1 at 2014-05-26 12:55:24 +0200

@@ -139,7 +139,7 @@ class BooksController < ApplicationController
       if Book.where("#{sql_for_all_books(@terms)}").blank?
         @sql = "" #sql_for_categories(@terms).sub(/^AND/, '')
       else
-        @sql = sql_for_books(@terms) << sql_for_categories(@terms)
+        @sql = sql_for_all_books(@terms) << sql_for_categories(@terms)
       end
       
       @books = Book.where("#{@sql}").order("title")
@@ -202,8 +202,8 @@ class BooksController < ApplicationController
     terms.each do |term|
       @sql_for_categories << " name ILIKE "+"'%"+term+"%' OR"
     end
-    @sql_for_categories = @sql_for_categories.sub(/OR$/, '') << "))"
-    #@sql_for_categories = @sql_for_categories.sub(/OR$/, '') << ") AND published IS NOT FALSE)"
+    #@sql_for_categories = @sql_for_categories.sub(/OR$/, '') << "))"
+    @sql_for_categories = @sql_for_categories.sub(/OR$/, '') << ") AND published IS NOT FALSE)"
     @categories = Category.where("#{@sql_for_categories}")
     @sql_for_categories = " category_id IN ("
     if @categories.blank?
