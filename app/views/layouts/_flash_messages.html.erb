@@ -1,0 +1,8 @@
+<% flash.each do |key, value| %>    
+  <%# if value.eql?(true) %>
+    <div class="<%= flash_class(key) %> fade in">      
+      <%= value %>
+    </div>
+  <%# end %>
+<% end %>
+

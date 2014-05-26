@@ -1,0 +1,18 @@
+ActiveRecord::Base.connection.execute("UPDATE books_demands SET on_hold = TRUE, validated = NULL, returned = NULL, book_damaged = NULL, unavailable = NULL, book_left = NULL, taken = NULL, comments = NULL")
+
+ActiveRecord::Base.connection.execute("UPDATE demands SET on_hold = TRUE, validated = NULL, returned = NULL, book_damaged = NULL, unavailable = NULL, book_left = NULL, taken = NULL")
+
+ActiveRecord::Base.connection.execute("UPDATE books_demands SET returned = NULL, book_damaged = NULL")
+
+ActiveRecord::Base.connection.execute("UPDATE demands SET returned = NULL, book_damaged = NULL")
+
+ActiveRecord::Base.connection.execute("DELETE FROM demands")
+
+ActiveRecord::Base.connection.execute("DELETE FROM books_demands")
+
+ActiveRecord::Base.connection.execute("DELETE FROM reservations")
+
+
+
+
+

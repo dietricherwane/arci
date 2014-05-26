@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  book_id: 1
+  demand_id: 1
+  on_hold: false
+  in_progress: false
+  validated: false
+  returned: false
+  book_damaged: false
+
+two:
+  book_id: 1
+  demand_id: 1
+  on_hold: false
+  in_progress: false
+  validated: false
+  returned: false
+  book_damaged: false

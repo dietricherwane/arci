@@ -1,0 +1,11 @@
+Bonjour,
+
+<%= @sender_name %> [ <%= @sender_qualification %> ] vous a envoyé une demande de documents:
+
+<% @books.each do |book| %>
+  <%= book %>
+<% end %>
+
+Veuillez cliquer sur le lien ci dessous pour en consulter la liste.
+
+http://xxxxxxxxx.com

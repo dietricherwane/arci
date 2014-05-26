@@ -1,0 +1,79 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){    
+    options =	{ 
+			position : 'top',
+			align	 : 'center',						
+			innerHtmlStyle: {
+								color:'#FFFFFF', 
+								'text-align':'left',
+								padding:'2px',
+								'font-size':'13px'
+							},																
+			themeName: 	'all-grey',
+			themePath: 	'../../../images/jquerybubblepopup-theme'
+		};  
+  });
+</script>
+
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "table">
+  <thead>
+    <tr>
+      <th width = "29%">Nom</th>
+      <th width = "48%">Qualification</th>
+      <th width = "23%">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @users.blank? %>
+			<tr>
+				<td colspan = "4">Aucun utilisateur présent dans la base de données</td>
+			</tr>
+		<% else %>
+		  <% @users.each do |user| %>
+		    <script type="text/javascript">	
+			    $(document).on('ready page:load', function(){    
+				    options['innerHtml'] = "<b>Matricule:</b> <%= user.uuid %><br><b>Numéro de mobile:</b> <%= user.mobile_number %><br><b>Numéro de fixe:</b> <%= user.phone_number %><br><b>E-mail:</b> <%= user.email %><br>";								
+				    $("#user_<%= user.id %>").CreateBubblePopup( options );
+			    });
+			  </script>
+		    <tr>
+		      <td>
+		        <% user.published? ? @name_css_class = "label label-success" : @name_css_class = "label label-important" %>
+		        <% user.pending? ? @name_css_class = "label label-info" : false %>
+				    <%= div_for (user) do %>				      
+						  <span class = "<%= @name_css_class %>"><%= user.lastname+" "+user.firstname %></span>		
+						  <span class = "mark"><%= user.short_profile %></span>			    
+					  <% end %>
+					</td>
+					<td>
+					  <span class = "cgreen">
+					    <% @department = Department.find_by_id(user.department_id) %>
+					    <% unless @department.blank? %>
+					      <%= @department.name %>	
+					    <% end %>				  
+					  </span>
+					  <br />
+					  <% @qualification = Qualification.find_by_id(user.qualification_id) %>
+					    <% unless @qualification.blank? %>
+					      <%= @qualification.label %>	
+					    <% end %>
+					</td>
+					<td>
+					  <a href = "/user/edit_profile/<%= user.id %>" class = "button green">
+					    <div class = "icon">			
+					      <span class = "ico-pencil"></span>		    
+					    </div>
+					  </a>
+					  <% if !user.id.eql?(current_user.id) %>
+					    <% if user.enabled? %>
+					      <%= link_to "<div class = 'icon'><span class = 'ico-remove'></span></div>".html_safe, disable_user_profile_path(user.id), :class => "button red", :confirm => "Êtes vous sûr de vouloir désactiver le profil de cet utilisateur?" %>
+					    <% else %>
+					      <%= link_to "<div class = 'icon'><span class = 'ico-checkmark'></span></div>".html_safe, enable_user_profile_path(user.id), :class => "button green", :confirm => "Êtes vous sûr de vouloir activer le profil de cet utilisateur?" %>
+					    <% end %>
+					  <% end %>
+					</td>
+			  </tr>
+			<% end %>
+		<% end %>
+  </tbody>
+</table>	

@@ -1,0 +1,30 @@
+<h1>Edit profile</h1>
+<%= form_for(@user, :url => update_user_profile_path(@user.id), :html => { :method => :put }) do |f| %>
+	<% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+	<div><%= f.label :firstname %><br />
+  <%= f.text_field :firstname %></div>
+  
+  <div><%= f.label :lastname %><br />
+  <%= f.text_field :lastname %></div>
+  
+  <div><%= f.label :phone_number %><br />
+  <%= f.text_field :phone_number %></div>
+  
+  <div><%= f.label :mobile_number %><br />
+  <%= f.text_field :mobile_number %></div> 
+  
+  <br />
+  <div><%= f.submit "Save" %></div>
+  
+<% end %>

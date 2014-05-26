@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyProfiler</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<% if user_signed_in? %>	
+	<div style = "float:right;">
+		<p>
+			<%= current_user.short_profile %> 
+			<%= link_to "Dashboard", administrator_dashboard_path %> |  
+			<%= link_to "Profile", edit_user_profile_path(current_user.id) %> | 
+			<%= link_to "Logout", destroy_user_session_path, :method =>  :delete %> |
+			<%= link_to "Search", search_user_path %>
+		</p>
+	</div>
+<% end %>
+
+
+<%= yield %>
+
+</body>
+</html>

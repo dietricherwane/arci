@@ -1,0 +1,127 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){    
+    options =	{ 
+			position : 'top',
+			align	 : 'center',						
+			innerHtmlStyle: {
+								color:'#FFFFFF', 
+								'text-align':'left',
+								padding:'2px',
+								'font-size':'13px'
+							},																
+			themeName: 	'all-grey',
+			themePath: 	'../../../images/jquerybubblepopup-theme'
+		};  
+  });
+</script>
+
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Droits de validation <small>Attribuer ou retirer le droit aux agants du centre de valider des demandes faites par les membres du personnel</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head purple">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des agents</h2>
+      </div>
+      <div class = "data-fluid">
+        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "table">
+          <thead>
+            <tr>
+              <th width = "20%">Matricule</th>
+              <th width = "30%">Nom</th>
+              <th width = "20%">Ligne fixe</th>
+              <th width = "20%">Qualification</th>
+              <th width = "10%">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @agents.blank? %>
+			        <tr>
+				        <td colspan = "4">Aucun utilisateur présent dans la base de données</td>
+			        </tr>
+		        <% else %>
+		          <% @agents.each do |agent| %>
+		            <script type="text/javascript">	
+			            $(document).on('ready page:load', function(){    
+				            options['innerHtml'] = "<b>Numéro de mobile:</b> <%= agent.mobile_number %><br><b>E-mail:</b> <%= agent.email %><br>";								
+				            $("#user_<%= agent.id %>").CreateBubblePopup( options );
+			            });
+			          </script>
+		            <tr>
+		              <td>
+		                <%= agent.uuid %>
+		              </td>
+		              <td>
+		                <% agent.published? ? @name_css_class = "label label-success" : @name_css_class = "label label-important" %>
+		                <% agent.pending? ? @name_css_class = "label label-info" : false %>
+				            <%= div_for (agent) do %>				      
+						          <span class = "<%= @name_css_class %>"><%= agent.lastname+" "+agent.firstname %></span>		
+						          <span class = "mark"><%= agent.short_profile %></span>			    
+					          <% end %>
+					        </td>
+					        <td>
+		                <%= agent.phone_number %>
+		              </td>
+					        <td>
+					          <span class = "cgreen">
+					            <% @department = Department.find_by_id(agent.department_id) %>
+					            <% unless @department.blank? %>
+					              <%= @department.name %>	
+					            <% end %>				  
+					          </span>
+					          <br />
+					          <% @qualification = Qualification.find_by_id(agent.qualification_id) %>
+					            <% unless @qualification.blank? %>
+					              <%= @qualification.label %>	
+					            <% end %>
+					        </td>
+					        <td>
+				            <% if agent.can_validate == true %>
+				              <%= link_to "<div class = 'icon'><span class = 'ico-remove'></span></div>".html_safe, remove_validation_right_path(agent.id), :class => "button red", :confirm => "Êtes vous sûr de vouloir retirer le droit de validation des demandes de documents de cet utilisateur?" %>
+				            <% else %>
+				              <%= link_to "<div class = 'icon'><span class = 'ico-checkmark'></span></div>".html_safe, give_validation_right_path(agent.id), :class => "button green", :confirm => "Êtes vous sûr de vouloir attribuer le droit de validation des demandes de documents à cet utilisateur?" %>
+				            <% end %>
+					        </td>
+			          </tr>
+			        <% end %>
+		        <% end %>
+          </tbody>
+        </table>	
+      </div>
+    </div>
+  </div>
+  
+</div>

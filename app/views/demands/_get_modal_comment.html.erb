@@ -1,0 +1,23 @@
+<div class="modal fade" id="modal_<%= @element_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Motif de refus de votre demande</h4>
+      </div>
+      <div class="modal-body">
+        <div class = "block">
+          <div class = "data-fluid">
+            <div class = "row-form">
+              <div class = "span3">Commentaires</div>
+              <div class = "span9">
+                <%= @comments %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

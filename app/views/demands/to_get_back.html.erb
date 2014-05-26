@@ -1,0 +1,136 @@
+
+<div class="page-header">
+    <div class="icon">
+      <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Validées <small>Veuillez vous rendre au centre de documentation technique pour récupérer les documents concernés</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <div id = "custom_messages">
+    </div>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head red">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des demandes de documents à retirer</h2>
+      </div>
+      <div class = "data-fluid">
+        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "70%">
+                Date des demandes
+              </th>
+              <th width = "15%">
+                Nombre de documents
+              </th>
+              <th width = "15%">
+                Statut de la demande
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @demands.blank? %>
+              <tr>
+                <td colspan = "3"></td>
+              </tr>
+            <% else %>
+              <% @demands.each do |demand| %>
+                <tr>
+                  <td>
+                    <a data-toggle="collapse" data-target="#demand_details<%= demand.id %>">
+                      Demande du <%= demand.created_at.strftime("%d-%m-%y") %> à <%= demand.created_at.strftime("%Hh %Mmn") %>
+                    </a>  
+                    <% if demand.taken.eql?(true) %>  
+                      <span id = "global_demand_validation_buttons_<%= demand.id %>">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                    
+                        <div class = "btn-group">
+                          <button id = "validate_global_demand_<%= demand.id %>" class = "btn btn-primary" onclick = "$(this).validate_global_demand();"> 
+                            <i class = "icon-ok icon-white"></i>
+                          </button>
+                          <button id = "reject_global_demand_<%= demand.id %>" class = "btn btn-primary" onclick = "$(this).reject_global_demand();">
+                            <i class = "icon-remove icon-white"></i>
+                          </button>
+                        </div>     
+                      </span>  
+                    <% end %>                                                   
+                    
+                    <div id="demand_details<%= demand.id %>" class="collapse">
+                      <ul class = "the-icons">
+                        <% demand.books.order("category_id", "title").each do |book| %>
+                          <li>
+                            <i class = "icon-book"></i>
+                            <i><b>[<%= book.category.name %>]</b></i> <%= book.title %> 
+                            <% if book_demand_taken?(demand.id, book.id) and !book_demand_unavailable?(demand.id, book.id) %> 
+                              <span id = "partial_demand_book_validation_buttons_<%= demand.id%>" book_id = "<%= book.id %>">
+                                <span id = "partial_demand_book_validation_buttons_<%= demand.id %>_<%= book.id %>">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <div class = "btn-group">
+                                    <button id = "validate_partial_demand_<%= demand.id %>_<%= book.id %>" style = "background: none; border: 0px;" onclick = "$(this).validate_partial_demand();">
+                                      <i class = "icon-ok"></i>
+                                    </button>
+                                    <button id = "reject_partial_demand_<%= demand.id %>_<%= book.id %>" style = "background: none; border: 0px;" onclick = "$(this).reject_partial_demand();">
+                                      <i class = "icon-remove"></i>
+                                    </button>
+                                  </div>
+                                </span>
+                              </span>
+                            <% end %>
+                                                  
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span id= "partial_book_demand_status_<%= demand.id %>_<%= book.id %>" book_id = "<%= book.id %>" class = "book_detail_<%= book.id %>">
+                              <%= display_demand_book_status(demand.id, book.id) %> 
+                            </span>
+                          </li>
+                        <% end %>
+                      </ul>                        
+                    </div>
+                  </td>
+                  <td><%= demand.books.count %></td>
+                  <td>
+                    <div id = "global_demand_status_<%= demand.id %>">
+                      <%= display_demand_status(demand) %>   
+                    </div>            
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <% unless @demands.blank? %>
+		      <div id = "pagination">
+            <%= paginate @demands %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div> 
+</div>

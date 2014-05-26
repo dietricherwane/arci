@@ -1,0 +1,133 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){
+    
+    $('#optgroup').multiSelect({ selectableOptgroup: true });
+    $('#optgroup').multiSelect('deselect_all');
+    
+    $("#send_request").click(function() { 
+      $(this).attr("disabled", "disabled");
+      var books_ids = $(".ms-selection .ms-list li").map(function(i, n){
+        return $(n).attr("ms-value");
+      }).get().join(",");
+      $(this).process_request(books_ids)      
+    });
+        
+    $.fn.process_request = function(books_ids) { 
+      var terms = $('#terms').val();  
+      //var v_status = $("input[name='status']:checked").val()            
+      $.ajax({   
+        url: "<%= url_for :action => 'process_request', :controller => 'books' %>",
+        data: {books_ids: books_ids},
+        dataType: "text",
+        error: function(xhr, textStatus, errorThrown){  
+        	alert("Une erreur s'est produite: " + errorThrown);
+        },
+        success: function(response, response_status, xhr) {
+          $('#optgroup').multiSelect('deselect_all');
+          $("#custom_messages").html(response);  
+          $("#send_request").removeAttr("disabled");            
+        }
+      });  
+    }
+        
+  });
+</script>
+
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Demande de Documents <small>Envoyer une requête au département Banque de données</small></h1>
+</div>
+
+<!------------------------- row-fluid ------------------->
+<div class = "row-fluid">
+  <!------------------------- Span6 ------------------->
+  <div class = "span6">
+    <%= render 'layouts/flash_messages' %>
+    <div id = "custom_messages">
+    </div>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <!--------------------- Block -->
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-pen-2"></span>
+        </div>
+        <h2>Critères de recherche</h2>
+      </div>
+      <div class = "data-fluid">
+        <%= form_tag "books/search-available-books", :remote => true do %>
+          <%#= devise_error_messages! %>         
+          <div class = "<%= @termscss %>">
+            <div class = "span10">	                      
+              <%= text_field_tag "terms", params[:terms], :placeholder => "Veuillez entrer les critères de recherche" %>    
+            </div>
+          </div>          
+          <div class = "row-form">
+            <div class="span9">
+              <%= button_tag(:name => "Rechercher", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Rechercher <div class="icon-arrow-next icon-white"></div> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>    
+      </div>
+    </div>  
+    <!--------------------- Block -->    
+  </div>
+  <!------------------------- Span6 ------------------->
+</div>
+<!------------------------- row-fluid ------------------->
+
+<!------------------------- row-fluid ------------------->  
+<div class = "row-fluid">
+
+  <div class = "span12">
+    <div class = "block">
+      <div class = "data-fluid">   
+        <%#= form_tag "/books/process_request" do %>  	  
+          <div class = "row-form">   
+            <div class = "span10"> 
+              <div id = "search_results" >
+	              <%= render partial: 'search_results', :locals => {:books => @books, :sql => @sql} %>
+	            </div>
+            </div>	  
+          </div>  
+          <div class = "row-form">
+            <div class="span9">
+              <button id = "send_request" class="btn" data-disable-with="Veuillez patienter" name="Envoyer la demande">
+                Envoyer la demande <div class="icon-arrow-next icon-white"></div> 
+</button>
+            </div>
+          </div>  
+        <%# end %>     
+      </div>      
+    </div>
+  </div>
+  
+</div>
+<!------------------------- row-fluid -------------------> 

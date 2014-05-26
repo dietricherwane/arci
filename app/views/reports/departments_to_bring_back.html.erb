@@ -1,0 +1,135 @@
+<div class="page-header">
+    <div class="icon">
+      <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Liste des départements <small>Liste des départements et des qualifications afférentes</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <div id = "custom_messages">
+    </div>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head green">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des départements comportant des demandes de documents à rendre</h2>
+        <ul class = "buttons">
+          <li>
+            <a href = "javascript:history.go(-1);" alt = "Aller à la page précédente">
+              <div class = "icon">
+                <span class = "ico-arrow-left">
+                               
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class = "data-fluid">
+        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "70%">
+                Nom du département
+              </th>
+              <th width = "30%">
+                Statut
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @departments.blank? %>
+              <tr>
+                <td colspan = "4"></td>
+              </tr>
+            <% else %>
+              <% @departments.each do |department| %>
+                <% @demands_counter = 0 %>
+                <% @books_counter = 0 %>
+                <% @qualifications = department.qualifications %>
+                <% unless @qualifications.empty? %>
+                  <% @qualifications.each do |qualification| %>
+                    <% @users = qualification.users %>
+                    <% unless @users.empty? %>
+                      <% @users.each do |user| %>
+                        <% @demands_counter += user.demands.where("taken IS TRUE AND returned IS NULL AND book_damaged IS NULL").count %> 
+                        <% @books_counter += ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL AND user_id = #{user.id}").count %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+                <tr>
+                  <td>
+                    <a data-toggle="collapse" data-target="#department_<%= department.id %>">
+                      <%= department.name %>
+                    </a>   
+                    <span style = "float:right;">
+                      <b><%= @demands_counter %></b> demande(s) concernant <b><%= @books_counter %></b> document(s).
+                    </span>
+                    <div
+                    <div id="department_<%= department.id %>" class="collapse">   
+                      <% unless @qualifications.empty? %>
+                      <ul class = "the-icons">
+                        <% @qualifications.each do |qualification| %>
+                          <% @demands_counter = 0 %>
+                          <% @books_counter = 0 %>
+                          <% @users = qualification.users %>
+                          <% unless @users.empty? %>
+                            <% @users.each do |user| %>
+                              <% @demands_counter += user.demands.where("taken IS TRUE AND returned IS NULL AND book_damaged IS NULL").count %> 
+                              <% @books_counter += ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL AND user_id = #{user.id}").count %>
+                            <% end %>
+                          <% end %>                       
+                          <li>
+                            <i class = "icon-screenshot"></i>
+                            <a href = "<%= users_to_bring_back_demands_per_qualification_path(qualification.id) %>">
+                              <%= qualification.label %>
+                            </a>
+                            <span style = "float:right;">
+                              <b><%= @demands_counter %></b> demande(s) concernant <b><%= @books_counter %></b> document(s).
+                            </span>                            
+                          </li>                          
+                        <% end %>
+                      </ul>
+                    <% end %>    
+                    </div>                                                                                                            
+                  </td>
+                  <td>
+                    <%= department_status(department) %>                         
+                  </td>
+                </tr>
+              <% end %>             
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> 
+</div>

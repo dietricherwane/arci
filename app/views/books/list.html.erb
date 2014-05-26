@@ -1,0 +1,92 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Liste des documents <small>Visualisez l'ensemble des documents du centre en pdf</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head purple">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des documents par catégorie</h2>
+      </div>
+      <div class = "data-fluid">
+        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th>
+                Catégorie
+              </th>              
+            </tr>
+          </thead>
+          <tbody>          
+            <tr>
+              <% if @categories.blank? %>
+                <td>
+                  Il n'y a aucune catégorie de documents présente dans la base de données.
+                </td>
+              <% else %>
+                <td>
+                  <% @categories.each do |category| %>  
+                    <% @books = category.books.order("title ASC") %>                    
+                    <a data-toggle="collapse" data-target="#books_<%= category.id %>">
+                      <%= "[#{category.short_code}] #{category.name} - #{@books.count}" %>
+                    </a>
+                    <div id="books_<%= category.id %>" class="collapse">
+                      <ul class = "the-icons">
+                        
+                        <% if @books.blank? %>
+                          <li>
+                            Il n'y a aucun document présent dans cette catégorie 
+                          </li>    
+                        <% else %>
+                          <% @books.each do |book| %>
+                            <li>
+                              <i class = "icon-book"></i>
+                              <%= link_to book.title, {:controller => "books", :action => "view_only", :id => book.id}, target: "_blank" %>
+                            </li>
+                          <% end %>
+                        <% end %>
+                      </ul>                        
+                    </div>  
+                    <p></p>                   
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,114 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Réservations <small>Visualisez la liste de l'ensemble de vos réservations</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head orange">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des réservations</h2>
+      </div>
+      <div class = "data-fluid">
+        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "45%">
+                Nom du livre
+              </th>   
+              <th width = "15%">
+                Statut
+              </th>
+              <th width = "20%">
+                Date de création
+              </th>  
+              <th width = "20%">
+                Réservé le
+              </th>         
+            </tr>
+          </thead>
+          <tbody>                     
+            <% if @reservations.blank? %>
+              <tr>
+                <td>
+                  Vous n'avez réservé aucun document.
+                </td>
+              </tr>
+            <% else %>                
+              <% @reservations.each do |reservation| %> 
+                <tr>
+                  <td>                   
+                    <% @book = Book.find_by_id(reservation.book_id) %>  
+                    <ul class = "the-icons">                        
+                      <li>
+                        <i class = "icon-book"></i>
+                        <%= "<i><b>[#{@book.category.short_code}]</b></i> #{@book.title}".html_safe %>
+                      </li>
+                    </ul>                                    
+                  </td>
+                  <td>
+                    <% if reservation.status %>
+                      <span class = "label label-success">
+                        Réservé
+                      </span>
+                    <% else %>
+                      <span class = "label label-info">
+                        En attente
+                      </span>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% unless reservation.created_at.blank? %>
+                      <%= reservation.created_at.strftime("%d-%m-%y") %> à <%= reservation.created_at.strftime("%Hh %Mmn") %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% unless reservation.reserved_at.blank? %>
+                      <%= reservation.reserved_at.strftime("%d-%m-%y") %> à <%= reservation.created_at.strftime("%Hh %Mmn") %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>           
+          </tbody>
+        </table>
+        <% unless @books.blank? %>
+		      <div id = "pagination">
+            <%= paginate @books %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+</div>

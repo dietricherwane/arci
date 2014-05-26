@@ -1,0 +1,85 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Historique <small>Visualisez l'ensemble de vos demandes</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head yellow">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des demandes</h2>
+      </div>
+      <div class = "data-fluid">
+        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "60%">
+                Date des demandes
+              </th>
+              <th width = "15%">
+                Nombre de documents
+              </th>
+              <th width = "25%">
+                Statut de la demande
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @demands.each do |demand| %>
+              <tr>
+                <td>
+                  <a data-toggle="collapse" data-target="#demand_details<%= demand.id %>">
+                    Demande du <%= demand.created_at.strftime("%d-%m-%y") %> à <%= demand.created_at.strftime("%Hh %Mmn") %>
+                  </a>
+                  <div id="demand_details<%= demand.id %>" class="collapse">
+                    <ul class = "the-icons">
+                      <% demand.books.order("category_id", "title").each do |book| %>
+                        <li>
+                          <i class = "icon-book"></i>
+                          <i>[<%= book.category.name %>]</i> <%= book.title %>
+                        </li>
+                      <% end %>
+                    </ul>                        
+                  </div>
+                </td>
+                <td><%= demand.books.count %></td>
+                <td><%= display_demand_status(demand) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</div>

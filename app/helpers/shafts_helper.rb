@@ -1,0 +1,2 @@
+module ShaftsHelper
+end

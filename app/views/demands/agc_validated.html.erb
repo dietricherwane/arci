@@ -1,0 +1,255 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){  
+    options =	{ 
+			position : 'top',
+			align	 : 'center',						
+			innerHtmlStyle: {
+								color:'#FFFFFF', 
+								'text-align':'left',
+								padding:'2px',
+								'font-size':'13px'
+							},																
+			themeName: 	'all-grey',
+			themePath: 	'../../../images/jquerybubblepopup-theme'
+		};  
+		
+		$.fn.validate_global_demand = function() { 
+		  $(this).attr("disabled", "disabled");
+      var demandId = $(this).attr('id').replace('validate_global_demand_', '');
+      $(this).global_demand_request(demandId, 'agc_global_validation')                   
+    }
+    
+    $.fn.reject_global_demand = function() { 
+      var demandId = $(this).attr('id').replace('reject_global_demand_', '');
+      $(this).global_demand_request(demandId, 'agc_global_rejection')
+    }
+    
+    $.fn.global_demand_request = function(demandId, operation) {           
+      $.ajax({   
+        url: "<%= url_for :action => 'agc_global_validation', :controller => 'demands' %>".replace('agc_global_validation', operation),
+        data: {demand_id: demandId},
+        dataType: "text",
+        error: function(xhr, textStatus, errorThrown){  
+        	alert("Une erreur s'est produite: " + errorThrown);
+        },
+        success: function(response, response_status, xhr) {
+          var demand_tag = "#demand_details" + demandId;
+          var books_ids = $(demand_tag + " #partial_demand_book_validation_buttons_" + demandId).map(function(i, n){
+            return $(n).attr("book_id");
+          }).get().join(",").split(',');
+          $.map(books_ids, function(bookId){
+            $(demand_tag + " .book_detail_" + bookId).html($(this).get_global_demand_status(demandId, bookId));       
+            $("#partial_demand_book_validation_buttons_" + demandId + "_" + bookId).html("");   
+          });          
+          $("#global_demand_status_" + demandId).html(response);          
+          $("#global_demand_validation_buttons_" + demandId).html("");
+          $("#custom_messages").html("<div class = 'alert alert-success'>La demande a été traitée.</div>");              
+        }
+      });  
+    }  
+    
+    $.fn.get_global_demand_status = function(demandId, bookId) {  
+      var ajaxResponse;         
+      $.ajax({   
+        url: "<%= url_for :action => 'global_demand_status', :controller => 'demands' %>",
+        data: {demand_id: demandId, book_id: bookId},
+        dataType: "text",
+        async: false,
+        error: function(xhr, textStatus, errorThrown){  
+        	alert("Une erreur s'est produite: " + errorThrown);
+        },
+        success: function(response, response_status, xhr) {
+          ajaxResponse = response;         
+        }
+      });  
+      return ajaxResponse;
+    }  
+    
+    $.fn.validate_partial_demand = function() { 
+      $(this).attr("disabled", "disabled");
+      var demand_bookId = $(this).attr('id').replace('validate_partial_demand_', '').split('_');      
+      $(this).partial_demand_request(demand_bookId[0], demand_bookId[1], 'agc_partial_validation')                   
+    }
+    
+    $.fn.reject_partial_demand = function() { 
+      var demand_bookId = $(this).attr('id').replace('reject_partial_demand_', '').split('_');
+      $(this).partial_demand_request(demand_bookId[0], demand_bookId[1], 'partial_rejection')
+    }
+    
+    $.fn.partial_demand_request = function(demandId, bookId, operation) {           
+      $.ajax({   
+        url: "<%= url_for :action => 'agc_partial_validation', :controller => 'demands' %>".replace('agc_partial_validation', operation),
+        data: {demand_id: demandId, book_id: bookId},
+        dataType: "text",
+        error: function(xhr, textStatus, errorThrown){  
+        	alert("Une erreur s'est produite: " + errorThrown);
+        },
+        success: function(response, response_status, xhr) {
+          var demand_tag = "#demand_details" + demandId;
+          var books_ids = $(demand_tag + " #book_detail_span").map(function(i, n){
+            return $(n).attr("book_id");
+          }).get().join(",").split(',');
+          $("#partial_book_demand_status_" + demandId + "_" + bookId).html(response.split("*")[0]); 
+          if(response.split("*")[1].length > 0){
+            $("#global_demand_validation_buttons_" + demandId).html("");
+            $("#global_demand_status_" + demandId).html(response.split("*")[1]);
+          }         
+          $("#partial_demand_book_validation_buttons_" + demandId + "_" + bookId).html("");
+          $("#custom_messages").html("<div class = 'alert alert-success'>La demande a été traitée.</div>");              
+        }
+      });  
+    }  
+       
+  });
+</script>
+
+<div class="page-header">
+    <div class="icon">
+      <span class="ico-arrow-right"></span>
+    </div>
+    <h1>En attente de retrait <small>Validez la remise des documents suivants aux membres du personnel</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <div id = "custom_messages">
+    </div>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head blue">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des demandes</h2>
+      </div>
+      <div class = "data-fluid">
+        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "20%">
+                Auteur
+              </th>
+              <th width = "50%">
+                Date des demandes
+              </th>
+              <th width = "15%">
+                Nombre de documents
+              </th>
+              <th width = "15%">
+                Statut de la demande
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @demands.blank? %>
+              <tr>
+                <td colspan = "4">Il n'y a aucune demande en attente en attente de retrait</td>
+              </tr>
+            <% else %>
+              <% @demands.each do |demand| %>
+                <script type="text/javascript">	
+			            $(document).on('ready page:load', function(){    
+				            options['innerHtml'] = "<b>Matricule:</b> <%= demand.user.uuid %><br><b>Numéro de mobile:</b> <%= demand.user.mobile_number %><br><b>Numéro de fixe:</b> <%= demand.user.phone_number %><br><b>E-mail:</b> <%= demand.user.email %><br><b>Département:</b> <%= demand.user.qualification.department.name %><br><b>Qualification:</b> <%= demand.user.qualification.label %><br>";								
+				            $("#demand_<%= demand.id %>").CreateBubblePopup( options );
+                                                                  
+			            });
+			          </script>
+                <tr>
+                  <td>
+                    <%= div_for (demand) do %>
+                      <%= demand.user.lastname+" "+demand.user.firstname %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <a data-toggle="collapse" data-target="#demand_details<%= demand.id %>">
+                      Demande du <%= demand.created_at.strftime("%d-%m-%y") %> à <%= demand.created_at.strftime("%Hh %Mmn") %>
+                    </a>  
+                    <% if !demand.taken.eql?(true) %>  
+                      <span id = "global_demand_validation_buttons_<%= demand.id %>">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                    
+                        <div class = "btn-group">
+                          <button id = "validate_global_demand_<%= demand.id %>" class = "btn btn-primary" onclick = "$(this).validate_global_demand();"> 
+                            <i class = "icon-ok icon-white"></i>
+                          </button>
+                          <!--<button id = "reject_global_demand_<%= demand.id %>" class = "btn btn-primary" onclick = "$(this).reject_global_demand();">
+                            <i class = "icon-remove icon-white"></i>
+                          </button>-->
+                        </div>     
+                      </span>  
+                    <% end %>                                                   
+                    
+                    <div id="demand_details<%= demand.id %>" class="collapse">
+                      <ul class = "the-icons">
+                        <% demand.books.order("category_id", "title").each do |book| %>
+                          <li>
+                            <i class = "icon-book"></i>
+                            <i><b>[<%= book.category.name %>]</b></i> <%= book.title %> 
+                            <% if !book_demand_taken?(demand.id, book.id) and !agc_book_demand_left_or_unavailable?(demand.id, book.id) %> 
+                              <span id = "partial_demand_book_validation_buttons_<%= demand.id%>" book_id = "<%= book.id %>">
+                                <span id = "partial_demand_book_validation_buttons_<%= demand.id %>_<%= book.id %>">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <div class = "btn-group">
+                                    <button id = "validate_partial_demand_<%= demand.id %>_<%= book.id %>" style = "background: none; border: 0px;" onclick = "$(this).validate_partial_demand();">
+                                      <i class = "icon-ok"></i>
+                                    </button>
+                                    <!--<button id = "reject_partial_demand_<%= demand.id %>_<%= book.id %>" style = "background: none; border: 0px;" onclick = "$(this).reject_partial_demand();">
+                                      <i class = "icon-remove"></i>
+                                    </button>-->
+                                  </div>
+                                </span>
+                              </span>
+                            <% end %>
+                                                  
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span id= "partial_book_demand_status_<%= demand.id %>_<%= book.id %>" book_id = "<%= book.id %>" class = "book_detail_<%= book.id %>">
+                              <%= display_demand_book_status(demand.id, book.id) %> 
+                            </span>
+                          </li>
+                        <% end %>
+                      </ul>                        
+                    </div>
+                  </td>
+                  <td><%= demand.books.count %></td>
+                  <td>
+                    <div id = "global_demand_status_<%= demand.id %>">
+                      <%= display_demand_status(demand) %>   
+                    </div>            
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <% unless @demands.blank? %>
+		      <div id = "pagination">
+            <%= paginate @demands %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div> 
+</div>

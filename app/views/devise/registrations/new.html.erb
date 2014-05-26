@@ -1,0 +1,194 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){
+    $(function(){
+      $("#qualification_section").hide();
+    });
+    
+    $("#user_profile_id").change(function() {
+      var profile = this.options[this.selectedIndex];
+      if(profile.text == "Partenaire externe"){
+        $("#department_section").hide("slow");
+        $("#qualification_section").hide("slow");
+      }
+      else{        
+        $("#department_section").show("slow");        
+      } 	
+    });
+    
+    $("#post_department_id").change(function() {
+      var department = this.options[this.selectedIndex];
+      if(department.text == "-Veuillez choisir un département-"){
+        $("#qualification_section").hide("slow");
+      }
+      else{
+        $(this).getComboBoxValues(department.value, "#qualification", "<%= url_for :controller => '/qualifications', :action => 'get_qualifications' %>");
+        $("#qualification_section").show("slow");
+      } 	
+    });
+    
+    $.fn.getComboBoxValues = function(selected_value, target_tag, url) {
+      $.ajax({      
+        url: url,
+        data: selected_value,
+        dataType: "text",
+        error: function(xhr, textStatus, errorThrown){  
+        	alert("Une erreur s'est produite: " + errorThrown);
+        },
+        success: function(response, response_status, xhr) {
+          $(target_tag).children().remove();
+          $(response).appendTo(target_tag);        
+        }
+      });
+    }    
+  });
+</script>
+
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Dashboard <small>Gestion des utilisateurs</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span6">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-user"></span>
+        </div>
+        <h2>Créer un utilisateur</h2>
+      </div>
+      <div class = "data-fluid">
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+          <%#= devise_error_messages! %>
+          <div class = "<%= @firstnamecss %>">
+            <div class = "span3">Nom</div>
+            <div class = "span9">	                      
+              <%= f.text_field :firstname, :placeholder => "Nom" %>    
+            </div>
+          </div>
+          <div class = "<%= @lastnamecss %>">
+            <div class = "span3">Prénoms</div>
+            <div class = "span9">	        
+              <%= f.text_field :lastname, :placeholder => "Prénoms" %>
+            </div>
+          </div>
+          <div class = "<%= @uuidcss %>">
+            <div class = "span3">Matricule</div>
+            <div class = "span9">	        
+              <%= f.text_field :uuid, :placeholder => "Numéro matricule" %>
+            </div>
+          </div>
+          <div class = "<%= @phone_numbercss %>">
+            <div class = "span3">Téléphone fixe</div>
+            <div class = "span9">	        
+              <%= f.text_field :phone_number, :placeholder => "Ligne de téléphonie fixe" %>
+            </div>
+          </div>
+          <div class = "<%= @mobile_numbercss %>">
+            <div class = "span3">Téléphone mobile</div>
+            <div class = "span9">		        
+              <%= f.text_field :mobile_number, :placeholder => "Ligne de téléphonie mobile" %>
+            </div>
+          </div>
+          <div class = "<%= @emailcss %>">
+            <div class = "span3">Email</div>
+            <div class = "span9">	        
+              <%= f.email_field :email, :placeholder => "Adresse email", :autocomplete => false %>
+            </div>
+          </div>
+          <div class = "<%= @passwordcss %>">
+            <div class = "span3">Mot de passe</div>
+            <div class = "span9">	        
+              <%= f.password_field :password, :placeholder => "Mot de passe" %>
+            </div>
+          </div>
+          <div class = "<%= @password_confirmationcss %>">
+            <div class = "span3">Confirmation du mot de passe</div>
+            <div class = "span9">		        
+              <%= f.password_field :password_confirmation, :placeholder => "Confirmation du mot de passe" %>
+            </div>
+          </div>
+          <div class = "<%= @profile_idcss %>">
+            <div class = "span3">Profil</div>
+            <div class = "span9">		        
+              <%= f.collection_select :profile_id, @profiles, :id, :name, prompt: "-Veuillez choisir un profil-" %>
+            </div>
+          </div>
+          <div id = "department_section">
+            <div class = "<%= @department_idcss %>">
+              <div class = "span3">Département</div>
+              <div class = "span9">		        
+                <%= collection_select(:post, :department_id, @departments, :id, :name, options ={:prompt => "-Veuillez choisir un département-"}) %>
+              </div>
+            </div>
+          </div>
+          <div id = "qualification_section">
+            <div class = "<%= @qualificationcss %>">
+              <div class = "span3">Qualification</div>
+              <div class = "span9">		    
+                <%= select_tag "qualification", options_for_select(["-Veuillez choisir une qualification-"], "-Veuillez choisir une qualification-") %>    
+              </div>
+            </div>
+          </div>
+          <div class = "row-form">
+            <div class="span9">
+              <%= button_tag(:name => "Créer un compte", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Créer un compte <div class="icon-arrow-next icon-white"></div> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class = "span6">
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-list-3"></span>
+        </div>
+        <h2>Liste des utilisateurs</h2>
+      </div>
+      <div class = "head blue" >
+		    <div class = "icon" >
+		      <span class = "ico-pen-2"></span>		      
+		    </div>  
+		    <h2>Visualisation du profil des utilisateurs</h2>
+		  </div>		  
+		  <%= render 'users', :locals => {:users => @users} %>  	  
+		  <% unless @users.blank? %>
+	      <div id = "pagination">
+          <%= paginate @users %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

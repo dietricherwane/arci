@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  expires_on: 2014-01-30 08:35:59
+  on_hold: false
+  in_progress: false
+  validated: false
+  returned: false
+  book_damaged: false
+  troubles_in: false
+
+two:
+  user_id: 1
+  expires_on: 2014-01-30 08:35:59
+  on_hold: false
+  in_progress: false
+  validated: false
+  returned: false
+  book_damaged: false
+  troubles_in: false

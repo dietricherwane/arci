@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  label: MyString
+  department_id: 1
+  published: false
+
+two:
+  label: MyString
+  department_id: 1
+  published: false

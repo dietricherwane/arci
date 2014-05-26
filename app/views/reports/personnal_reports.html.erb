@@ -1,0 +1,109 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Historique <small>Historique des demandes de documents faites au département banque de données</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block title">
+      <div class = "head">
+        <h2>Liste des demandes</h2>
+      </div>
+      <div class = "widgets">
+        <div class = "widget blue value">
+          <div class = "left">
+            <% (@on_hold_demands.count > 1) ? @s1 = "s" : @s1 = "" %>
+            <%= @on_hold_demands.count %>
+          </div>
+          <div class = "right">
+            <% (@on_hold_books.count > 1) ? @s3 = "s" : @s3 = "" %>
+            <%= "#{@on_hold_books.count} document#{@s3} concerné#{@s3}" %> 
+          </div>
+          <div class = "bottom">
+            <%= link_to "Demande#{@s1} en attente", lv_demands_on_hold_path %>
+          </div>
+        </div>
+        <div class = "widget green value">
+          <div class = "left">
+            <% (@validated_demands.count > 1) ? @s1 = "s" : @s1 = "" %>
+            <%= @validated_demands.count %>
+          </div>
+          <div class = "right">
+            <% (@validated_books.count > 1) ? @s3 = "s" : @s3 = "" %>
+            <%= "#{@validated_books.count} document#{@s3} concerné#{@s3}" %> 
+          </div>
+          <div class = "bottom">
+            <%= link_to "Demande#{@s1} validée#{@s1}", lv_demands_validated_path %>
+          </div>
+        </div>
+        <div class = "widget purple value">
+          <div class = "left">
+            <% (@documents_to_get_back.count > 1) ? @s1 = "s" : @s1 = "" %>
+            <%= @documents_to_get_back.count %>
+          </div>
+          <div class = "right">
+            <% (@books_to_get_back.count > 1) ? @s3 = "s" : @s3 = "" %>
+            <%= "#{@books_to_get_back.count} document#{@s3} concerné#{@s3}" %> 
+          </div>
+          <div class = "bottom">
+            <%= link_to "A retirer", lv_demands_to_get_back_path %>
+          </div>
+        </div>
+        <div class = "widget orange value">
+          <div class = "left">
+            <% (@document_to_bring_back.count > 1) ? @s1 = "s" : @s1 = "" %>
+            <%= @document_to_bring_back.count %>
+          </div>
+          <div class = "right">
+            <% (@books_to_bring_back.count > 1) ? @s3 = "s" : @s3 = "" %>
+            <%= "#{@books_to_bring_back.count} document#{@s3} concerné#{@s3}" %> 
+          </div>
+          <div class = "bottom">
+            <%= link_to "A rendre", agc_demands_to_return_path %>
+          </div>
+        </div>
+        <div class = "widget yellow value">
+          <div class = "left">
+            <% (@document_brought_back.count > 1) ? @s1 = "s" : @s1 = "" %>
+            <%= @document_brought_back.count %>
+          </div>
+          <div class = "right">
+            <% (@books_brought_back.count > 1) ? @s3 = "s" : @s3 = "" %>
+            <%= "#{@books_brought_back.count} document#{@s3} concerné#{@s3}" %> 
+          </div>
+          <div class = "bottom">
+            <%= link_to "Rendu#{@s3}", personnal_demands_list_path %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

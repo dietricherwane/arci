@@ -1,0 +1,92 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Boîtes d'archives <small>Créer des boîtes d'archives</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span6">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-pen-2"></span>
+        </div>
+        <h2>Créer une boîte d'archives</h2>
+      </div>
+      <div class = "data-fluid">
+        <%= form_tag("/archive_box/create") do %>
+          <%#= devise_error_messages! %>
+          <div class = "<%= @archive_boxecss %>">
+            <div class = "span3">Nom</div>
+            <div class = "span9">	                      
+              <%= text_field_tag "name", "", :placeholder => "Nom de la boîte d'archives" %>    
+            </div>
+          </div>
+          <br />
+          <div class = "row-form">
+            <div class="span9">
+              <%= button_tag(:name => "Créer une boîte d'archives", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Créer une boîte d'archives <div class="icon-arrow-next icon-white"></div> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>   
+  </div>
+  
+  <div class = "span6">
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-list-3"></span>
+        </div>
+        <h2>Liste des boîtes d'archives</h2>
+      </div>
+      <!--<div class = "head blue" >
+		    <div class = "icon" >
+		      <span class = "ico-pen-2"></span>		      
+		    </div>  
+		    <h2>Visualisation des qualifications par département</h2>
+		  </div>-->
+		  <% unless @archive_boxes.blank? %>	
+		    <div class = "data-fluid faq">
+		      <% @archive_boxes.each do |archive_box| %>	  
+	          <div class = "item" id = "faq-<%= archive_box.id %>" >
+	            <div class = "title"><%= archive_box.name %></div>
+	            <div class = "text" style = "display: none;" >	              
+              </div>
+	          </div>  
+	        <% end %>
+	      </div>
+	    <% end %> 	  
+    </div>
+  </div>
+</div>
+

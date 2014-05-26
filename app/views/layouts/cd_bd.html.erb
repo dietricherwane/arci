@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Arci || <%= current_user.short_profile %></title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "stylesheets", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "jquery.bubblepopup.v2.3.1", media: "all", "data-turbolinks-track" => true %>
+  
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/jquery/jquery-1.9.1.min", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/jquery/jquery-ui-1.10.1.custom.min", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "jquery.easing", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "jquery.collapse", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "jquery.bubblepopup.v2.3.1.min", "data-turbolinks-track" => true %>
+  
+  <%= javascript_include_tag "plugins/jquery/jquery-migrate-1.1.1.min", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/jquery/globalize", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/other/excanvas", "data-turbolinks-track" => true %>
+  
+  <%= javascript_include_tag "plugins/other/jquery.mousewheel.min", "data-turbolinks-track" => true %>
+  
+  <%= javascript_include_tag "plugins/bootstrap/bootstrap.min", "data-turbolinks-track" => true %>    
+  
+  <%= javascript_include_tag "plugins/cookies/jquery.cookies.2.2.0.min", "data-turbolinks-track" => true %>  
+  
+  <%#= javascript_include_tag "plugins/animatedprogressbar/animated_progressbar", "data-turbolinks-track" => true %>
+  <%#= javascript_include_tag "plugins/jflot/jquery.flot", "data-turbolinks-track" => true %>
+  <%#= javascript_include_tag "plugins/jflot/jquery.flot.stack", "data-turbolinks-track" => true %>
+  <%#= javascript_include_tag "plugins/jflot/jquery.flot.pie", "data-turbolinks-track" => true %>
+  
+  <%#= javascript_include_tag "plugins/sparklines/jquery.sparkline.min", "data-turbolinks-track" => true %>
+  
+  <%= javascript_include_tag "plugins/mcustomscrollbar/jquery.mCustomScrollbar.min", "data-turbolinks-track" => true %>
+  
+  <%= javascript_include_tag "plugins/uniform/jquery.uniform.min", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/select/select2.min", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/tagsinput/jquery.tagsinput.min", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/maskedinput/jquery.maskedinput-1.3.min", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/multiselect/jquery.multi-select.min", "data-turbolinks-track" => true %>
+  
+  <%= javascript_include_tag "plugins/shbrush/XRegExp", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/shbrush/shCore", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/shbrush/shBrushXml", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/shbrush/shBrushJScript", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "plugins/shbrush/shBrushCss", "data-turbolinks-track" => true %>   
+  
+  <%= javascript_include_tag "plugins", "data-turbolinks-track" => true %> 
+  <%= javascript_include_tag "charts", "data-turbolinks-track" => true %> 
+  
+  <%= javascript_include_tag "actions", "data-turbolinks-track" => true %> 
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+	<div class = "wrapper">
+	
+		<!------------------------------------------ Sidebar ----------------------------------->
+		<div class = "sidebar">		
+			<div class="top">
+		    <span class="petroci_logo"></span>
+		  </div>
+		  <div class="nContainer">                
+        <ul class="navigation bordered"> 
+          <li class="active"><%= link_to "En attente", csadp_bd_demands_on_hold_path , class: "blred" %>                      
+          <li class="active"><%= link_to "Historique des demandes", global_reports_path, class: "blyellow" %></li>
+          <li class="active"><%= link_to "Droits de validation", list_library_agents_path, class: "blpurple" %></li>
+          <li class="active"><%= link_to "Statistiques", demands_statistics_path, class: "blgreen" %></li>
+          <!--<li class="active"><%= link_to "Départements", "/departments", class: "blgreen" %></li>
+          <li>
+            <%= link_to "Paramètres", "#", class: "blgreen" %>
+            <div class="open"></div>
+            <ul>
+              <li><%= link_to "Types de documents", "/categories" %></li>
+              <li><%= link_to "Puits", "/shafts" %></li>
+              <li><%= link_to "Organes d'étude", "/consultants" %></li>
+              <li><%= link_to "B~A", "/archive_boxes" %></li>
+            </ul>
+          </li>
+          <li>
+            <%= link_to "Documents", "#", class: "bldblue" %>
+            <div class="open"></div>
+            <ul>
+              <li><%= link_to "Génération de codes", "/books/codes" %></li>
+              <li><%= link_to "Gestion", "#" %></li>
+            </ul>
+          </li><!--
+          <li>
+            <a href="#" class="blgreen">News</a>
+            <div class="open"></div>
+            <ul>
+              <li><%= link_to "Envoi", "#" %></li>
+		          <li><%= link_to "Historique", "#" %></li>
+		          <li><%= link_to "Statistiques", "#" %></li>
+            </ul>
+          </li>
+                          
+          <li>
+            <a href="#" class="bldblue">Abonnés</a>
+            <div class="open"></div>
+            <ul>
+              <li><a href="tables.html">Suspendre</a></li>
+              <li><a href="tables_dynamic.html">Rechercher</a></li>                  
+            </ul>
+          </li>
+          <li><a href="statistic.html" class="blred">Paramètres</a></li>  -->                    
+        </ul>
+        <a class="close">
+          <span class="ico-remove"></span>
+        </a>
+    	</div>		  
+		</div>
+		<!------------------------------------------ Sidebar ----------------------------------->
+		
+		<!------------------------------------------ Body ----------------------------------->
+		<div class = "body">
+		
+			<!------------------------------------------ Navigation ----------------------------------->
+			<ul class="navigation">
+			  <li>
+          <a href="<%= csadp_bd_demands_on_hold_path %>" class="button red">
+            <div class="icon">
+              <span class="ico-archive"></span>
+            </div>                    
+            <div class="name">En attente</div>
+          </a>          
+        </li>
+        <li>
+          <a href="<%= global_reports_path %>" class="button yellow">
+            <div class="icon">
+              <span class="ico-archive"></span>
+            </div>                    
+            <div class="name">Historique</div>
+          </a>          
+        </li> 
+        <li>
+          <a href="<%= list_library_agents_path %>" class="button purple">
+            <div class="icon">
+              <span class="ico-locked"></span>
+            </div>                    
+            <div class="name">Droits</div>
+          </a>          
+        </li>
+        <li>
+          <a href="<%= demands_statistics_path %>" class="button green">         
+            <div class="icon">
+              <span class="ico-chart-4"></span>
+            </div>
+            <div class="name">Statistiques</div>
+          </a>         
+        </li>
+        <!--<li>
+          <a href="#" class="button dblue">
+            <div class="arrow"></div>
+            <div class="icon">
+              <span class="ico-book"></span>
+            </div>
+            <div class="name">Documents</div>
+          </a>
+          <ul class="sub">
+            <li><%= link_to "Génération de codes", "/books/codes" %></li>
+              <li><%= link_to "Gestion", "#" %></li>
+          </ul>
+        </li>-->
+        <!--               
+        <li>
+          <a href="#" class="button green">
+            <div class="arrow"></div>
+            <div class="icon">
+              <span class="ico-pen-2"></span>
+            </div>                    
+            <div class="name">News</div>
+          </a>                
+          <ul class="sub">
+            <li><%= link_to "Envoi", "#" %></li>
+            <li><%= link_to "Historique", "#" %></li>
+            <li><%= link_to "Statistiques", "#" %></li>
+          </ul>                    
+        </li>                                               
+        <li>
+          <a href="#" class="button dblue">
+            <div class="arrow"></div>
+            <div class="icon">
+              <span class="ico-layout-7"></span>
+            </div>                    
+            <div class="name">Abonnés</div>
+          </a> 
+          <ul class="sub">
+            <li><a href="tables.html">Suspendre</a></li>
+            <li><a href="tables_dynamic.html">Rechercher</a></li>
+          </ul>                                        
+        </li>
+        <li>
+          <a href="statistic.html" class="button red">
+            <div class="icon">
+              <span class="ico-chart-4"></span>
+            </div>                    
+            <div class="name">Paramètres</div>
+          </a>                
+        </li> -->                                
+        <li>
+          <div class="user">
+            
+            <!--<%= image_tag("examples/users/dmitry_m.jpg", align: "left") %>-->
+            <a href="#" class="name">
+              <span><%= current_user.full_name %></span>
+              <span class="cblue"><%= current_user.profile %></span>
+              <span class="sm"><%= current_user.show_qualification %></span>
+            </a>
+          </div>
+          <div class="buttons">
+            <!--<div class="sbutton green navButton">
+              <a href="#"><span class="ico-align-justify"></span></a>
+            </div>-->
+            <div class="sbutton blue">
+              <%= link_to "<span class='ico-off'></span>".html_safe, destroy_user_session_path, :method => :delete %>
+           
+            </div>                        
+          </div>
+        </li>               
+      </ul>
+      <!------------------------------------------ Navigation ----------------------------------->
+      
+      <!------------------------------------------ Content ----------------------------------->
+      <div class = "content">
+      	<%= yield %>
+      </div>
+      <!------------------------------------------ Content ----------------------------------->
+      
+		</div>
+		<!------------------------------------------ Body ----------------------------------->
+		  
+	</div>
+</body>
+</html>

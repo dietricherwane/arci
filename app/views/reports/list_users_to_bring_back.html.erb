@@ -1,0 +1,116 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){  
+    options =	{ 
+			position : 'top',
+			align	 : 'center',						
+			innerHtmlStyle: {
+								color:'#FFFFFF', 
+								'text-align':'left',
+								padding:'2px',
+								'font-size':'13px'
+							},																
+			themeName: 	'all-grey',
+			themePath: 	'../../../images/jquerybubblepopup-theme'
+		};  
+	});
+</script>
+
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>[ <%= @department.name %> | <%= @qualification.label %> ] <small>Liste des utilisateurs par qualification</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head purple">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des employés et de leurs demandes de documents à rendre</h2>
+        <ul class = "buttons">
+          <li>
+            <a href = "javascript:history.go(-1);" alt = "Aller à la page précédente">
+              <div class = "icon">
+                <span class = "ico-arrow-left">
+                               
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class = "data-fluid">
+        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "table">
+          <thead>
+            <tr>
+              <th width = "35%">Nom</th>
+              <th width = "25%">Nombre de demandes</th>
+              <th width = "15%">Nombre de documents</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @users.blank? %>
+			        <tr>
+				        <td colspan = "4">Aucun utilisateur présent dans la base de données</td>
+			        </tr>
+		        <% else %>
+		          <% @users.each do |user| %>
+		            <script type="text/javascript">	
+			            $(document).on('ready page:load', function(){    
+				            options['innerHtml'] = "<b>Matricule:</b> <%= user.uuid %><br><b>Numéro de mobile:</b> <%= user.mobile_number %><br><b>Numéro de fixe:</b> <%= user.phone_number %><br><b>E-mail:</b> <%= user.email %><br><b>Département:</b> <%= user.qualification.department.name %><br><b>Qualification:</b> <%= user.qualification.label %><br>";								
+				            $("#user_<%= user.id %>").CreateBubblePopup( options );                                                                  
+			            });
+			          </script>
+		            <tr>
+		              <td>
+		                <%= div_for (user) do %>
+		                  <% user.published? ? @name_css_class = "label label-success" : @name_css_class = "label label-important" %>
+		                  <% user.pending? ? @name_css_class = "label label-info" : false %>			      
+					            <a href = "<%= demands_to_bring_back_report_path(user.id) %>"><span class = "<%= @name_css_class %>"><%= user.lastname+" "+user.firstname %></span></a>		
+					            <span class = "mark"><%= user.short_profile %></span>		
+					          <% end %>	    
+					        </td>
+					        <td>
+		                <%= user.demands.where("taken IS TRUE AND returned IS NULL AND book_damaged IS NULL").count %>
+		              </td>
+					        <td>
+		                <%= ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL AND user_id = #{user.id}").count %>
+		              </td>
+			          </tr>
+			        <% end %>
+		        <% end %>
+          </tbody>
+        </table>	
+      </div>
+    </div>
+  </div>
+  
+</div>

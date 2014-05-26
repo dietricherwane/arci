@@ -1,0 +1,134 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Critères: [<%= @terms %>]<small>Liste des documents correspondant aux criètres de recherche</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span6">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-pen-2"></span>
+        </div>
+        <h2>Editer un document</h2>
+      </div>
+      <div class = "data-fluid">                
+        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "80%">
+                Nom et code du document
+              </th> 
+              <th width = "20%">
+                Actions
+              </th>              
+            </tr>
+          </thead>
+          <tbody>          
+            <% if @books.blank? %>
+              <tr>
+                <td>
+                  Il n'y a aucun document dans cette catégorie.
+                </td>
+              </tr>
+            <% else %>
+              <% @books.each do |book| %> 
+                <tr>
+                  <td>
+                    <%= book.title %>
+                    <span class = "mark">
+                      <%= book.code %>
+                    </span>
+                  </td>
+                  <td>
+                    <a href = "/editer-les-informations-du-document/<%= book.id %>" class = "button green">
+					            <div class = "icon">			
+					              <span class = "ico-pencil"></span>		    
+					            </div>
+					          </a>
+					            <% if book.published == false %>
+					              <%= link_to "<div class = 'icon'><span class = 'ico-checkmark'></span></div>".html_safe, enable_book_path(book.id), :class => "button green", :confirm => "Êtes vous sûr de vouloir activer ce document?" %>				              
+					            <% else %>
+					              <%= link_to "<div class = 'icon'><span class = 'ico-remove'></span></div>".html_safe, disable_book_path(book.id), :class => "button red", :confirm => "Êtes vous sûr de vouloir désactiver ce document?" %>
+					            <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>          
+          </tbody>
+        </table>   
+        <% unless @books.blank? %>
+		      <div id = "pagination">
+            <%= paginate @books %>
+          </div>
+        <% end %>             
+      </div>
+    </div>   
+  </div>
+  
+  <div class = "span6">
+    <div class = "block">
+      <div class = "head dblue">
+        <div class = "icon">
+          <span class = "ico-list-3"></span>
+        </div>
+        <h2>Recherche de documents</h2>
+        <ul class = "buttons">
+          <li>
+            <a href = "javascript:history.go(-1);" alt = "Aller à la page précédente">
+              <div class = "icon">
+                <span class = "ico-arrow-left">
+                               
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+		  <div class = "data-fluid">
+        <%= form_tag "recherche-parmis-tous-les-documents" do %>      
+          <div class = "row-form">
+            <div class = "span10">	                      
+              <%= text_field_tag "terms", params[:terms], :placeholder => "Veuillez entrer les critères de recherche" %>    
+            </div>
+          </div>          
+          <div class = "row-form">
+            <div class="span9">
+              <%= button_tag(:name => "Rechercher", :class => "btn") do %>
+                Rechercher <div class="icon-arrow-next icon-white"></div> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>    
+      </div>
+    </div>
+  </div>
+</div>
+

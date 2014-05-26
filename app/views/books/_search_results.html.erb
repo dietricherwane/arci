@@ -1,0 +1,14 @@
+<script type="text/javascript" language="JavaScript">
+  $('#optgroup').multiSelect({ selectableOptgroup: true });
+  $('#optgroup').multiSelect('deselect_all');
+</script>
+<%#= @sql %>
+<select id='optgroup' multiple='multiple'>
+  <% if @books.blank? %>
+    <option value='0'>Aucun document trouvé</option>
+  <% else %>
+    <% @books.each do |book| %>
+      <option value="<%= book.id %>">[<%= Category.find_by_id(book.category_id).name %>] <%= book.title %></option>
+    <% end %>
+  <% end %>
+</select>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  expires_in: 1
+  notifies_in: 1
+
+two:
+  expires_in: 1
+  notifies_in: 1

@@ -1,0 +1,174 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){
+    $(function(){
+      $("#qualification_section").hide();
+    });
+    
+    $("#post_qualification_department_id").change(function() {
+      var department = this.options[this.selectedIndex];
+      if(department.text == "-Veuillez choisir un département-"){
+        $("#qualification_section").hide("slow");
+      }
+      else{
+        $("#qualification_section").show("slow");
+      } 
+    });
+    
+    $('#collapser').jqcollapse({
+	    slide: true,
+	    speed: 1000,
+	    easing: 'easeOutCubic'
+		});     
+  });
+</script>
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Départements & Qualifications <small>Créer des départements et y ajouter des qualifications</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span6">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-pen-2"></span>
+        </div>
+        <h2>Créer un département</h2>
+      </div>
+      <div class = "data-fluid">
+        <%= form_tag("/department/create") do %>
+          <%#= devise_error_messages! %>
+          <div class = "<%= @namecss %>">
+            <div class = "span3">Nom</div>
+            <div class = "span9">	                      
+              <%= text_field_tag "name", "", :placeholder => "Nom du département" %>    
+            </div>
+          </div>
+          <br />
+          <div class = "<%= @qualification_namecss %>">
+            <div class="span9">
+              <%= button_tag(:name => "Créer un département", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Créer un département <div class="icon-arrow-next icon-white"></div> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <hr />
+      </div>
+    </div>
+    
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-pen-2"></span>
+        </div>
+        <h2>Créer une qualification</h2>
+      </div>
+      <div class = "data-fluid">
+        <%= form_tag("/qualification/create") do %>
+          <%#= devise_error_messages! %>
+          <div class = "<%= @qualification_department_idcss %>">
+            <div class = "span3">Département</div>
+            <div class = "span9">		        
+              <%= collection_select(:post, :qualification_department_id, @dropdown_departments, :id, :name, options ={:prompt => "-Veuillez choisir un département-"}) %>
+            </div>
+          </div>
+          <div id = "qualification_section">
+            <div class = "<%= @qualification_namecss %>">
+              <div class = "span3">Nom</div>
+              <div class = "span9">	                      
+                <%= text_field_tag "qualification_name", "", :placeholder => "Nom de la qualification" %>    
+              </div>
+            </div>
+          
+            <br />
+            <div class = "row-form">
+              <div class="span9">
+                <%= button_tag(:name => "Créer une qualification", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                  Créer une qualification <div class="icon-arrow-next icon-white"></div> 
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>    
+  </div>
+  
+  <div class = "span6">
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-list-3"></span>
+        </div>
+        <h2>Liste des départements</h2>
+      </div>
+      <!--<div class = "head blue" >
+		    <div class = "icon" >
+		      <span class = "ico-pen-2"></span>		      
+		    </div>  
+		    <h2>Visualisation des qualifications par département</h2>
+		  </div>-->
+		  <% unless @departments.blank? %>	
+		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "100%">
+                Nom du département
+              </th>
+            </tr>
+          </thead>
+          <tbody>            
+	          <% @departments.each do |department| %>	
+	            <tr>
+	              <td>	              		      		    
+                  <a data-toggle="collapse" data-target="#department<%= department.id %>">
+                    <%= department.name %>
+                  </a>                   
+                  <div id="department<%= department.id %>" class="collapse">
+                    <ul class = "the-icons">
+                      <% department.qualifications.order("label").each do |qualification| %>
+                        <li>
+                          <i class = "icon-screenshot"></i>
+                          <%= qualification.label %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>  
+                </td>         
+              </tr>
+	          <% end %>
+		      </tbody>
+		    </table>		  		  		  		  		  		    
+	    <% end %>	    	  
+    </div>
+  </div>
+</div>
+

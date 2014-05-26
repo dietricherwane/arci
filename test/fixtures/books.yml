@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  code: MyString
+  title: MyString
+  description: MyText
+  total_quantity: 1
+  quantity_in_stock: 1
+  category_id: 1
+  published: false
+
+two:
+  code: MyString
+  title: MyString
+  description: MyText
+  total_quantity: 1
+  quantity_in_stock: 1
+  category_id: 1
+  published: false
