@@ -88,9 +88,7 @@
 		        <% @consultants.each do |consultant| %>	
               <tr>
                 <td>	              		      		    
-                  <a data-toggle="collapse" data-target="#consultant<%= consultant.id %>">
-                    <%= consultant.name %>
-                  </a> 
+                  <%= consultant.name %> 
                   &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-organe-detude/#{consultant.id}" %>	         	                       
 				          <% if consultant.published == false %>				            				
 			              <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_consultant_path(consultant.id), :confirm => "Êtes vous sûr de vouloir activer cet organe d'étude?" %>        

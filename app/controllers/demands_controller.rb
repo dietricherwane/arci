@@ -17,38 +17,41 @@ class DemandsController < ApplicationController
   
   end 
   
-  def csadp_request_validation(demand)
+  def csadp_request_validation(demand, message)
     # Envoi d'email de notification
     Thread.new do
       @user = [] << User.find_by_id(demand.user_id).email
       @demand_date = "#{demand.created_at.strftime('%d-%m-%y')} à #{demand.created_at.strftime('%Hh %Mmn')}"
-      Notifier.csadp_request_validation(current_user.full_name, current_user.show_qualification, @user, @demand_date).deliver
+      Notifier.csadp_request_validation(current_user.full_name, current_user.show_qualification, @user, @demand_date, message).deliver
       if (ActiveRecord::Base.connection && ActiveRecord::Base.connection.active?)
         ActiveRecord::Base.connection.close
       end
     end  
-  end
-   
+  end  
   
   def global_validation
     @demand_status = ""
     @current_time = DateTime.now
     @demand = Demand.find_by_id(params[:demand_id])
+    @message = ""
     
     ActiveRecord::Base.connection.execute("UPDATE demands SET validated = FALSE, validated_by = #{current_user.id}, validated_by_at = '#{@current_time}', on_hold = NULL WHERE on_hold IS NOT NULL AND id = #{@demand.id}")
     ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE demand_id = #{@demand.id}").each do |book_demand|
       ActiveRecord::Base.connection.execute("UPDATE books_demands SET validated = FALSE, validated_by = #{current_user.id}, validated_by_at = '#{@current_time}', on_hold = NULL WHERE demand_id = #{@demand.id} AND book_id = #{book_demand["book_id"]} AND on_hold IS NOT NULL AND validated IS NULL")
     end
-    
-    # Envoi d'email de notification
-    csadp_request_validation(@demand) 
-    
+       
     if all_books_in_demand_validated?(params[:demand_id])
-      ActiveRecord::Base.connection.execute("UPDATE demands SET on_hold = NULL WHERE id = #{@demand.id}")      
+      ActiveRecord::Base.connection.execute("UPDATE demands SET on_hold = NULL WHERE id = #{@demand.id}") 
+      @message = "a validé l'ensemble des documents de votre demande du"     
     end
     if demand_partially_validated?(params[:demand_id])
-      ActiveRecord::Base.connection.execute("UPDATE demands SET unavailable = TRUE, on_hold = NULL WHERE id = #{@demand.id}")   
+      ActiveRecord::Base.connection.execute("UPDATE demands SET unavailable = TRUE, on_hold = NULL WHERE id = #{@demand.id}")  
+      @message = "a validé certains des documents constituant votre demande du"     
     end
+    
+    # Envoi d'email de notification
+    csadp_request_validation(@demand, @message)
+    
     @demand_status = old_sql_display_demand_status(@demand.id)
     
     render :text => @demand_status
@@ -58,6 +61,7 @@ class DemandsController < ApplicationController
     @demand_status = ""
     @current_time = DateTime.now
     @demand = Demand.find_by_id(params[:demand_id])
+    @message = ""
     
     ActiveRecord::Base.connection.execute("UPDATE demands SET unavailable = TRUE, unavailable_by = #{current_user.id}, unavailable_by_at = '#{@current_time}', on_hold = NULL WHERE on_hold IS NOT NULL AND id = #{params[:demand_id]}")
     #@demand.update_attributes(unavailable: true, on_hold: nil)
@@ -65,17 +69,20 @@ class DemandsController < ApplicationController
       @book = Book.find_by_id(book_demand["book_id"])
       @book.update_attributes(total_quantity: @book.total_quantity - 1)
       ActiveRecord::Base.connection.execute("UPDATE books_demands SET unavailable = TRUE, unavailable_by = #{current_user.id}, unavailable_by_at = '#{@current_time}', on_hold = NULL, comments = '#{params[:comments]}' WHERE demand_id = #{params[:demand_id]} AND book_id = #{book_demand["book_id"]} AND on_hold IS NOT NULL AND validated IS NULL")
-    end
-    
-    # Envoi d'email de notification
-    csadp_request_validation(@demand) 
+    end     
     
     if all_books_in_demand_rejected?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET unavailable = TRUE, on_hold = NULL WHERE id = #{params[:demand_id]}")
+      @message = "a rejeté l'ensemble des documents de votre demande du"       
     end
     if demand_partially_validated?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET validated = FALSE, unavailable = TRUE, on_hold = NULL WHERE id = #{params[:demand_id]}")
+      @message = "a validé certains des documents de votre demande du"
     end
+    
+    # Envoi d'email de notification
+    csadp_request_validation(@demand, @message)
+    
     @demand_status = old_sql_display_demand_status(@demand.id)
     
     render :text => @demand_status
@@ -88,18 +95,23 @@ class DemandsController < ApplicationController
   def partial_validation
     @demand_status = ""
     @current_time = DateTime.now
+    @message = ""
     
     ActiveRecord::Base.connection.execute("UPDATE books_demands SET validated = FALSE, validated_by = #{current_user.id}, validated_by_at = '#{@current_time}', on_hold = NULL WHERE demand_id = #{params[:demand_id]} AND book_id = #{params[:book_id]}")
     
     if all_books_in_demand_validated?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET validated = FALSE, validated_by = #{current_user.id}, validated_by_at = '#{@current_time}', on_hold = NULL WHERE id = #{params[:demand_id]}")
       @demand_status = "#{old_sql_display_demand_status(params[:demand_id])}".html_safe
+      @message = "a validé l'ensemble des documents de votre demande du"
+      
       # Envoi d'email de notification
-      csadp_request_validation(Demand.find_by_id(params[:demand_id]))
+      csadp_request_validation(Demand.find_by_id(params[:demand_id]), @message)
     end
     if demand_partially_validated?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET validated = FALSE, unavailable = TRUE, on_hold = NULL WHERE id = #{params[:demand_id]}") 
-      @demand_status = "#{old_sql_display_demand_status(params[:demand_id])}".html_safe     
+      @demand_status = "#{old_sql_display_demand_status(params[:demand_id])}".html_safe    
+      @message = "a validé certains des documents de votre demande du"
+       
       # Envoi d'email de notification
       csadp_request_validation(Demand.find_by_id(params[:demand_id]))
     end    
@@ -110,6 +122,7 @@ class DemandsController < ApplicationController
   def partial_rejection
     @demand_status = ""
     @current_time = DateTime.now
+    @message = ""
     
     ActiveRecord::Base.connection.execute("UPDATE books_demands SET validated = FALSE, unavailable_by = #{current_user.id}, unavailable_by_at = '#{@current_time}', unavailable = TRUE, on_hold = NULL, comments = '#{params[:comments]}' WHERE demand_id = #{params[:demand_id]} AND book_id = #{params[:book_id]}")
     @book = Book.find_by_id(params[:book_id])
@@ -118,12 +131,16 @@ class DemandsController < ApplicationController
     if all_books_in_demand_rejected?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET unavailable = TRUE, unavailable_by = #{current_user.id}, unavailable_by_at = '#{@current_time}', on_hold = NULL WHERE id = #{params[:demand_id]}")
       @demand_status = "#{display_demand_status(Demand.find_by_id(params[:demand_id]))}".html_safe
+      @message = "a rejeté l'ensemble des documents de votre demande du"
+      
       # Envoi d'email de notification
       csadp_request_validation(Demand.find_by_id(params[:demand_id]))
     end
     if demand_partially_validated?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET validated = FALSE, unavailable = TRUE, on_hold = NULL WHERE id = #{params[:demand_id]}")   
       @demand_status = "#{display_demand_status(Demand.find_by_id(params[:demand_id]))}".html_safe 
+      @message = "a validé certains des documents de votre demande du"
+      
       # Envoi d'email de notification
       csadp_request_validation(Demand.find_by_id(params[:demand_id]))
     end    
@@ -139,7 +156,7 @@ class DemandsController < ApplicationController
     @demands = current_user.demands.where("((validated IS FALSE  AND unavailable IS TRUE) OR validated IS FALSE) AND book_left IS NOT TRUE").order("created_at DESC").page(params[:page]).per(8)
   end
   
-  def employee_request_validation(demand)
+  def employee_request_validation(demand, message)
     # Envoi d'email de notification
     Thread.new do      
       @agc = User.where("profile_id = #{Profile.find_by_shortcut('AGC').id} AND published IS NOT FALSE")
@@ -147,7 +164,7 @@ class DemandsController < ApplicationController
         @user = [] << User.find_by_id(demand.user_id).email
         @demand_date = "#{demand.created_at.strftime('%d-%m-%y')} à #{demand.created_at.strftime('%Hh %Mmn')}"
         @agc = @agc.map { |user| user.email }
-        Notifier.employee_request_validation(current_user.full_name, current_user.show_qualification, @agc, @demand_date).deliver
+        Notifier.employee_request_validation(current_user.full_name, current_user.show_qualification, @agc, @demand_date, message).deliver
         if (ActiveRecord::Base.connection && ActiveRecord::Base.connection.active?)
           ActiveRecord::Base.connection.close
         end
@@ -159,14 +176,17 @@ class DemandsController < ApplicationController
     @demand_status = ""
     @current_time = DateTime.now
     @demand = Demand.find_by_id(params[:demand_id])
+    @message = ""
     
     ActiveRecord::Base.connection.execute("UPDATE demands SET validated = TRUE, validated_at = '#{@current_time}' WHERE id = #{@demand.id}")
     ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE demand_id = #{@demand.id}").each do |book_demand|
       ActiveRecord::Base.connection.execute("UPDATE books_demands SET validated = TRUE, validated_at = '#{@current_time}' WHERE demand_id = #{@demand.id} AND book_id = #{book_demand["book_id"]} AND (book_left IS NOT TRUE AND validated IS NOT TRUE AND unavailable IS NOT TRUE)")
     end
     
+    @message = "vous a envoyé une nouvelle demande de documents datant du"
+        
     # Envoi d'email de notification
-    employee_request_validation(@demand)
+    employee_request_validation(@demand, @message)
     
     #if all_books_in_demand_validated?(params[:demand_id])
       #ActiveRecord::Base.connection.execute("UPDATE demands SET on_hold = NULL WHERE id = #{@demand.id}")      
@@ -183,6 +203,7 @@ class DemandsController < ApplicationController
     @demand_status = ""
     @current_time = DateTime.now
     @demand = Demand.find_by_id(params[:demand_id])
+    @message = ""
     
     ActiveRecord::Base.connection.execute("UPDATE demands SET book_left = TRUE, book_left_at = '#{@current_time}' WHERE id = #{@demand.id}")
     ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE demand_id = #{@demand.id}").each do |book_demand|
@@ -193,8 +214,10 @@ class DemandsController < ApplicationController
     
     if lv_any_books_in_demand_validated?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET validated = TRUE WHERE id = #{params[:demand_id]}")
+      @message = "vous a envoyé une nouvelle demande de documents datant du"
+      
       # Envoi d'email de notification
-      employee_request_validation(@demand)
+      employee_request_validation(@demand, @message)
     end
         
     #if demand_partially_validated?(params[:demand_id])
@@ -208,13 +231,17 @@ class DemandsController < ApplicationController
   def lv_partial_validation
     @demand_status = ""
     @current_time = DateTime.now
+    @message = ""
+    
     ActiveRecord::Base.connection.execute("UPDATE books_demands SET validated = TRUE, validated_at = '#{@current_time}' WHERE demand_id = #{params[:demand_id]} AND book_id = #{params[:book_id]}")
     
     if lv_any_books_in_demand_validated?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET validated = TRUE, validated_at = '#{@current_time}' WHERE id = #{params[:demand_id]}")
       @demand_status = "#{old_sql_display_demand_status(params[:demand_id])}".html_safe
+      @message = "vous a envoyé une nouvelle demande de documents datant du"
+      
       # Envoi d'email de notification
-      employee_request_validation(Demand.find_by_id(params[:demand_id]))
+      employee_request_validation(Demand.find_by_id(params[:demand_id]), @message)
     end
     #if demand_partially_validated?(params[:demand_id])
       #ActiveRecord::Base.connection.execute("UPDATE demands SET validated = TRUE WHERE id = #{params[:demand_id]}") 
@@ -227,6 +254,8 @@ class DemandsController < ApplicationController
   def lv_partial_rejection
     @demand_status = ""
     @current_time = DateTime.now
+    @message = ""
+    
     ActiveRecord::Base.connection.execute("UPDATE books_demands SET book_left = TRUE, book_left_at = '#{@current_time}' WHERE demand_id = #{params[:demand_id]} AND book_id = #{params[:book_id]}")
     @book = Book.find_by_id(params[:book_id])
     @book.update_attributes(quantity_in_stock: @book.quantity_in_stock + 1)
@@ -234,8 +263,10 @@ class DemandsController < ApplicationController
     if lv_any_books_in_demand_validated?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET validated = TRUE, validated_at = '#{@current_time}' WHERE id = #{params[:demand_id]}")
       @demand_status = "#{old_sql_display_demand_status(params[:demand_id])}".html_safe
+      @message = "vous a envoyé une nouvelle demande de documents datant du"
+      
       # Envoi d'email de notification
-      employee_request_validation(Demand.find_by_id(params[:demand_id]))
+      employee_request_validation(Demand.find_by_id(params[:demand_id]), message)
     end
     if lv_all_books_in_demand_rejected?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET book_left = TRUE, book_left_at = '#{@current_time}' WHERE id = #{params[:demand_id]}") 
@@ -258,12 +289,12 @@ class DemandsController < ApplicationController
   end
   
   # Envoi d'email de notification
-  def agc_request_validation(demand)
+  def agc_request_validation(demand, message)
     # Envoi d'email de notification
     Thread.new do
       @user = [] << User.find_by_id(demand.user_id).email
       @demand_date = "#{demand.created_at.strftime('%d-%m-%y')} à #{demand.created_at.strftime('%Hh %Mmn')}"
-      Notifier.agc_request_validation(current_user.full_name, current_user.show_qualification, @user, @demand_date).deliver
+      Notifier.agc_request_validation(current_user.full_name, current_user.show_qualification, @user, @demand_date, message).deliver
       if (ActiveRecord::Base.connection && ActiveRecord::Base.connection.active?)
         ActiveRecord::Base.connection.close
       end
@@ -274,14 +305,17 @@ class DemandsController < ApplicationController
     @demand_status = ""
     @current_time = DateTime.now
     @demand = Demand.find_by_id(params[:demand_id])
+    @message = ""
     
     ActiveRecord::Base.connection.execute("UPDATE demands SET taken = TRUE, taken_by = #{current_user.id}, taken_by_at = '#{@current_time}' WHERE id = #{@demand.id}")
     ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE demand_id = #{@demand.id}").each do |book_demand|
       ActiveRecord::Base.connection.execute("UPDATE books_demands SET taken = TRUE, taken_by = #{current_user.id}, taken_by_at = '#{@current_time}' WHERE demand_id = #{@demand.id} AND book_id = #{book_demand["book_id"]} AND (VALIDATED IS TRUE AND taken IS NOT TRUE AND book_left IS NOT TRUE)")
     end
     
+    @message = "a validé votre demande de retrait de documents datant du:"
+    
     # Envoi d'email de notification
-    agc_request_validation(@demand)
+    agc_request_validation(@demand, @message)
     
     #if all_books_in_demand_validated?(params[:demand_id])
       #ActiveRecord::Base.connection.execute("UPDATE demands SET on_hold = NULL WHERE id = #{@demand.id}")      
@@ -297,13 +331,17 @@ class DemandsController < ApplicationController
   def agc_partial_validation
     @demand_status = ""
     @current_time = DateTime.now
+    @message
+    
     ActiveRecord::Base.connection.execute("UPDATE books_demands SET taken = TRUE, taken_by = #{current_user.id}, taken_by_at = '#{@current_time}' WHERE demand_id = #{params[:demand_id]} AND book_id = #{params[:book_id]}")
     
     if agc_any_books_in_demand_taken?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET taken = TRUE, taken_by = #{current_user.id}, taken_by_at = '#{@current_time}' WHERE id = #{params[:demand_id]}")
       @demand_status = "#{old_sql_display_demand_status(params[:demand_id])}".html_safe
+      @message = "a validé votre demande de retrait de documents datant du:"
+      
       # Envoi d'email de notification
-      agc_request_validation(Demand.find_by_id(params[:demand_id]))
+      agc_request_validation(Demand.find_by_id(params[:demand_id]), @message)
     end
     #if demand_partially_validated?(params[:demand_id])
       #ActiveRecord::Base.connection.execute("UPDATE demands SET validated = TRUE WHERE id = #{params[:demand_id]}") 
@@ -320,6 +358,7 @@ class DemandsController < ApplicationController
   def agc_brought_back
     @demand_status = ""
     @current_time = DateTime.now
+    
     ActiveRecord::Base.connection.execute("UPDATE demands SET returned = TRUE, returned_by = #{current_user.id}, returned_by_at = '#{@current_time}' WHERE id = #{params[:demand_id]}")
     ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE demand_id = #{params[:demand_id]}").each do |book_demand|
       if book_demand["validated"] == "t" and book_demand["book_damaged"] == nil and book_demand["taken"] == "t" and book_demand["returned"] == "f" and book_demand["unavailable"] == nil and book_demand["book_left"] == nil
