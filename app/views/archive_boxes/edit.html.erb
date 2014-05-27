@@ -84,9 +84,7 @@
 	          <% @archive_boxes.each do |archive_box| %>	
 	            <tr>
 	              <td>	              		      		    
-                  <a data-toggle="collapse" data-target="#archive_box<%= archive_box.id %>">
-                    <%= archive_box.name %>
-                  </a> 
+                  <%= archive_box.name %>
                   &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-une-boite-darchive/#{archive_box.id}" %>	         	                       
 					        <% if archive_box.published == false %>				            				
 				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_archive_box_path(archive_box.id), :confirm => "Êtes vous sûr de vouloir activer cette boîte d'archives?" %>        

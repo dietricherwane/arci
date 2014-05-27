@@ -18,6 +18,10 @@ class ConsultantsController < ApplicationController
     
     if @name.blank? then @error_messages << "Veuillez entrer le nom du consultant à créer."; @namecss = "row-form error" else @namecss = "row-form" end
     
+    if !Consultant.find_by_name(@name).blank?
+      @error_messages << "Un organe d'étude portant ce nom existe déjà."
+    end
+    
     if @error_messages.blank?
       Consultant.create(:name => @name.strip)
       @success_messages << "Le consultant: #{@name.strip} a été créé."
@@ -42,13 +46,14 @@ class ConsultantsController < ApplicationController
     @success_messages = []
     @consultants = Consultant.all.order("name")
     @consultant = Consultant.find_by_id(params[:id])
+    @existing_consultant = Consultant.find_by_name(@name)
     @namecss = "row-form"
     
     if @name.blank?
       @error_messages << "Veuillez entrer un nom d'organe d'étude"
       @namecss = "row-form error"
     end
-    if !@consultant.blank? and @consultant.id != params[:id].to_i
+    if !@existing_consultant.blank? and @existing_consultant.id.to_s != params[:id]
       @error_messages << "Un organe d'étude portant ce nom existe déjà"
       @namecss = "row-form error"
     end

@@ -18,6 +18,10 @@ class ArchiveBoxesController < ApplicationController
     
     if @name.blank? then @error_messages << "Veuillez entrer le nom de la boîte d'archives à créer."; @archive_boxecss = "row-form error" else @archive_boxecss = "row-form" end
     
+    if !ArchiveBox.find_by_name(@name).blank?
+      @error_messages << "Une boîte d'archives portant ce nom existe déjà."
+    end
+    
     if @error_messages.blank?
       ArchiveBox.create(:name => @name.strip)
       @success_messages << "La boîte d'archives: #{@name.strip} a été créée."
@@ -41,14 +45,15 @@ class ArchiveBoxesController < ApplicationController
     @success_messages = []
     @archive_boxes = ArchiveBox.all.order("name").page(params[:page]).per(8)
     @archive_box = ArchiveBox.find_by_id(params[:id])
+    @existing_archive_box = ArchiveBox.find_by_name(@name)
     @namecss = "row-form"
     
     if @name.blank?
       @error_messages << "Veuillez entrer un nom de boîte d'archive"
       @namecss = "row-form error"
     end
-    if !@archive_box.blank? and @archive_box.id != params[:id].to_i
-      @error_messages << "Une boîte d'archive portant ce nom existe déjà"
+    if !@existing_archive_box.blank? and @existing_archive_box.id.to_s != params[:id]
+      @error_messages << "Une boîte d'Archive portant ce nom existe déjà"
       @namecss = "row-form error"
     end
     

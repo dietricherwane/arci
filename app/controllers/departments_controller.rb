@@ -21,6 +21,10 @@ class DepartmentsController < ApplicationController
     
     if @name.blank? then @error_messages << "Veuillez entrer le nom du département à créer."; @namecss = "row-form error" else @namecss = "row-form" end
     
+    if !Department.find_by_name(@name).blank?
+      @error_messages << "Un département portant ce nom existe déjà."
+    end
+    
     if @error_messages.blank?
       Department.create(:name => @name.strip)
       @success_messages << "Le département #{@name.strip} a été créé."

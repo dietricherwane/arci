@@ -26,6 +26,10 @@ class QualificationsController < ApplicationController
     if @department_id.blank? then @error_messages << "Veuillez d'abord choisir un département."; @qualification_department_idcss = "row-form error" end
     if @qualification.blank? then @error_messages << "Veuillez entrer le nom de la qualification à créer."; @qualification_namecss = "row-form error" end
     
+    if !Qualification.where("name = '#{@name}' AND department_id = #{@department_id}").blank?
+      @error_messages << "Une qualification portant ce nom existe déjà dans ce département."
+    end
+    
     if @error_messages.blank?
       @department = Department.find_by_id(@department_id)
       @department.qualifications.create(:label => @qualification.strip)
@@ -50,14 +54,15 @@ class QualificationsController < ApplicationController
     @success_messages = []
     @departments = Department.all.order("name")
     @qualification = Qualification.find_by_id(params[:id])
+    @existing_qualification = Qualification.find_by_label(@name)
     @namecss = "row-form"
     
     if @name.blank?
       @error_messages << "Veuillez entrer un nom de qualification"
       @namecss = "row-form error"
     end
-    if !@qualification.blank? and @qualification.id != params[:id].to_i
-      @error_messages << "Une qualification portant ce nom existe déjà"
+    if !@existing_qualification.blank? and @existing_qualification.department_id == @qualification.id and @existing_qualification.id != params[:id].to_i
+      @error_messages << "Une qualification portant ce nom existe déjà dans ce département."
       @namecss = "row-form error"
     end
     

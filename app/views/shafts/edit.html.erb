@@ -2,7 +2,7 @@
     <div class="icon">
         <span class="ico-arrow-right"></span>
     </div>
-    <h1>Editer le département: <%= @department.name %> <small>Modifier les informations relatives au département suivant</small></h1>
+    <h1>Editer le puits: <%= @shaft.name %> <small>Modifier les informations relatives au puits suivant</small></h1>
 </div>
 
 <div class = "row-fluid">
@@ -37,32 +37,30 @@
         <div class = "icon">
           <span class = "ico-pen-2"></span>
         </div>
-        <h2>Modifier un département</h2>
+        <h2>Modifier un puits</h2>
       </div>
       <div class = "data-fluid">
-        <%= form_tag("/department/update") do %>
+        <%= form_tag("/shaft/update") do %>
           <%#= devise_error_messages! %>
-          <%= hidden_field_tag "id", @department.id %>
+          <%= hidden_field_tag "id", @shaft.id %>
           <div class = "<%= @namecss %>">
             <div class = "span3">Nom</div>
             <div class = "span9">	                      
-              <%= text_field_tag "name", @department.name, :placeholder => "Nom du département" %>    
+              <%= text_field_tag "name", @shaft.name, :placeholder => "Nom du puits" %>    
             </div>
           </div>
           <br />
           <div class = "row-form">
             <div class="span9">
-              <%= button_tag(:name => "Modifier un département", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
-                Modifier un département <div class="icon-arrow-next icon-white"></div> 
+              <%= button_tag(:name => "Modifier un puits", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Modifier un puits <div class="icon-arrow-next icon-white"></div> 
               <% end %>
             </div>
           </div>
         <% end %>
         <hr />
       </div>
-    </div>
-    
-        
+    </div>           
   </div>
   
   <div class = "span6">
@@ -71,44 +69,38 @@
         <div class = "icon">
           <span class = "ico-list-3"></span>
         </div>
-        <h2>Liste des départements</h2>
+        <h2>Liste des puits</h2>
       </div>
-      <!--<div class = "head blue" >
-		    <div class = "icon" >
-		      <span class = "ico-pen-2"></span>		      
-		    </div>  
-		    <h2>Visualisation des qualifications par département</h2>
-		  </div>-->
-		  <% unless @departments.blank? %>	
+		  <% unless @shafts.blank? %>	
 		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
           <thead>
             <tr>
               <th width = "100%">
-                Nom du département
+                Nom du puits
               </th>
             </tr>
           </thead>
           <tbody>            
-	          <% @departments.each do |department| %>	
+	          <% @shafts.each do |shaft| %>	
 	            <tr>
 	              <td>	              		      		    
-                  <a data-toggle="collapse" data-target="#department<%= department.id %>">
-                    <%= department.name %>
+                  <a data-toggle="collapse" data-target="#shaft<%= shaft.id %>">
+                    <%= shaft.name %>
                   </a> 
-                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-departement/#{department.id}" %>	         	     
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-puits/#{shaft.id}" %>	         	     
                   
-					        <% if department.published == false %>				            				
-				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_department_path(department.id), :confirm => "Êtes vous sûr de vouloir activer ce département?" %>        
+					        <% if shaft.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_shaft_path(shaft.id), :confirm => "Êtes vous sûr de vouloir activer ce puits?" %>        
 				          <% else %>
-				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_department_path(department.id), :confirm => "Êtes vous sûr de vouloir désactiver ce département?" %>				            
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_shaft_path(shaft.id), :confirm => "Êtes vous sûr de vouloir désactiver ce puits?" %>				            
 				          <% end %>
 	             
-                  <div id="department<%= department.id %>" class="collapse">
+                  <div id="shaft<%= shaft.id %>" class="collapse">
                     <ul class = "the-icons">
-                      <% department.qualifications.order("label").each do |qualification| %>
+                      <% shaft.blocks.order("name").each do |block| %>
                         <li>
                           <i class = "icon-screenshot"></i>
-                          <%= qualification.label %>
+                          <%= block.name %>
                           &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-une-qualification/#{qualification.id}" %>	         	     
                   
 					                <% if qualification.published == false %>				            				
@@ -125,7 +117,12 @@
 	          <% end %>
 		      </tbody>
 		    </table>		  		  		  		  		  		    
-	    <% end %>	    	  
+	    <% end %>	    	 
+	    <% unless @archive_boxes.blank? %>
+	      <div id = "pagination">
+          <%= paginate @archive_boxes %>
+        </div>
+      <% end %>   	  
     </div>
   </div>
 </div>
