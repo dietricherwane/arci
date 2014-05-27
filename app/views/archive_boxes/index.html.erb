@@ -100,7 +100,12 @@
 	          <% end %>
 		      </tbody>
 		    </table>		  		  		  		  		  		    
-	    <% end %>	    	 	  
+	    <% end %>	
+	    <% unless @archive_boxes.blank? %>
+	      <div id = "pagination">
+          <%= paginate @archive_boxes %>
+        </div>
+      <% end %>      	 	  
     </div>
   </div>
 </div>

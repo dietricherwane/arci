@@ -82,16 +82,37 @@
 		    <h2>Visualisation des qualifications par département</h2>
 		  </div>-->
 		  <% unless @categories.blank? %>	
-		    <div class = "data-fluid faq">
-		      <% @categories.each do |category| %>	  
-	          <div class = "item" id = "faq-<%= category.id %>" >
-	            <div class = "title"><%= "#{category.name} [ #{category.short_code} ]" %></div>
-	            <div class = "text" style = "display: none;" >	              
-              </div>
-	          </div>  
-	        <% end %>
-	      </div>
-	    <% end %> 	  
+		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "100%">
+                Nom du type de document
+              </th>
+            </tr>
+          </thead>
+          <tbody>            
+	          <% @categories.each do |category| %>	
+	            <tr>
+	              <td>	              		      		    
+                  <%= category.name %> <b>[<%= category.short_code %>]</b>
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-type-de-document/#{category.id}" %>	         	     
+                  
+					        <% if category.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_category_path(category.id), :confirm => "Êtes vous sûr de vouloir activer cette catégorie?" %>        
+				          <% else %>
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_category_path(category.id), :confirm => "Êtes vous sûr de vouloir désactiver cette catégorie?" %>				            
+				          <% end %>	                               
+                </td>         
+              </tr>
+	          <% end %>
+		      </tbody>
+		    </table>		
+	    <% end %> 	
+	    <% unless @categories.blank? %>
+	      <div id = "pagination">
+          <%= paginate @categories %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

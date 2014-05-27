@@ -44,6 +44,11 @@ Arci::Application.routes.draw do
   
   get "categories" => "categories#index"
   post "category/create" => "categories#create"
+  get "editer-un-type-de-document/:category_id" => "categories#edit"
+  get "désactiver-un-type-de-document/:category_id" => "categories#disable", :as => :disable_category
+  get "activer-un-type-de-document/:category_id" => "categories#enable", :as => :enable_category
+  post "category/update" => "categories#update"
+  get "category/update" => "categories#index" 
   
   get "shafts" => "shafts#index"
   post "shaft/create" => "shafts#create"

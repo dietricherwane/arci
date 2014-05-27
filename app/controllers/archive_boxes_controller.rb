@@ -6,7 +6,7 @@ class ArchiveBoxesController < ApplicationController
   layout :layout_used
   
   def index
-    @archive_boxes = ArchiveBox.all.order("name")
+    @archive_boxes = ArchiveBox.all.order("name").page(params[:page]).per(8)
     @archive_boxecss = "row-form"
   end
   
@@ -14,7 +14,7 @@ class ArchiveBoxesController < ApplicationController
     @name = params[:name]
     @error_messages = []
     @success_messages = []
-    @archive_boxes = ArchiveBox.all.order("name")
+    @archive_boxes = ArchiveBox.all.order("name").page(params[:page]).per(8)
     
     if @name.blank? then @error_messages << "Veuillez entrer le nom de la boîte d'archives à créer."; @archive_boxecss = "row-form error" else @archive_boxecss = "row-form" end
     
@@ -31,7 +31,7 @@ class ArchiveBoxesController < ApplicationController
     if @archive_box.blank?
       redirect_to :back, :notice => "Cette boîte d'archives n'existe pas"
     else
-      @archive_boxes = ArchiveBox.all.order("name ASC")
+      @archive_boxes = ArchiveBox.all.order("name ASC").page(params[:page]).per(8)
     end    
   end
   
@@ -39,7 +39,7 @@ class ArchiveBoxesController < ApplicationController
     @name = params[:name].strip
     @error_messages = []
     @success_messages = []
-    @archive_boxes = ArchiveBox.all.order("name")
+    @archive_boxes = ArchiveBox.all.order("name").page(params[:page]).per(8)
     @archive_box = ArchiveBox.find_by_id(params[:id])
     @namecss = "row-form"
     

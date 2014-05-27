@@ -2,7 +2,7 @@
     <div class="icon">
         <span class="ico-arrow-right"></span>
     </div>
-    <h1>Boîtes d'archives <small>Créer des boîtes d'archives</small></h1>
+    <h1>Editer le type de document: <%= @category.name %> <small>Modifier les informations relatives au type de document suivant</small></h1>
 </div>
 
 <div class = "row-fluid">
@@ -37,28 +37,32 @@
         <div class = "icon">
           <span class = "ico-pen-2"></span>
         </div>
-        <h2>Créer une boîte d'archives</h2>
+        <h2>Modifier un type de document</h2>
       </div>
       <div class = "data-fluid">
-        <%= form_tag("/archive_box/create") do %>
+        <%= form_tag("/category/update") do %>
           <%#= devise_error_messages! %>
-          <div class = "<%= @archive_boxecss %>">
+          <%= hidden_field_tag "id", @category.id %>
+          <div class = "<%= @namecss %>">
             <div class = "span3">Nom</div>
             <div class = "span9">	                      
-              <%= text_field_tag "name", "", :placeholder => "Nom de la boîte d'archives" %>    
+              <%= text_field_tag "name", @category.name, :placeholder => "Nom du type de document" %>    
             </div>
           </div>
           <br />
           <div class = "row-form">
             <div class="span9">
-              <%= button_tag(:name => "Créer une boîte d'archives", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
-                Créer une boîte d'archives <div class="icon-arrow-next icon-white"></div> 
+              <%= button_tag(:name => "Modifier un type de document", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Modifier un type de document <div class="icon-arrow-next icon-white"></div> 
               <% end %>
             </div>
           </div>
         <% end %>
+        <hr />
       </div>
-    </div>   
+    </div>
+    
+        
   </div>
   
   <div class = "span6">
@@ -67,7 +71,7 @@
         <div class = "icon">
           <span class = "ico-list-3"></span>
         </div>
-        <h2>Liste des boîtes d'archives</h2>
+        <h2>Liste des types de documents</h2>
       </div>
       <!--<div class = "head blue" >
 		    <div class = "icon" >
@@ -75,32 +79,38 @@
 		    </div>  
 		    <h2>Visualisation des qualifications par département</h2>
 		  </div>-->
-		  <% unless @archive_boxes.blank? %>	
+		  <% unless @categories.blank? %>	
 		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
           <thead>
             <tr>
               <th width = "100%">
-                Nom de la boîte d'archives
+                Nom du type de document
               </th>
             </tr>
           </thead>
           <tbody>            
-	          <% @archive_boxes.each do |archive_box| %>	
+	          <% @categories.each do |category| %>	
 	            <tr>
 	              <td>	              		      		    
-                  <%= archive_box.name %>
-                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-une-boite-darchive/#{archive_box.id}" %>	         	                       
-					        <% if archive_box.published == false %>				            				
-				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_archive_box_path(archive_box.id), :confirm => "Êtes vous sûr de vouloir activer cette boîte d'archives?" %>        
+                  <%= category.name %> <b>[<%= category.short_code %>]</b> 
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-type-de-document/#{category.id}" %>	         	     
+                  
+					        <% if category.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_category_path(category.id), :confirm => "Êtes vous sûr de vouloir activer cette catégorie?" %>        
 				          <% else %>
-				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_archive_box_path(archive_box.id), :confirm => "Êtes vous sûr de vouloir activer cette boîte d'archives?" %>				            
-				          <% end %>                  
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_category_path(category.id), :confirm => "Êtes vous sûr de vouloir désactiver cette catégorie?" %>				            
+				          <% end %>	                               
                 </td>         
               </tr>
 	          <% end %>
 		      </tbody>
 		    </table>		  		  		  		  		  		    
-	    <% end %>	    	 	  
+	    <% end %>	
+	    <% unless @categories.blank? %>
+	      <div id = "pagination">
+          <%= paginate @categories %>
+        </div>
+      <% end %>    	  
     </div>
   </div>
 </div>

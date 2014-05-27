@@ -134,7 +134,7 @@ class DemandsController < ApplicationController
       @message = "a rejeté l'ensemble des documents de votre demande du"
       
       # Envoi d'email de notification
-      csadp_request_validation(Demand.find_by_id(params[:demand_id]))
+      csadp_request_validation(Demand.find_by_id(params[:demand_id]), @message)
     end
     if demand_partially_validated?(params[:demand_id])
       ActiveRecord::Base.connection.execute("UPDATE demands SET validated = FALSE, unavailable = TRUE, on_hold = NULL WHERE id = #{params[:demand_id]}")   
