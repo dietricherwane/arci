@@ -101,12 +101,12 @@
                         <li>
                           <i class = "icon-screenshot"></i>
                           <%= block.name %>
-                          &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-une-qualification/#{qualification.id}" %>	         	     
+                          &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-bloc/#{block.id}" %>	         	     
                   
-					                <% if qualification.published == false %>				            				
-				                    <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_qualification_path(qualification.id), :confirm => "Êtes vous sûr de vouloir activer cette qualification?" %>        
+					                <% if block.published == false %>				            				
+				                    <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_block_path(block.id), :confirm => "Êtes vous sûr de vouloir activer ce bloc?" %>        
 				                  <% else %>
-				                    <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_qualification_path(qualification.id), :confirm => "Êtes vous sûr de vouloir désactiver cette qualification?" %>				            
+				                    <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_block_path(block.id), :confirm => "Êtes vous sûr de vouloir désactiver ce bloc?" %>				            
 				                  <% end %>
                         </li>
                       <% end %>
@@ -118,9 +118,9 @@
 		      </tbody>
 		    </table>		  		  		  		  		  		    
 	    <% end %>	    	 
-	    <% unless @archive_boxes.blank? %>
+	    <% unless @shafts.blank? %>
 	      <div id = "pagination">
-          <%= paginate @archive_boxes %>
+          <%= paginate @shafts %>
         </div>
       <% end %>   	  
     </div>
