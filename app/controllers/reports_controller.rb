@@ -10,6 +10,10 @@ class ReportsController < ApplicationController
     @on_hold_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS TRUE")
     @on_hold_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS TRUE")
     
+    @rejected_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE")
+    @rejected_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE")
+    @rejected_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS NULL AND unavailable IS TRUE")
+    
     @validated_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE ((validated IS FALSE  AND unavailable IS TRUE) OR validated IS FALSE) AND book_left IS NOT TRUE")
     @validated_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE ((validated IS FALSE  AND unavailable IS TRUE) OR validated IS FALSE) AND book_left IS NOT TRUE")
     @validated_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE validated IS FALSE AND book_left IS NOT TRUE AND unavailable IS NOT TRUE")
@@ -34,6 +38,13 @@ class ReportsController < ApplicationController
     @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
     @on_hold_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS TRUE AND user_id = #{current_user.id}")
     @on_hold_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS TRUE #{@demands_sql}")
+    
+    @rejected_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE AND user_id = #{current_user.id}")
+    @demands = @rejected_demands.map { |d| d["id"].to_i }
+    @demands = @demands.to_s.sub("[", "(").sub("]", ")")
+    @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
+    @rejected_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE AND user_id = #{current_user.id}")
+    @rejected_demands_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS NULL AND unavailable IS TRUE #{@demands_sql}")
     
     @validated_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE ((validated IS FALSE  AND unavailable IS TRUE) OR validated IS FALSE) AND book_left IS NOT TRUE AND user_id = #{current_user.id}")
     @demands = @validated_demands.map { |d| d["id"].to_i }
@@ -64,6 +75,10 @@ class ReportsController < ApplicationController
     @books_brought_back = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE returned = TRUE #{@demands_sql}")
   end
   
+  def personnal_rejected_demands
+    @demands = Demand.where("on_hold IS NULL and unavailable IS TRUE AND user_id = #{current_user.id}").order("created_at DESC").page(params[:page]).per(8)
+  end
+  
   def personnal_demands
     @demands = Demand.where("returned IS TRUE AND user_id = #{current_user.id}").order("created_at DESC").page(params[:page]).per(8)
   end
@@ -78,6 +93,10 @@ class ReportsController < ApplicationController
   end
   
   def departments_on_hold
+    @departments = Department.order("name ASC")
+  end
+  
+  def departments_rejected
     @departments = Department.order("name ASC")
   end
   
@@ -98,6 +117,12 @@ class ReportsController < ApplicationController
   end
   
   def list_users_on_hold
+    @qualification = Qualification.find_by_id(params[:qualification_id])
+    @department = @qualification.department
+    @users = @qualification.users.where("profile_id != #{Profile.find_by_shortcut("ADMIN").id} AND profile_id != #{Profile.find_by_shortcut("CD-BD").id} AND profile_id != #{Profile.find_by_shortcut("CSADP-BD").id} AND profile_id != #{Profile.find_by_shortcut("AGC").id}")  
+  end
+  
+  def list_users_rejected
     @qualification = Qualification.find_by_id(params[:qualification_id])
     @department = @qualification.department
     @users = @qualification.users.where("profile_id != #{Profile.find_by_shortcut("ADMIN").id} AND profile_id != #{Profile.find_by_shortcut("CD-BD").id} AND profile_id != #{Profile.find_by_shortcut("CSADP-BD").id} AND profile_id != #{Profile.find_by_shortcut("AGC").id}")  
@@ -130,6 +155,11 @@ class ReportsController < ApplicationController
   def demands_on_hold
     @user = User.find_by_id(params[:user_id])
     @demands = @user.demands.where("on_hold IS TRUE").order("created_at DESC")
+  end
+  
+  def demands_rejected
+    @user = User.find_by_id(params[:user_id])
+    @demands = @user.demands.where("on_hold IS NULL AND unavailable IS TRUE").order("created_at DESC")
   end
   
   def demands_validated

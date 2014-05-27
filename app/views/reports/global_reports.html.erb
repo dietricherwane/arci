@@ -53,6 +53,22 @@
             <%= link_to "Demande#{@s1} en attente", demands_on_hold_per_qualification_path %>
           </div>
         </div>
+        <div class = "widget red value">
+          <div class = "left">
+            <% (@rejected_demands.count > 1) ? @s1 = "es" : @s1 = "" %>
+            <%= @rejected_demands.count %>
+          </div>
+          <div class = "right">
+            <% (@rejected_demands_users.count > 1) ? @s2 = "s" : @s2 = "" %>
+            <%= "#{@rejected_demands_users.count} utilisateur#{@s2} concerné#{@s2}" %>
+            <br /><br />
+            <% (@rejected_books.count > 1) ? @s3 = "s" : @s3 = "" %>
+            <%= "#{@rejected_books.count} document#{@s3} concerné#{@s3}" %> 
+          </div>
+          <div class = "bottom">
+            <%= link_to "Demande#{@s1} rejetée", demands_rejected_per_qualification_path %>
+          </div>
+        </div>
         <div class = "widget green value">
           <div class = "left">
             <% (@validated_demands.count > 1) ? @s1 = "s" : @s1 = "" %>

@@ -76,16 +76,31 @@
 		    <h2>Visualisation des qualifications par département</h2>
 		  </div>-->
 		  <% unless @archive_boxes.blank? %>	
-		    <div class = "data-fluid faq">
-		      <% @archive_boxes.each do |archive_box| %>	  
-	          <div class = "item" id = "faq-<%= archive_box.id %>" >
-	            <div class = "title"><%= archive_box.name %></div>
-	            <div class = "text" style = "display: none;" >	              
-              </div>
-	          </div>  
-	        <% end %>
-	      </div>
-	    <% end %> 	  
+		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "100%">
+                Nom de la boîte d'archives
+              </th>
+            </tr>
+          </thead>
+          <tbody>            
+	          <% @archive_boxes.each do |archive_box| %>	
+	            <tr>
+	              <td>	              		      		    
+                  <%= archive_box.name %>
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-une-boite-darchive/#{archive_box.id}" %>	         	                       
+					        <% if archive_box.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_archive_box_path(archive_box.id), :confirm => "Êtes vous sûr de vouloir activer cette boîte d'archives?" %>        
+				          <% else %>
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_archive_box_path(archive_box.id), :confirm => "Êtes vous sûr de vouloir désactiver cette boîte d'archives?" %>				            
+				          <% end %>                  
+                </td>         
+              </tr>
+	          <% end %>
+		      </tbody>
+		    </table>		  		  		  		  		  		    
+	    <% end %>	    	 	  
     </div>
   </div>
 </div>

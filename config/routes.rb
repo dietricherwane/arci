@@ -29,8 +29,18 @@ Arci::Application.routes.draw do
   
   get "departments" => "departments#index"
   post "department/create" => "departments#create"
+  get "editer-un-departement/:department_id" => "departments#edit"
+  get "désactiver-un-departement/:department_id" => "departments#disable", :as => :disable_department
+  get "activer-un-departement/:department_id" => "departments#enable", :as => :enable_department
+  post "department/update" => "departments#update"
+  get "department/update" => "departments#index"  
   
   post "qualification/create" => "qualifications#create"
+  get "editer-une-qualification/:qualification_id" => "qualifications#edit"
+  get "désactiver-une-qualification/:qualification_id" => "qualifications#disable", :as => :disable_qualification
+  get "activer-une-qualification/:qualification_id" => "qualifications#enable", :as => :enable_qualification
+  post "qualification/update" => "qualifications#update"
+  get "qualification/update" => "departments#index"  
   
   get "categories" => "categories#index"
   post "category/create" => "categories#create"
@@ -43,9 +53,19 @@ Arci::Application.routes.draw do
   
   get "consultants" => "consultants#index"
   post "consultant/create" => "consultants#create"
+  get "editer-un-organe-detude/:consultant_id" => "consultants#edit"
+  get "désactiver-un-organe-detude/:consultant_id" => "consultants#disable", :as => :disable_consultant
+  get "activer-un-organe-detude/:consultant_id" => "consultants#enable", :as => :enable_consultant
+  post "consultant/update" => "consultants#update"
+  get "consultant/update" => "consultants#index"  
   
-  get "archive_boxes" => "archive_boxes#index"
+  get "boites-darchives" => "archive_boxes#index"
   post "archive_box/create" => "archive_boxes#create"
+  get "editer-une-boite-darchive/:archive_box_id" => "archive_boxes#edit"
+  get "désactiver-une-boite-darchive/:archive_box_id" => "archive_boxes#disable", :as => :disable_archive_box
+  get "activer-une-boite-darchive/:archive_box_id" => "archive_boxes#enable", :as => :enable_archive_box
+  post "archive-box/update" => "archive_boxes#update"
+  get "archive-box/update" => "archive_boxes#index"  
   
   get "creer-un-document-et-generer-son-code" => "books#codes", as: :generate_code
   post "books/search-available-books" => "books#search"
@@ -118,11 +138,16 @@ Arci::Application.routes.draw do
   get "rapports-personnels-de-demandes-de-documents" => "reports#personnal_reports", as: :personnal_reports
   get "historique-personnel-des-demandes-de-documents" => "reports#personnal_reports_history", as: :personnal_reports_history
   get "historique-personnel-de-la-liste-des-demandes-de-documents" => "reports#personnal_demands", as: :personnal_demands_list
+  get "historique-des-demandes-de-documents-rejetees" => "reports#personnal_rejected_demands", as: :personnal_rejected_demands
   get "liste-des-documents-constituant-la-demande/:id" => "reports#list_documents_in_demand", as: :personnal_demand_documents_list  
   
   get "historique/demandes-en-attente/liste-par-qualification" => "reports#departments_on_hold", as: :demands_on_hold_per_qualification
   get "historique/demandes-en-attente/liste-des-utilisateurs/:qualification_id" => "reports#list_users_on_hold", as: :users_on_hold_demands_per_qualification
   get "historique/demandes-en-attente/liste-des-demandes/:user_id" => "reports#demands_on_hold", as: :demands_on_hold_report
+  
+  get "historique/demandes-rejetees/liste-par-qualification" => "reports#departments_rejected", as: :demands_rejected_per_qualification
+  get "historique/demandes-rejetees/liste-des-utilisateurs/:qualification_id" => "reports#list_users_rejected", as: :users_rejected_demands_per_qualification
+  get "historique/demandes-rejetees/liste-des-demandes/:user_id" => "reports#demands_rejected", as: :demands_rejected_report
   
   get "historique/demandes-validees/liste-par-qualification" => "reports#departments_validated", as: :demands_validated_per_qualification
   get "historique/demandes-validees/liste-des-utilisateurs/:qualification_id" => "reports#list_users_validated", as: :users_validated_demands_per_qualification

@@ -50,6 +50,19 @@
             <%= link_to "Demande#{@s1} en attente", lv_demands_on_hold_path %>
           </div>
         </div>
+        <div class = "widget red value">
+          <div class = "left">
+            <% (@rejected_demands.count > 1) ? @s1 = "s" : @s1 = "" %>
+            <%= @rejected_demands.count %>
+          </div>
+          <div class = "right">
+            <% (@rejected_demands_books.count > 1) ? @s3 = "s" : @s3 = "" %>
+            <%= "#{@rejected_demands_books.count} document#{@s3} concerné#{@s3}" %> 
+          </div>
+          <div class = "bottom">
+            <%= link_to "Rejeté#{@s3}", personnal_rejected_demands_path %>
+          </div>
+        </div>
         <div class = "widget green value">
           <div class = "left">
             <% (@validated_demands.count > 1) ? @s1 = "s" : @s1 = "" %>
@@ -101,7 +114,7 @@
           <div class = "bottom">
             <%= link_to "Rendu#{@s3}", personnal_demands_list_path %>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </div>
