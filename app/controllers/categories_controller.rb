@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
   end
   
   def edit
-    @namecss = "row-form"
+    @namecss = @short_namecss = "row-form"
     @category = Category.find_by_id(params[:category_id])
     if @category.blank?
       redirect_to :back, :notice => "Ce type de document n'existe pas"
@@ -47,11 +47,14 @@ class CategoriesController < ApplicationController
   
   def update
     @name = params[:name].strip
+    @short_code = params[:short_code].upcase
     @error_messages = []
     @success_messages = []
     @categories = Category.all.order("name").page(params[:page]).per(8)
     @category = Category.find_by_id(params[:id])
-    @namecss = "row-form"
+    @existing_category = Category.find_by_name(params[:name])
+    @existing_shortcut = Category.find_by_short_code(@short_code)
+    @namecss = @short_namecss = "row-form"
     
     if @name.blank?
       @error_messages << "Veuillez entrer un de type de document"
@@ -62,8 +65,16 @@ class CategoriesController < ApplicationController
       @namecss = "row-form error"
     end
     
+    if @short_code.length != 3
+      @error_messages << "La taille de l'abbréviation doit être de 3 caractères"
+    else
+      if (!@existing_category.blank? and @existing_category.id.to_s != params[:id]) or (!@existing_shortcut.blank? and @existing_shortcut.id.to_s != params[:id])
+        @error_messages << "Le nom du type de document ainsi que son abbréviation doivent être uniques"
+      end
+    end
+    
     if @error_messages.blank?
-      @category.update_attributes(:name => @name)
+      @category.update_attributes(:name => @name, :short_code => @short_code)
       @success_messages << "Le type de document #{@name} a été modifié."
     end   
     render :edit

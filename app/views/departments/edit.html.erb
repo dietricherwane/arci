@@ -100,7 +100,7 @@
 					        <% if department.published == false %>				            				
 				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_department_path(department.id), :confirm => "Êtes vous sûr de vouloir activer ce département?" %>        
 				          <% else %>
-				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_department_path(department.id), :confirm => "Êtes vous sûr de vouloir activer ce département?" %>				            
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_department_path(department.id), :confirm => "Êtes vous sûr de vouloir désactiver ce département?" %>				            
 				          <% end %>
 	             
                   <div id="department<%= department.id %>" class="collapse">

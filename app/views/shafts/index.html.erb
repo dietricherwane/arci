@@ -131,7 +131,7 @@
 		    </div>  
 		    <h2>Visualisation des qualifications par département</h2>
 		  </div>-->
-		  <% unless @shafts.blank? %>
+		  <% unless @shafts.blank? %>	
 		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
           <thead>
             <tr>
@@ -146,13 +146,28 @@
 	              <td>	              		      		    
                   <a data-toggle="collapse" data-target="#shaft<%= shaft.id %>">
                     <%= shaft.name %>
-                  </a>                   
+                  </a> 
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-puits/#{shaft.id}" %>	         	     
+                  
+					        <% if shaft.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_shaft_path(shaft.id), :confirm => "Êtes vous sûr de vouloir activer ce puits?" %>        
+				          <% else %>
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_shaft_path(shaft.id), :confirm => "Êtes vous sûr de vouloir désactiver ce puits?" %>				            
+				          <% end %>
+	             
                   <div id="shaft<%= shaft.id %>" class="collapse">
                     <ul class = "the-icons">
                       <% shaft.blocks.order("name").each do |block| %>
                         <li>
                           <i class = "icon-screenshot"></i>
                           <%= block.name %>
+                          &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-bloc/#{block.id}" %>	         	     
+                  
+					                <% if block.published == false %>				            				
+				                    <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_block_path(block.id), :confirm => "Êtes vous sûr de vouloir activer ce bloc?" %>        
+				                  <% else %>
+				                    <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_block_path(block.id), :confirm => "Êtes vous sûr de vouloir désactiver ce bloc?" %>				            
+				                  <% end %>
                         </li>
                       <% end %>
                     </ul>
@@ -161,8 +176,13 @@
               </tr>
 	          <% end %>
 		      </tbody>
-		    </table>			  		  		  		  		  			    
-	    <% end %> 	  
+		    </table>		  		  		  		  		  		    
+	    <% end %>	    	 
+	    <% unless @shafts.blank? %>
+	      <div id = "pagination">
+          <%= paginate @shafts %>
+        </div>
+      <% end %>   	
     </div>
   </div>
 </div>

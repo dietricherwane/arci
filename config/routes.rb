@@ -52,9 +52,19 @@ Arci::Application.routes.draw do
   
   get "shafts" => "shafts#index"
   post "shaft/create" => "shafts#create"
+  get "editer-un-puits/:shaft_id" => "shafts#edit"
+  get "désactiver-un-puits/:shaft_id" => "shafts#disable", :as => :disable_shaft
+  get "activer-un-puits/:shaft_id" => "shafts#enable", :as => :enable_shaft
+  post "shaft/update" => "shafts#update"
+  get "shaft/update" => "shafts#index"
 
   get "blocks/get_blocks" => "blocks#get_blocks"  
   post "block/create" => "blocks#create"
+  get "editer-un-bloc/:block_id" => "blocks#edit"
+  get "désactiver-un-bloc/:block_id" => "blocks#disable", :as => :disable_block
+  get "activer-un-bloc/:block_id" => "blocks#enable", :as => :enable_block
+  post "block/update" => "blocks#update"
+  get "block/update" => "blocks#index"
   
   get "consultants" => "consultants#index"
   post "consultant/create" => "consultants#create"

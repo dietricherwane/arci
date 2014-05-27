@@ -49,6 +49,12 @@
               <%= text_field_tag "name", @category.name, :placeholder => "Nom du type de document" %>    
             </div>
           </div>
+          <div class = "<%= @short_namecss %>">
+            <div class = "span3">Abbréviation</div>
+            <div class = "span9">	                      
+              <%= text_field_tag "short_code", @category.short_code, :placeholder => "Abbréviation de la catégorie" %>  
+            </div>
+          </div>
           <br />
           <div class = "row-form">
             <div class="span9">

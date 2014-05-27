@@ -1,0 +1,129 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Editer le puits: <%= @shaft.name %> <small>Modifier les informations relatives au puits suivant</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span6">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-pen-2"></span>
+        </div>
+        <h2>Modifier un puits</h2>
+      </div>
+      <div class = "data-fluid">
+        <%= form_tag("/shaft/update") do %>
+          <%#= devise_error_messages! %>
+          <%= hidden_field_tag "id", @shaft.id %>
+          <div class = "<%= @namecss %>">
+            <div class = "span3">Nom</div>
+            <div class = "span9">	                      
+              <%= text_field_tag "name", @shaft.name, :placeholder => "Nom du puits" %>    
+            </div>
+          </div>
+          <br />
+          <div class = "row-form">
+            <div class="span9">
+              <%= button_tag(:name => "Modifier un puits", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Modifier un puits <div class="icon-arrow-next icon-white"></div> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <hr />
+      </div>
+    </div>           
+  </div>
+  
+  <div class = "span6">
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-list-3"></span>
+        </div>
+        <h2>Liste des puits</h2>
+      </div>
+		  <% unless @shafts.blank? %>	
+		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "100%">
+                Nom du puits
+              </th>
+            </tr>
+          </thead>
+          <tbody>            
+	          <% @shafts.each do |shaft| %>	
+	            <tr>
+	              <td>	              		      		    
+                  <a data-toggle="collapse" data-target="#shaft<%= shaft.id %>">
+                    <%= shaft.name %>
+                  </a> 
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-puits/#{shaft.id}" %>	         	     
+                  
+					        <% if shaft.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_shaft_path(shaft.id), :confirm => "Êtes vous sûr de vouloir activer ce puits?" %>        
+				          <% else %>
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_shaft_path(shaft.id), :confirm => "Êtes vous sûr de vouloir désactiver ce puits?" %>				            
+				          <% end %>
+	             
+                  <div id="shaft<%= shaft.id %>" class="collapse">
+                    <ul class = "the-icons">
+                      <% shaft.blocks.order("name").each do |block| %>
+                        <li>
+                          <i class = "icon-screenshot"></i>
+                          <%= block.name %>
+                          &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-bloc/#{block.id}" %>	         	     
+                  
+					                <% if block.published == false %>				            				
+				                    <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_block_path(block.id), :confirm => "Êtes vous sûr de vouloir activer ce bloc?" %>        
+				                  <% else %>
+				                    <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_block_path(block.id), :confirm => "Êtes vous sûr de vouloir désactiver ce bloc?" %>				            
+				                  <% end %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>  
+                </td>         
+              </tr>
+	          <% end %>
+		      </tbody>
+		    </table>		  		  		  		  		  		    
+	    <% end %>	    	 
+	    <% unless @shafts.blank? %>
+	      <div id = "pagination">
+          <%= paginate @shafts %>
+        </div>
+      <% end %>   	  
+    </div>
+  </div>
+</div>
+
