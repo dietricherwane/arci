@@ -14,26 +14,29 @@ class Notifier < ActionMailer::Base
     mail :bcc => receiver, :subject => "Nouvelle demande de documents", :from => sender_name
   end
   
-  def csadp_request_validation(sender_name, sender_qualification, receiver, demand_date)
+  def csadp_request_validation(sender_name, sender_qualification, receiver, demand_date, message)
     @sender_name = sender_name
     @sender_qualification = sender_qualification
     @demand_date = demand_date
+    @message = message
     
     mail :bcc => receiver, :subject => "Validation de votre demande de documents par le Chef du Service d'Archivage de Données", :from => sender_name
   end
   
-  def employee_request_validation(sender_name, sender_qualification, receiver, demand_date)
+  def employee_request_validation(sender_name, sender_qualification, receiver, demand_date, message)
     @sender_name = sender_name
     @sender_qualification = sender_qualification
     @demand_date = demand_date
+    @message = message
   
     mail :bcc => receiver, :subject => "Nouvelle demande de documents", :from => sender_name
   end
   
-  def agc_request_validation(sender_name, sender_qualification, receiver, demand_date)
+  def agc_request_validation(sender_name, sender_qualification, receiver, demand_date, message)
     @sender_name = sender_name
     @sender_qualification = sender_qualification
     @demand_date = demand_date
+    @message = message
   
     mail :bcc => receiver, :subject => "Validation de votre demande de documents par un agent du centre", :from => sender_name
   end
