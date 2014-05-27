@@ -31,8 +31,7 @@ class Devise::RegistrationsController < DeviseController
     @password = params[:user][:password]
     @password_confirmation = params[:user][:password_confirmation]
     @profile_id = params[:user][:profile_id]
-    @external_partner = Profile.find_by_name("Partenaire externe")    
-    @external_partner.blank? ? @external_partner_profile_id = nil : @external_partner_profile_id = @external_partner.id.to_s
+    @external_partner_profile_id = Profile.find_by_name("Partenaire externe").id.to_s
     @department_id = params[:post][:department_id]
     @qualification = params[:qualification]
     @error = false
