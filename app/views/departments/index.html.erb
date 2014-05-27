@@ -151,13 +151,28 @@
 	              <td>	              		      		    
                   <a data-toggle="collapse" data-target="#department<%= department.id %>">
                     <%= department.name %>
-                  </a>                   
+                  </a> 
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-departement/#{department.id}" %>	         	     
+                  
+					        <% if department.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_department_path(department.id), :confirm => "Êtes vous sûr de vouloir activer ce département?" %>        
+				          <% else %>
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_department_path(department.id), :confirm => "Êtes vous sûr de vouloir activer ce département?" %>				            
+				          <% end %>
+	             
                   <div id="department<%= department.id %>" class="collapse">
                     <ul class = "the-icons">
                       <% department.qualifications.order("label").each do |qualification| %>
                         <li>
                           <i class = "icon-screenshot"></i>
                           <%= qualification.label %>
+                          &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-une-qualification/#{qualification.id}" %>	         	     
+                  
+					                <% if qualification.published == false %>				            				
+				                    <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_qualification_path(qualification.id), :confirm => "Êtes vous sûr de vouloir activer cette qualification?" %>        
+				                  <% else %>
+				                    <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_qualification_path(qualification.id), :confirm => "Êtes vous sûr de vouloir activer cette qualification?" %>				            
+				                  <% end %>
                         </li>
                       <% end %>
                     </ul>

@@ -109,7 +109,7 @@
                               <td width = "65%">
                                 <a>Document non disponible au centre de documentation</a>
                                 <span class = "mark">
-                                  Par <%= User.find_by_id(@book_demand["validated_by"]).full_name %>
+                                  Par <%= User.find_by_id(@book_demand["unavailable_by"]).full_name %>
                                 </span>
                               </td>  
                             <% else %>

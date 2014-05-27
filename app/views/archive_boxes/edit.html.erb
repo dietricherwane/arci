@@ -1,0 +1,105 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Editer la boîte d'archive: <%= @archive_box.name %> <small>Modifier les informations relatives à la boîte d'archive suivante</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span6">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-pen-2"></span>
+        </div>
+        <h2>Modifier une boîte d'archive</h2>
+      </div>
+      <div class = "data-fluid">
+        <%= form_tag("/archive-box/update") do %>
+          <%#= devise_error_messages! %>
+          <%= hidden_field_tag "id", @archive_box.id %>
+          <div class = "<%= @namecss %>">
+            <div class = "span3">Nom</div>
+            <div class = "span9">	                      
+              <%= text_field_tag "name", @archive_box.name, :placeholder => "Nom de la boîte d'Archive" %>    
+            </div>
+          </div>
+          <br />
+          <div class = "row-form">
+            <div class="span9">
+              <%= button_tag(:name => "Modifier une boîte d'Archive", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Modifier une boîte d'Archive <div class="icon-arrow-next icon-white"></div> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <hr />
+      </div>
+    </div>           
+  </div>
+  
+  <div class = "span6">
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-list-3"></span>
+        </div>
+        <h2>Liste des boîtes d'archive</h2>
+      </div>
+		  <% unless @archive_boxes.blank? %>	
+		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "100%">
+                Nom de la boîte d'archives
+              </th>
+            </tr>
+          </thead>
+          <tbody>            
+	          <% @archive_boxes.each do |archive_box| %>	
+	            <tr>
+	              <td>	              		      		    
+                  <a data-toggle="collapse" data-target="#archive_box<%= archive_box.id %>">
+                    <%= archive_box.name %>
+                  </a> 
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-une-boite-darchive/#{archive_box.id}" %>	         	                       
+					        <% if archive_box.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_archive_box_path(archive_box.id), :confirm => "Êtes vous sûr de vouloir activer cette boîte d'archives?" %>        
+				          <% else %>
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_archive_box_path(archive_box.id), :confirm => "Êtes vous sûr de vouloir désactiver cette boîte d'archives?" %>				            
+				          <% end %>                  
+                </td>         
+              </tr>
+	          <% end %>
+		      </tbody>
+		    </table>		  		  		  		  		  		    
+	    <% end %>	    	  
+    </div>
+  </div>
+</div>
+

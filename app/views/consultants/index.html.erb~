@@ -1,0 +1,100 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Organes d'étude <small>Créer les organes d'étude</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span6">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if !@success_messages.blank? %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-pen-2"></span>
+        </div>
+        <h2>Créer un organe d'étude</h2>
+      </div>
+      <div class = "data-fluid">
+        <%= form_tag("/consultant/create") do %>
+          <%#= devise_error_messages! %>
+          <div class = "<%= @namecss %>">
+            <div class = "span3">Nom</div>
+            <div class = "span9">	                      
+              <%= text_field_tag "name", params[:name], :placeholder => "Nom du consultant" %>    
+            </div>
+          </div>
+          <br />
+          <div class = "row-form">
+            <div class="span9">
+              <%= button_tag(:name => "Créer un consultant", :data => {:disable_with => "Veuillez patienter"}, :class => "btn") do %>
+                Créer un organe d'étude <div class="icon-arrow-next icon-white"></div> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>   
+  </div>
+  
+  <div class = "span6">
+    <div class = "block">
+      <div class = "head">
+        <div class = "icon">
+          <span class = "ico-list-3"></span>
+        </div>
+        <h2>Liste des organes d'étude</h2>
+      </div>
+      <!--<div class = "head blue" >
+		    <div class = "icon" >
+		      <span class = "ico-pen-2"></span>		      
+		    </div>  
+		    <h2>Visualisation des qualifications par département</h2>
+		  </div>-->
+		  <% unless @consultants.blank? %>	
+		    <div class = "data-fluid faq">
+		      <% @consultants.each do |consultant| %>	
+	            <tr>
+	              <td>	              		      		    
+                  <a data-toggle="collapse" data-target="#consultant<%= consultant.id %>">
+                    <%= consultant.name %>
+                  </a> 
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-organe-detude/#{consultant.id}" %>	         	                       
+					        <% if consultant.published == false %>				            				
+				            <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_consultant_path(consultant.id), :confirm => "Êtes vous sûr de vouloir activer cet organe d'étude?" %>        
+				          <% else %>
+				            <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_consultant_path(consultant.id), :confirm => "Êtes vous sûr de vouloir désactiver cet organe d'étude?" %>				            
+				          <% end %>                  
+                </td>         
+              </tr>
+	          <% end %>
+	      </div>
+	    <% end %> 	  
+    </div>
+  </div>
+</div>
+

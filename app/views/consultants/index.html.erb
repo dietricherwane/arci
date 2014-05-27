@@ -76,15 +76,32 @@
 		    <h2>Visualisation des qualifications par département</h2>
 		  </div>-->
 		  <% unless @consultants.blank? %>	
-		    <div class = "data-fluid faq">
-		      <% @consultants.each do |consultant| %>	  
-	          <div class = "item" id = "faq-<%= consultant.id %>" >
-	            <div class = "title"><%= consultant.name %></div>
-	            <div class = "text" style = "display: none;" >	              
-              </div>
-	          </div>  
-	        <% end %>
-	      </div>
+		    <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "100%">
+                Nom de l'organe d'étude
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+		        <% @consultants.each do |consultant| %>	
+              <tr>
+                <td>	              		      		    
+                  <a data-toggle="collapse" data-target="#consultant<%= consultant.id %>">
+                    <%= consultant.name %>
+                  </a> 
+                  &nbsp;&nbsp;<%= link_to "<i class = 'icon-pencil'></i>".html_safe, "/editer-un-organe-detude/#{consultant.id}" %>	         	                       
+				          <% if consultant.published == false %>				            				
+			              <%= link_to "<i class = 'icon-ok'></i>".html_safe, enable_consultant_path(consultant.id), :confirm => "Êtes vous sûr de vouloir activer cet organe d'étude?" %>        
+			            <% else %>
+			              <%= link_to "<i class = 'icon-remove'></i>".html_safe, disable_consultant_path(consultant.id), :confirm => "Êtes vous sûr de vouloir désactiver cet organe d'étude?" %>				            
+			            <% end %>                  
+                </td>         
+              </tr>
+            <% end %>
+	        </tbody>
+		    </table>
 	    <% end %> 	  
     </div>
   </div>

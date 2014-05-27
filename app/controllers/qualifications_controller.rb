@@ -33,5 +33,53 @@ class QualificationsController < ApplicationController
     end    
     render "/departments/index"
   end
+  
+  def edit
+    @namecss = "row-form"
+    @qualification = Qualification.find_by_id(params[:qualification_id])
+    if @qualification.blank?
+      redirect_to :back, :notice => "Cette qualification n'existe pas"
+    else
+      @departments = Department.all.order("name ASC")
+    end    
+  end
+  
+  def update
+    @name = params[:name].strip
+    @error_messages = []
+    @success_messages = []
+    @departments = Department.all.order("name")
+    @qualification = Qualification.find_by_id(params[:id])
+    @namecss = "row-form"
+    
+    if @name.blank?
+      @error_messages << "Veuillez entrer un nom de qualification"
+      @namecss = "row-form error"
+    end
+    if !@qualification.blank? and @qualification.id != params[:id].to_i
+      @error_messages << "Une qualification portant ce nom existe déjà"
+      @namecss = "row-form error"
+    end
+    
+    if @error_messages.blank?
+      @qualification.update_attributes(:label => @name)
+      @success_messages << "La qualification #{@name} a été modifiée."
+    end   
+    render :edit
+  end
+  
+  def enable
+	  enable_disable(params[:qualification_id], true, "activé")
+	end
+	
+	def disable
+	  enable_disable(params[:qualification_id], false, "désactivé")
+	end
+	
+	def enable_disable(id, bool, status)
+	  @qualification = Qualification.find_by_id(id)
+	  @qualification.blank? ? false : @qualification.update_attributes(published: bool)
+	  redirect_to "/departments", :notice => "La qualification #{@qualification.label} a été #{status}."
+	end
 
 end
