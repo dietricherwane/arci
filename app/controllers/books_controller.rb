@@ -316,6 +316,8 @@ class BooksController < ApplicationController
           @diff = @total_quantity.to_i - @book.total_quantity
           @total_quantity = @total_quantity.to_i
           @quantity_in_stock = @book.quantity_in_stock + @diff
+          # si le livre a été réservé, on crée une demande
+          reserve_book(@book)
         else
           @diff = @book.total_quantity - @total_quantity.to_i
           if (@book.quantity_in_stock - @diff) < 0
@@ -340,5 +342,17 @@ class BooksController < ApplicationController
     
     render :edit
 	end
+	
+	def reserve_book(book)
+    @reservation = Reservation.where("book_id = #{book.id} AND status IS NOT TRUE").order("created_at ASC") 
+    if !@reservation.blank?
+      @reservation = @reservation.first
+      @demand = Demand.create(user_id: @reservation.user_id, on_hold: true)
+      book.update_attributes(quantity_in_stock: book.quantity_in_stock - 1)
+      @demand.books << book
+      ActiveRecord::Base.connection.execute("UPDATE books_demands SET on_hold = TRUE WHERE demand_id = #{@demand.id} AND book_id = #{book.id}")
+      @reservation.update_attributes(status: true, reserved_at: DateTime.now)
+    end
+  end
   
 end
