@@ -354,10 +354,12 @@ class BooksController < ApplicationController
     end
     
     if @error_messages.blank?
-      @code = "#{Category.find_by_id(@category_id).short_code}~#{@title.strip}~#{Shaft.find_by_id(@shaft_id).name}~#{@block}~#{DateTime.parse(@publication_date).strftime("%d-%m-%y")}~#{Consultant.find_by_id(@consultant_id).name}~#{ArchiveBox.find_by_id(@archive_box_id).name}"
+      
       if (@block.blank? or @block.eql?("-Veuillez choisir un bloc-"))
+        @code = "#{Category.find_by_id(@category_id).short_code}~#{@title.strip}~#{Shaft.find_by_id(@shaft_id).name}~#{Block.find_by_id(@book.block_id).name}~#{DateTime.parse(@publication_date).strftime("%d-%m-%y")}~#{Consultant.find_by_id(@consultant_id).name}~#{ArchiveBox.find_by_id(@archive_box_id).name}"
         @book.update_attributes(code: @code, title: @title.strip, description: @description.strip, total_quantity: @total_quantity, quantity_in_stock: @quantity_in_stock, category_id: @category_id, consultant_id: @consultant_id, archive_box_id: @archive_box_id, geographic_position: @geographic_position, publication_date: @publication_date_status)
       else
+        @code = "#{Category.find_by_id(@category_id).short_code}~#{@title.strip}~#{Shaft.find_by_id(@shaft_id).name}~#{@block}~#{DateTime.parse(@publication_date).strftime("%d-%m-%y")}~#{Consultant.find_by_id(@consultant_id).name}~#{ArchiveBox.find_by_id(@archive_box_id).name}"
         @book.update_attributes(code: @code, title: @title.strip, description: @description.strip, total_quantity: @total_quantity, quantity_in_stock: @quantity_in_stock, category_id: @category_id, block_id: Block.find_by_name(@block).id, consultant_id: @consultant_id, archive_box_id: @archive_box_id, geographic_position: @geographic_position, publication_date: @publication_date_status)
       end
       @success_messages << "Les informations concernant le document ont été modifiées."
