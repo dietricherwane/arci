@@ -43,10 +43,10 @@
         <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
           <thead>
             <tr>
-              <th width = "80%">
+              <th width = "70%">
                 Nom et code du document
               </th> 
-              <th width = "20%">
+              <th width = "30%">
                 Actions
               </th>              
             </tr>
@@ -68,16 +68,21 @@
                     </span>
                   </td>
                   <td>
-                    <a href = "/editer-les-informations-du-document/<%= book.id %>" class = "button green">
+                    <a title = "Editer un document" href = "/editer-les-informations-du-document/<%= book.id %>" class = "button green">
 					            <div class = "icon">			
 					              <span class = "ico-pencil"></span>		    
 					            </div>
 					          </a>
-					            <% if book.published == false %>
-					              <%= link_to "<div class = 'icon'><span class = 'ico-checkmark'></span></div>".html_safe, enable_book_path(book.id), :class => "button green", :confirm => "Êtes vous sûr de vouloir activer ce document?" %>				              
-					            <% else %>
-					              <%= link_to "<div class = 'icon'><span class = 'ico-remove'></span></div>".html_safe, disable_book_path(book.id), :class => "button red", :confirm => "Êtes vous sûr de vouloir désactiver ce document?" %>
-					            <% end %>
+				            <% if book.published == false %>
+				              <%= link_to "<div class = 'icon'><span class = 'ico-checkmark'></span></div>".html_safe, enable_book_path(book.id), :class => "button green", :title => "Activer un document", :confirm => "Êtes vous sûr de vouloir activer ce document?" %>				              
+				            <% else %>
+				              <%= link_to "<div class = 'icon'><span class = 'ico-remove'></span></div>".html_safe, disable_book_path(book.id), :class => "button red", :title => "Désactiver un document", :confirm => "Êtes vous sûr de vouloir désactiver ce document?" %>
+				            <% end %>
+				            <a target = "_blank" title = "Afficher le code barre" href = "/telecharger-le-code-barre/<%= book.code %>" class = "button dblue">
+					            <div class = "icon">			
+					              <span class = "ico-barcode-3"></span>		    
+					            </div>
+					          </a>
                   </td>
                 </tr>
               <% end %>
