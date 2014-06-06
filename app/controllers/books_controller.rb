@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+  require 'barby'
+  require 'barby/barcode/code_128'
+  require 'barby/outputter/png_outputter'
   
   before_filter :sign_out_disabled_users
   prepend_before_filter :authenticate_user!
@@ -236,18 +239,38 @@ class BooksController < ApplicationController
     if @category.blank?
       redirect_to :back
     else
-      @books = @category.books.page(params[:page]).per(8)
+      @books = @category.books.page(params[:page]).per(8)      
+    end
+  end
+  
+  def generate_barcode(code)
+    @uri = URI.escape(code) + '.png'
+    @fname = Rails.root + '/public/barcodes/' + @uri
+    if ! File.exists?(@fname)
+      @barcode = Barby::Code128B.new(@uri)
+    end
+    File.open("#{Rails.root}/public/barcodes/#{@uri}", 'w') do |f|
+      f.write @barcode.to_png
+    end
+    @uri
+  end
+  
+  def download_barcode
+    unless params[:code].blank?
+      @filename = generate_barcode(params[:code])
+      send_file("#{Rails.root}/public/barcodes/#{@filename}",
+        filename: "#{URI.unescape(@filename)}",
+        type: "image/png"
+      )
     end
   end
   
   def enable_book
 	  enable_disable_book(params[:book_id], true, "activé")
-	  #redirect_to "/user/edit_profile/#{params[:id]}", :notice => "Le compte de [ #{@user.full_name} | #{@user.profile} ] a été #{@status}."
 	end
 	
 	def disable_book
 	  enable_disable_book(params[:book_id], false, "désactivé")
-	  #redirect_to "/user/edit_profile/#{params[:id]}", :notice => "Le compte de [ #{@user.full_name} | #{@user.profile} ] a été #{@status}."
 	end
 	
 	def enable_disable_book(id, bool, status)

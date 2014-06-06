@@ -92,6 +92,7 @@ Arci::Application.routes.draw do
   get "book/view-only" => "books#view_only", as: :only_view_book
   get "liste-des-documents-par-categorie" => "books#list", as: :list_books
   get "liste-des-documents-par-categorie/:category_id" => "books#list_books_per_category", as: :list_books_in_category
+  get "telecharger-le-code-barre/:code" => "books#download_barcode", as: :download_barcode
  
   get "nouvelle-demande-de-documents" => "books#send_request", as: :lv_dashboard  
   get "nouvelle-demande-de-documents" => "books#send_request", as: :cd_dashboard  

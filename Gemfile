@@ -72,6 +72,11 @@ gem 'kaminari'
 # stores session variables into database
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
+# Barcode generator
+gem 'barby'
+
+gem 'chunky_png'
+
 # Messes up everything
 #gem 'meta_search'
 
