@@ -62,7 +62,7 @@
               <% @books.each do |book| %> 
                 <tr>
                   <td>
-                    <%= book.title %>
+                    <%= link_to book.title, book_history_path(book.id) %> [ <span  style = "color:green; font-weight:bold;"><%= book.total_quantity %></span> | <span  style = "color:grey; font-weight:bold;"><%= book.quantity_in_stock %> </span>]
                     <span class = "mark">
                       <%= book.code %>
                     </span>

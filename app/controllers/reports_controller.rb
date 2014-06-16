@@ -37,42 +37,42 @@ class ReportsController < ApplicationController
     @demands = @demands.to_s.sub("[", "(").sub("]", ")")
     @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
     @on_hold_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS TRUE AND user_id = #{current_user.id}")
-    @on_hold_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS TRUE #{@demands_sql}")
+    @on_hold_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS TRUE #{@demands_sql} AND user_id = #{current_user.id}")
     
     @rejected_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE AND user_id = #{current_user.id}")
     @demands = @rejected_demands.map { |d| d["id"].to_i }
     @demands = @demands.to_s.sub("[", "(").sub("]", ")")
     @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
     @rejected_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE AND user_id = #{current_user.id}")
-    @rejected_demands_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS NULL AND unavailable IS TRUE #{@demands_sql}")
+    @rejected_demands_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS NULL AND unavailable IS TRUE #{@demands_sql} AND user_id = #{current_user.id}")
     
     @validated_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE ((validated IS FALSE  AND unavailable IS TRUE) OR validated IS FALSE) AND book_left IS NOT TRUE AND user_id = #{current_user.id}")
     @demands = @validated_demands.map { |d| d["id"].to_i }
     @demands = @demands.to_s.sub("[", "(").sub("]", ")")
     @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
     @validated_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE ((validated IS FALSE  AND unavailable IS TRUE) OR validated IS FALSE) AND book_left IS NOT TRUE AND user_id = #{current_user.id}")
-    @validated_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE validated IS FALSE AND book_left IS NOT TRUE AND unavailable IS NOT TRUE #{@demands_sql}")
+    @validated_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE validated IS FALSE AND book_left IS NOT TRUE AND unavailable IS NOT TRUE #{@demands_sql} AND user_id = #{current_user.id}")
   
     @documents_to_get_back =  ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE validated IS TRUE AND taken IS NOT TRUE AND user_id = #{current_user.id}")
     @demands = @documents_to_get_back.map { |d| d["id"].to_i }
     @demands = @demands.to_s.sub("[", "(").sub("]", ")")
     @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
     @documents_to_get_back_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE validated IS TRUE AND taken IS NOT TRUE AND user_id = #{current_user.id}")
-    @books_to_get_back = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE validated IS TRUE AND taken IS NOT TRUE #{@demands_sql}")
+    @books_to_get_back = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE validated IS TRUE AND taken IS NOT TRUE #{@demands_sql} AND user_id = #{current_user.id}")
   
     @document_to_bring_back = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL AND user_id = #{current_user.id}")
     @demands = @document_to_bring_back.map { |d| d["id"].to_i }
     @demands = @demands.to_s.sub("[", "(").sub("]", ")")
     @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
     @document_to_bring_back_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL AND user_id = #{current_user.id}")
-    @books_to_bring_back = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL #{@demands_sql}")
+    @books_to_bring_back = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL #{@demands_sql} AND user_id = #{current_user.id}")
   
     @document_brought_back = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE returned = TRUE AND user_id = #{current_user.id}")
     @demands = @document_brought_back.map { |d| d["id"].to_i }
     @demands = @demands.to_s.sub("[", "(").sub("]", ")")
     @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
     @document_brought_back_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE returned = TRUE AND user_id = #{current_user.id}")
-    @books_brought_back = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE returned = TRUE #{@demands_sql}")
+    @books_brought_back = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE returned = TRUE #{@demands_sql} AND user_id = #{current_user.id}")
   end
   
   def personnal_rejected_demands

@@ -380,4 +380,14 @@ class BooksController < ApplicationController
     end
   end
   
+  def history
+    
+    @book = Book.find_by_id(params[:book_id])
+    if @book.blank?
+      redirect_to list_books_path, :notice => "Ce document n'existe pas."
+    else
+      @book_demands = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE book_id = #{params[:book_id]}")#.page(params[:page]).per(8)
+    end
+  end
+  
 end
