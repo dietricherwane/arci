@@ -574,4 +574,28 @@ class DemandsController < ApplicationController
     render :text => display_demand_book_status(params[:demand_id], params[:book_id]) << "*" << @demand_status
   end
   
+  def search_lv_on_hold
+    @demands = lv_search(params[:begin_date], params[:end_date], "on_hold IS TRUE")
+    
+    render :action => :lv_on_hold
+  end
+  
+  def search_lv_validated
+    @demands = lv_search(params[:begin_date], params[:end_date], "((validated IS FALSE  AND unavailable IS TRUE) OR validated IS FALSE) AND book_left IS NOT TRUE")
+    
+    render :action => :lv_validated 
+  end
+  
+  def search_lv_to_get_back
+    @demands = lv_search(params[:begin_date], params[:end_date], "validated IS TRUE AND taken IS NOT TRUE")
+    
+    render :action => :to_get_back 
+  end
+  
+  def search_lv_to_return
+    @demands = lv_search(params[:begin_date], params[:end_date], "returned IS FALSE")
+    
+    render :action => :agc_to_return
+  end
+  
 end

@@ -39,12 +39,12 @@ class ReportsController < ApplicationController
     @on_hold_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS TRUE AND user_id = #{current_user.id}")
     @on_hold_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS TRUE #{@demands_sql} AND user_id = #{current_user.id}")
     
-    @rejected_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE AND user_id = #{current_user.id}")
+    @rejected_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE AND validated IS NULL AND returned IS NULL AND user_id = #{current_user.id}")
     @demands = @rejected_demands.map { |d| d["id"].to_i }
     @demands = @demands.to_s.sub("[", "(").sub("]", ")")
     @demands.eql?("()") ? @demands_sql = "" : @demands_sql = "AND demand_id IN #{@demands}"
-    @rejected_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE AND user_id = #{current_user.id}")
-    @rejected_demands_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS NULL AND unavailable IS TRUE #{@demands_sql} AND user_id = #{current_user.id}")
+    @rejected_demands_users = ActiveRecord::Base.connection.execute("SELECT DISTINCT user_id FROM demands WHERE on_hold IS NULL AND unavailable IS TRUE AND validated IS NULL AND returned IS NULL AND user_id = #{current_user.id}")
+    @rejected_demands_books = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE on_hold IS NULL AND unavailable IS TRUE AND validated IS NULL AND returned IS NULL #{@demands_sql} AND user_id = #{current_user.id}")
     
     @validated_demands = ActiveRecord::Base.connection.execute("SELECT * FROM demands WHERE ((validated IS FALSE  AND unavailable IS TRUE) OR validated IS FALSE) AND book_left IS NOT TRUE AND user_id = #{current_user.id}")
     @demands = @validated_demands.map { |d| d["id"].to_i }
@@ -76,7 +76,7 @@ class ReportsController < ApplicationController
   end
   
   def personnal_rejected_demands
-    @demands = Demand.where("on_hold IS NULL and unavailable IS TRUE AND user_id = #{current_user.id}").order("created_at DESC").page(params[:page]).per(8)
+    @demands = Demand.where("on_hold IS NULL and unavailable IS TRUE AND validated IS NULL AND returned IS NULL AND user_id = #{current_user.id}").order("created_at DESC").page(params[:page]).per(8)
   end
   
   def personnal_demands
@@ -180,6 +180,18 @@ class ReportsController < ApplicationController
   def demands_returned
     @user = User.find_by_id(params[:user_id])
     @demands = @user.demands.where("returned = TRUE").order("created_at DESC")
+  end
+  
+  def search_lv_rejected
+    @demands = lv_search(params[:begin_date], params[:end_date], "on_hold IS NULL and unavailable IS TRUE AND validated IS NULL AND returned IS NULL AND user_id = #{current_user.id}")
+    
+    render :action => :personnal_rejected_demands 
+  end
+  
+  def search_personnal_demands
+    @demands = lv_search(params[:begin_date], params[:end_date], "returned IS TRUE AND user_id = #{current_user.id}")
+    
+    render :action => :personnal_demands
   end
   
 end
