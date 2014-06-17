@@ -1,3 +1,10 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){
+    $("#begin_date").mask("99-99-9999");
+    $("#end_date").mask("99-99-9999");
+  });
+</script>
+
 <div class="page-header">
     <div class="icon">
       <span class="ico-arrow-right"></span>
@@ -39,67 +46,91 @@
         <div class = "icon">
           <i class = "ico-layout-9"></i>
         </div>
-        <h2>Liste des demandes en attente de validation</h2>
+        <h2>Liste des demandes en attente de validation [<%= @demands.count %>]</h2>
       </div>
       <div class = "data-fluid">
-        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
-          <thead>
-            <tr>
-              <th width = "70%">
-                Date des demandes
-              </th>
-              <th width = "15%">
-                Nombre de documents
-              </th>
-              <th width = "15%">
-                Statut de la demande
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <% if @demands.blank? %>
-              <tr>
-                <td colspan = "3"></td>
-              </tr>
-            <% else %>
-              <% @demands.each do |demand| %>
-                <tr>
-                  <td>
-                    <a data-toggle="collapse" data-target="#demand_details<%= demand.id %>">
-                      Demande du <%= demand.created_at.strftime("%d-%m-%y") %> à <%= demand.created_at.strftime("%Hh %Mmn") %>
-                    </a>                                                         
-                    
-                    <div id="demand_details<%= demand.id %>" class="collapse">
-                      <ul class = "the-icons">
-                        <% demand.books.order("category_id", "title").each do |book| %>
-                          <li>
-                            <i class = "icon-book"></i>
-                            <i><b>[<%= book.category.name %>]</b></i> <%= book.title %>                        
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span id= "partial_book_demand_status_<%= demand.id %>_<%= book.id %>" book_id = "<%= book.id %>" class = "book_detail_<%= book.id %>">
-                              <%= display_demand_book_status(demand.id, book.id) %> 
-                            </span>
-                          </li>
-                        <% end %>
-                      </ul>                        
-                    </div>
-                  </td>
-                  <td><%= demand.books.count %></td>
-                  <td>
-                    <div id = "global_demand_status_<%= demand.id %>">
-                      <%= display_demand_status(demand) %>   
-                    </div>            
-                  </td>
-                </tr>
-              <% end %>
+        <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper" role="grid">
+          <div class="dataTables_filter" id="DataTables_Table_1_filter" style = "float:left;margin: 5px 0px 10px 0px;">
+            <%= form_tag ("/search/lv_on_hold") do %>
+              <div id="DataTables_Table_1_length" class="dataTables_length">
+                <label>
+                  <b>Date de début:</b>          
+                  <%= text_field_tag "begin_date", params[:begin_date], :placeholder => "Date de début", :id => "begin_date" %>    
+                </label>
+              </div>
+              <div style = "position: relative;margin-left: 15px;float:right;">
+                <%= button_tag(:name => "Rechercher", :class => "btn") do %>
+                  Rechercher <div class="icon-arrow-next icon-white"></div> 
+                <% end %>
+              </div>
+              <div id="DataTables_Table_1_filter" class="dataTables_filter">
+                <label>
+                  <b>Date de fin:</b>          
+                  <%= text_field_tag "end_date", params[:end_date], :placeholder => "Date de fin", :id => "end_date" %>    
+                </label>
+              </div>
+              
             <% end %>
-          </tbody>
-        </table>
-        <% unless @demands.blank? %>
-		      <div id = "pagination">
-            <%= paginate @demands %>
-          </div>
-        <% end %> 
+          </div> 
+          <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+            <thead>
+              <tr>
+                <th width = "70%">
+                  Date des demandes
+                </th>
+                <th width = "15%">
+                  Nombre de documents
+                </th>
+                <th width = "15%">
+                  Statut de la demande
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @demands.blank? %>
+                <tr>
+                  <td colspan = "3"></td>
+                </tr>
+              <% else %>
+                <% @demands.each do |demand| %>
+                  <tr>
+                    <td>
+                      <a data-toggle="collapse" data-target="#demand_details<%= demand.id %>">
+                        Demande du <%= demand.created_at.strftime("%d-%m-%y") %> à <%= demand.created_at.strftime("%Hh %Mmn") %>
+                      </a>                                                         
+                      
+                      <div id="demand_details<%= demand.id %>" class="collapse">
+                        <ul class = "the-icons">
+                          <% demand.books.order("category_id", "title").each do |book| %>
+                            <li>
+                              <i class = "icon-book"></i>
+                              <i><b>[<%= book.category.name %>]</b></i> <%= book.title %>                        
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <span id= "partial_book_demand_status_<%= demand.id %>_<%= book.id %>" book_id = "<%= book.id %>" class = "book_detail_<%= book.id %>">
+                                <%= display_demand_book_status(demand.id, book.id) %> 
+                              </span>
+                            </li>
+                          <% end %>
+                        </ul>                        
+                      </div>
+                    </td>
+                    <td><%= demand.books.count %></td>
+                    <td>
+                      <div id = "global_demand_status_<%= demand.id %>">
+                        <%= display_demand_status(demand) %>   
+                      </div>            
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+          <% unless @demands.blank? %>
+		        <div id = "pagination">
+              <%= paginate @demands %>
+            </div>
+          <% end %> 
+        </div>
       </div>
     </div>
   </div> 

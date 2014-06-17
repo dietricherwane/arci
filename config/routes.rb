@@ -93,6 +93,7 @@ Arci::Application.routes.draw do
   get "liste-des-documents-par-categorie" => "books#list", as: :list_books
   get "liste-des-documents-par-categorie/:category_id" => "books#list_books_per_category", as: :list_books_in_category
   get "telecharger-le-code-barre/:code" => "books#download_barcode", as: :download_barcode
+  get "historique-de-pret/:book_id" => "books#history", as: :book_history
  
   get "nouvelle-demande-de-documents" => "books#send_request", as: :lv_dashboard  
   get "nouvelle-demande-de-documents" => "books#send_request", as: :cd_dashboard  
@@ -115,7 +116,7 @@ Arci::Application.routes.draw do
   get "documents-a-retirer" => "demands#to_get_back", as: :lv_demands_to_get_back  
   get "csadp/demands/to_get_back" => "demands#csadp_bd_to_get_back", as: :csadp_bd_demands_to_get_back
   get "documents-en-attente-de-retrait" => "demands#agc_validated", as: :agc_validated_demands
-  get "agc/documents-a-rendre" => "demands#agc_to_return", as: :agc_demands_to_return
+  get "documents-a-rendre" => "demands#agc_to_return", as: :agc_demands_to_return
   get "agc/brought_back" => "demands#agc_brought_back"
   get "agc/damaged" => "demands#agc_damaged"
   get "agc/partial_return" => "demands#agc_partial_return"
@@ -139,6 +140,18 @@ Arci::Application.routes.draw do
   get "lv/demands/partial_return" => "demands#lv_partial_return"
   get "lv/demands/partial_damage" => "demands#lv_partial_damage"
   get "demands/partial_demand_status" => "demands#partial_demand_status"
+  post "search/lv_on_hold" => "demands#search_lv_on_hold"
+  get "search/lv_on_hold" => "demands#lv_on_hold"
+  post "search/lv_rejected" => "reports#search_lv_rejected"
+  get "search/lv_rejected" => "reports#personnal_rejected_demands"
+  post "search/lv_validated" => "demands#search_lv_validated"
+  get "search/lv_validated" => "demands#lv_validated"
+  post "search/lv_to_get_back" => "demands#search_lv_to_get_back"
+  get "search/lv_to_get_back" => "demands#to_get_back"
+  post "search/lv_to_return" => "demands#search_lv_to_return"
+  get "search/lv_to_bring_back" => "demands#agc_to_return"
+  post "search/personnal_demands" => "reports#search_personnal_demands"
+  get "search/personnal_demands" => "reports#personnal_demands"
   
   get "agc_demands/history" => "demands#agc_history", as: :agc_demands_history
   

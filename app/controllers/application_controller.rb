@@ -614,5 +614,46 @@ class ApplicationController < ActionController::Base
 		      end
 		  end			
     end 
+    
+    def lv_search(begin_date, end_date, sql)
+      @begin_date = begin_date
+      @end_date = end_date
+      @error_messages = []
+      @sql = ""
+      
+      if @begin_date.blank? and @end_date.blank?
+        @error_messages << "Veuillez entrer une date de début ou une date de fin"
+        @demands = current_user.demands.where(sql).order("created_at DESC").page(params[:page]).per(8)
+      else
+        @begin_date = Date.parse(@begin_date) rescue "wrong_date"
+        @end_date = Date.parse(@end_date) rescue "wrong_date"
+        
+        if (@begin_date == "wrong_date" and !params[:begin_date].empty?) or (@end_date == "wrong_date" and !params[:end_date].empty?)
+          @error_messages << "Veuillez entrer des dates valides"
+          @demands = current_user.demands.where(sql).order("created_at DESC").page(params[:page]).per(8)
+        else
+          if @begin_date == @end_date
+            @sql = "#{sql} AND created_at > '#{@begin_date}' AND created_at < '#{@begin_date + 1.day}'" 
+          else
+            if @begin_date != "wrong_date" and @end_date == "wrong_date"
+              @sql = "#{sql} AND created_at >= '#{@begin_date}'" 
+            else
+              if @begin_date == "wrong_date" and @end_date != "wrong_date"
+                @sql = "#{sql} AND created_at <= '#{@end_date}'" 
+              else
+                if @begin_date > @end_date
+                  @tmp = @end_date
+                  @end_date = params[:end_date] = @begin_date
+                  @begin_date = params[:begin_date] = @tmp
+                end
+                @sql = "#{sql} AND created_at BETWEEN '#{@begin_date}' AND '#{@end_date}'" 
+              end
+            end 
+          end        
+          @demands = current_user.demands.where(@sql).order("created_at DESC").page(params[:page]).per(8)
+        end
+      end
+      @demands
+    end
 	  
 end

@@ -1,0 +1,287 @@
+<div class="page-header">
+    <div class="icon">
+      <span class="ico-arrow-right"></span>
+    </div>
+    <h1><%= @book.title %> [ <span  style = "color:green; font-weight:bold;"><%= @book.total_quantity %></span> | <span  style = "color:grey; font-weight:bold;"><%= @book.quantity_in_stock %> </span>]<small><%= @book.code %></small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <div id = "custom_messages">
+    </div>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block">
+      <div class = "head green">
+        <div class = "icon">
+          <i class = "ico-layout-9"></i>
+        </div>
+        <h2>Liste des demandes dont ce document a fait l'objet</h2>
+        <ul class = "buttons">
+          <li>
+            <a href = "javascript:history.go(-1);" alt = "Aller à la page précédente">
+              <div class = "icon">
+                <span class = "ico-arrow-left">
+                               
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class = "data-fluid">
+        <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
+          <thead>
+            <tr>
+              <th width = "80%">
+                Date et heure de la demande
+              </th>
+              <th width = "20%">
+                Statut du document
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @book_demands.blank? %>
+              <tr>
+                <td colspan = "2">Ce document n'a pas encore fait l'objet d'une demande de prêt.</td>
+              </tr>
+            <% else %>
+              <% @book_demands.each do |book_demand| %>
+                <% @demand = Demand.find_by_id(book_demand["demand_id"]) %>
+                <% @book_demand = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE demand_id = #{@demand.id} AND book_id = #{@book.id}").first %>
+                <tr>
+                  <td>
+                    <a data-toggle="collapse" data-target="#book_<%= @demand.id %>">
+                      <b>Demande du <%= @demand.created_at.strftime("%d-%m-%y") %> à <%= @demand.created_at.strftime("%Hh %Mmn") %></b>
+                    </a>   
+                    <div id="book_<%= @demand.id %>" class="collapse">
+                      <table width = "100%" class = "table tickets">
+                        <tbody>
+                          <tr>
+                            <td width = "15%" class = "bl_blue">
+                              <span class = "label label-info">
+                                Envoyée
+                              </span>
+                            </td>
+                            <td width = "20%">
+                              <%= @demand.created_at.strftime("%d-%m-%y") %> à <%= @demand.created_at.strftime("%Hh %Mmn") %>
+                            </td>
+                            <td width = "65%">
+                              <a>Demande envoyée au centre de documentation</a>
+                              <span class = "mark">
+                                Par vous
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <% if book_demand["unavailable"] == "t" %>                              
+                              <td width = "15%" class = "bl_red">
+                                <span class = "label label-important">
+                                  Non disponible
+                                </span>
+                              </td>
+                              <td width = "20%">
+                                <%= DateTime.strptime("#{book_demand["unavailable_by_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["unavailable_by_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                              </td>
+                              <td width = "65%">
+                                <a>Document non disponible au centre de documentation</a>
+                                <span class = "mark">
+                                  Par <%= User.find_by_id(book_demand["unavailable_by"]).full_name %>
+                                </span>
+                              </td>  
+                            <% else %>
+                              <% if book_demand["on_hold"] == "t" %>
+                              <% else %>
+                                <td width = "15%" class = "bl_yellow">
+                                  <span class = "label label-warning">
+                                    Validée
+                                  </span>
+                                </td>
+                                <td width = "20%">
+                                  <%= DateTime.strptime("#{book_demand['validated_by_at']}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand['validated_by_at']}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                                </td>
+                                <td width = "65%">
+                                  <a>Demande validée par le chef du service de documentation physique</a>
+                                  <span class = "mark">
+                                    Validée par <%= User.find_by_id(book_demand["validated_by"]).full_name %>
+                                  </span>
+                                </td>    
+                              <% end %>
+                            <% end %>
+                          </tr>                          
+                          <% if book_demand["validated"] == "t" %>
+                            <tr>                              
+                              <td width = "15%" class = "bl_green">
+                                <span class = "label label-success">
+                                  Validée
+                                </span>
+                              </td>
+                              <td width = "20%">
+                                <%= DateTime.strptime("#{book_demand["validated_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["validated_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                              </td>
+                              <td width = "65%">
+                                <a>Validation de la demande de document accordée</a>
+                                <span class = "mark">
+                                  Par vous
+                                </span>
+                              </td>  
+                            </tr>                            
+                          <% end %>
+                          <% if book_demand["book_left"] == "t" %>
+                            <tr>
+                              <td width = "15%" class = "bl_red">
+                                <span class = "label label-important">
+                                  Annulée
+                                </span>
+                              </td>
+                              <td width = "20%">
+                                <%= DateTime.strptime("#{book_demand["book_left_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["book_left_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                              </td>
+                              <td width = "65%">
+                                <a>Demande de document annulée</a>
+                                <span class = "mark">
+                                  Annulée par vous
+                                </span>
+                              </td>   
+                            </tr> 
+                          <% end %>
+                          <% if book_demand["taken"] == "t" %>
+                            <tr>
+                              <td width = "15%" class = "bl_green">
+                                <span class = "label label-success">
+                                  Retiré
+                                </span>
+                              </td>
+                              <td width = "20%">
+                                <%= DateTime.strptime("#{book_demand["taken_by_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["taken_by_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                              </td>
+                              <td width = "65%">
+                                <a>Document retiré auprès d'un agent du centre de documentation</a>
+                                <span class = "mark">
+                                  Auprès de <%= User.find_by_id(book_demand["taken_by"]).full_name %>
+                                </span>
+                              </td>   
+                            </tr> 
+                          <% end %>  
+                          <% if book_demand["returned"] == "t" %>
+                            <tr>
+                              <td width = "15%" class = "bl_yellow">
+                                <span class = "label label-warning">
+                                  Rendu
+                                </span>
+                              </td>
+                              <td width = "20%">
+                                <%= DateTime.strptime("#{book_demand["returned_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["returned_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                              </td>
+                              <td width = "65%">
+                                <a>Validation de retour du document au centre</a>
+                                <span class = "mark">
+                                  Par vous
+                                </span>
+                              </td>   
+                            </tr> 
+                          <% end %>   
+                          <% if book_demand["returned"] == "t" %>
+                            <tr>
+                              <td width = "15%" class = "bl_green">
+                                <span class = "label label-success">
+                                  Rendu
+                                </span>
+                              </td>
+                              <td width = "20%">
+                                <%= DateTime.strptime("#{book_demand["returned_by_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["returned_by_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                              </td>
+                              <td width = "65%">
+                                <a>Validation de retour du document au centre par un agent du centre</a>
+                                <span class = "mark">
+                                  Par <%= User.find_by_id(book_demand["returned_by"]).full_name %>
+                                </span>
+                              </td>   
+                            </tr> 
+                          <% end %> 
+                          <%# L'employé déclare lui même qu'il a perdu le document %>  
+                          <% if book_demand["book_damaged"] == "t" and book_demand["book_damaged_at"] != nil %>
+                            <tr>
+                              <td width = "15%" class = "bl_red">
+                                <span class = "label label-important">
+                                  Endommagé
+                                </span>
+                              </td>
+                              <td width = "20%">
+                                <%= DateTime.strptime("#{book_demand["book_damaged_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["book_damaged_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                              </td>
+                              <td width = "65%">
+                                <a>Document déclaré endommagé</a>
+                                <span class = "mark">
+                                  Par vous
+                                </span>
+                              </td>   
+                            </tr> 
+                          <% end %>   
+                          <% if book_demand["book_damaged"] == "t" and book_demand["returned_at"] != nil %>
+                            <tr>
+                              <td width = "15%" class = "bl_purple">
+                                <span class = "label label-conflict">
+                                  Conflit
+                                </span>
+                              </td>
+                              <td width = "20%">
+                                <span class = "cyellow">
+                                  <%= DateTime.strptime("#{book_demand["returned_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["returned_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                                </span>
+                                <span class = "cpurple">
+                                  <%= DateTime.strptime("#{book_demand["book_damaged_by_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%d-%m-%y") %> à <%= DateTime.strptime("#{book_demand["book_damaged_by_at"]}", "%Y-%m-%d %H:%M:%S").strftime("%Hh %Mmn") %>
+                                </span>
+                              </td>
+                              <td width = "65%">
+                                <a>Document déclaré rendu par vous</a>
+                                <br />
+                                <a>Document déclaré endommagé par <%= User.find_by_id(book_demand["damaged_by"]).full_name %></a>
+                              </td>   
+                            </tr> 
+                          <% end %>               
+                        </tbody>
+                      </table>  
+                    </div>                                                                                                               
+                  </td>
+                  <td>
+                    <%= display_demand_book_status(@demand.id, book_demand["book_id"]) %> 
+                  </td>
+                </tr>
+              <% end %>              
+            <% end %>
+          </tbody>
+        </table>
+        <%# unless @books.blank? %>
+		      <div id = "pagination">
+            <%#= paginate @books %>
+          </div>
+        <%# end %>
+      </div>
+    </div>
+  </div> 
+</div>
