@@ -87,7 +87,7 @@
           <tbody>
             <% if @book_demands.blank? %>
               <tr>
-                <td colspan = "2">Ce document n'a pas encore fait l'objet d'une demande de prêt.</td>
+                <td colspan = "3">Ce document n'a pas encore fait l'objet d'une demande de prêt.</td>
               </tr>
             <% else %>
               <% @book_demands.each do |book_demand| %>
@@ -95,26 +95,26 @@
                 <% @username = @demand.user.lastname+" "+@demand.user.firstname %>
                 <% @book_demand = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE demand_id = #{@demand.id} AND book_id = #{@book.id}").first %>
                 <tr>
+                  <script type="text/javascript">	
+                    $(document).on('ready page:load', function(){    
+                      options['innerHtml'] = "<b>Matricule:</b> <%= @demand.user.uuid %><br><b>Numéro de mobile:</b> <%= @demand.user.mobile_number %><br><b>Numéro de fixe:</b> <%= @demand.user.phone_number %><br><b>E-mail:</b> <%= @demand.user.email %><br><b>Département:</b> <%= @demand.user.qualification.department.name %><br><b>Qualification:</b> <%= @demand.user.qualification.label %><br>";								
+                      $("#demand_<%= @demand.id %>").CreateBubblePopup( options );
+                                                                    
+                    });
+                  </script>
+                  <td>
+                    <%= div_for (@demand) do %>
+                      <%= @username %>
+                    <% end %>
+                  </td>
                   <td>
                     <a data-toggle="collapse" data-target="#book_<%= @demand.id %>">
                       <b>Demande du <%= @demand.created_at.strftime("%d-%m-%y") %> à <%= @demand.created_at.strftime("%Hh %Mmn") %></b>
                     </a>   
                     <div id="book_<%= @demand.id %>" class="collapse">
                       <table width = "100%" class = "table tickets">
-                        <tbody>
-                          <script type="text/javascript">	
-			                      $(document).on('ready page:load', function(){    
-				                      options['innerHtml'] = "<b>Matricule:</b> <%= @demand.user.uuid %><br><b>Numéro de mobile:</b> <%= @demand.user.mobile_number %><br><b>Numéro de fixe:</b> <%= @demand.user.phone_number %><br><b>E-mail:</b> <%= @demand.user.email %><br><b>Département:</b> <%= @demand.user.qualification.department.name %><br><b>Qualification:</b> <%= @demand.user.qualification.label %><br>";								
-				                      $("#demand_<%= @demand.id %>").CreateBubblePopup( options );
-                                                                            
-			                      });
-			                    </script>
-                          <tr>
-                            <td>
-                              <%= div_for (@demand) do %>
-                                <%= @username %>
-                              <% end %>
-                            </td>
+                        <tbody>                         
+                          <tr>                            
                             <td width = "15%" class = "bl_blue">
                               <span class = "label label-info">
                                 Envoyée
