@@ -1,3 +1,20 @@
+<script type="text/javascript" language="JavaScript">
+  $(document).on('ready page:load', function(){  
+    options =	{ 
+			position : 'top',
+			align	 : 'center',						
+			innerHtmlStyle: {
+								color:'#FFFFFF', 
+								'text-align':'left',
+								padding:'2px',
+								'font-size':'13px'
+							},																
+			themeName: 	'all-grey',
+			themePath: 	'../../../images/jquerybubblepopup-theme'
+		};  
+	});
+</script>
+
 <div class="page-header">
     <div class="icon">
       <span class="ico-arrow-right"></span>
@@ -55,8 +72,11 @@
       <div class = "data-fluid">
         <table class = "table" cellpading = "0" cellspacing = "0" width = "100%">
           <thead>
-            <tr>
-              <th width = "80%">
+            <tr>  
+              <th width = "20%">
+                Auteur
+              </th>
+              <th width = "60%">
                 Date et heure de la demande
               </th>
               <th width = "20%">
@@ -72,6 +92,7 @@
             <% else %>
               <% @book_demands.each do |book_demand| %>
                 <% @demand = Demand.find_by_id(book_demand["demand_id"]) %>
+                <% @username = @demand.user.lastname+" "+@demand.user.firstname %>
                 <% @book_demand = ActiveRecord::Base.connection.execute("SELECT * FROM books_demands WHERE demand_id = #{@demand.id} AND book_id = #{@book.id}").first %>
                 <tr>
                   <td>
@@ -81,7 +102,19 @@
                     <div id="book_<%= @demand.id %>" class="collapse">
                       <table width = "100%" class = "table tickets">
                         <tbody>
+                          <script type="text/javascript">	
+			                      $(document).on('ready page:load', function(){    
+				                      options['innerHtml'] = "<b>Matricule:</b> <%= @demand.user.uuid %><br><b>Numéro de mobile:</b> <%= @demand.user.mobile_number %><br><b>Numéro de fixe:</b> <%= @demand.user.phone_number %><br><b>E-mail:</b> <%= @demand.user.email %><br><b>Département:</b> <%= @demand.user.qualification.department.name %><br><b>Qualification:</b> <%= @demand.user.qualification.label %><br>";								
+				                      $("#demand_<%= @demand.id %>").CreateBubblePopup( options );
+                                                                            
+			                      });
+			                    </script>
                           <tr>
+                            <td>
+                              <%= div_for (@demand) do %>
+                                <%= @username %>
+                              <% end %>
+                            </td>
                             <td width = "15%" class = "bl_blue">
                               <span class = "label label-info">
                                 Envoyée
@@ -93,7 +126,7 @@
                             <td width = "65%">
                               <a>Demande envoyée au centre de documentation</a>
                               <span class = "mark">
-                                Par vous
+                                Par le demandeur
                               </span>
                             </td>
                           </tr>
@@ -146,7 +179,7 @@
                               <td width = "65%">
                                 <a>Validation de la demande de document accordée</a>
                                 <span class = "mark">
-                                  Par vous
+                                  Par le demandeur
                                 </span>
                               </td>  
                             </tr>                            
@@ -164,7 +197,7 @@
                               <td width = "65%">
                                 <a>Demande de document annulée</a>
                                 <span class = "mark">
-                                  Annulée par vous
+                                  Annulée par le demandeur
                                 </span>
                               </td>   
                             </tr> 
@@ -200,7 +233,7 @@
                               <td width = "65%">
                                 <a>Validation de retour du document au centre</a>
                                 <span class = "mark">
-                                  Par vous
+                                  Par le demandeur
                                 </span>
                               </td>   
                             </tr> 
@@ -237,7 +270,7 @@
                               <td width = "65%">
                                 <a>Document déclaré endommagé</a>
                                 <span class = "mark">
-                                  Par vous
+                                  Par le demandeur
                                 </span>
                               </td>   
                             </tr> 
@@ -258,7 +291,7 @@
                                 </span>
                               </td>
                               <td width = "65%">
-                                <a>Document déclaré rendu par vous</a>
+                                <a>Document déclaré rendu par le demandeur</a>
                                 <br />
                                 <a>Document déclaré endommagé par <%= User.find_by_id(book_demand["damaged_by"]).full_name %></a>
                               </td>   
