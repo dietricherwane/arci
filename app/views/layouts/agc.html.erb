@@ -44,8 +44,9 @@
   <%= javascript_include_tag "plugins/shbrush/shBrushJScript", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "plugins/shbrush/shBrushCss", "data-turbolinks-track" => true %>   
   
-  <%= javascript_include_tag "plugins", "data-turbolinks-track" => true %> 
-  <%= javascript_include_tag "charts", "data-turbolinks-track" => true %> 
+  <%= javascript_include_tag "highcharts/highcharts", "data-turbolinks-track" => true %> 
+  <%= javascript_include_tag "highcharts/highstock", "data-turbolinks-track" => true %> 
+  <%= javascript_include_tag "highcharts/themes/gray.js", "data-turbolinks-track" => true %>
   
   <%= javascript_include_tag "actions", "data-turbolinks-track" => true %> 
   <%= csrf_meta_tags %>
@@ -62,11 +63,12 @@
 		  <div class="nContainer">                
         <ul class="navigation bordered">  
           <% if current_user.can_validate == true %> 
-            <li class="active"><%= link_to "En attente", csadp_bd_demands_on_hold_path , class: "blyellow" %>
+            <li class="active"><%= link_to "En attente", csadp_bd_demands_on_hold_path , class: "blyellow" %></li>
           <% end %>               
-          <li class="active"><%= link_to "A retirer", agc_validated_demands_path, class: "blblue" %>   
-          <li class="active"><%= link_to "A rendre", agc_demands_to_return_path, class: "blgreen" %> 
-          <li class="active"><%= link_to "Historique", global_reports_path, class: "blred" %>       
+          <li class="active"><%= link_to "A retirer", agc_validated_demands_path, class: "blblue" %></li>   
+          <li class="active"><%= link_to "A rendre", agc_demands_to_return_path, class: "blgreen" %></li>
+          <li class="active"><%= link_to "Historique", global_reports_path, class: "blred" %></li> 
+          <li class="active"><%= link_to "Statistiques", global_statistics_path, class: "bldblue" %></li>       
           <!--<li class="active"><%= link_to "Départements", "/departments", class: "blgreen" %></li>
           <li>
             <%= link_to "Paramètres", "#", class: "blgreen" %>
@@ -150,6 +152,14 @@
               <span class="ico-archive"></span>
             </div>                    
             <div class="name">Historique</div>
+          </a>          
+        </li> 
+        <li>
+          <a href="<%= global_statistics_path %>" class="button dblue">
+            <div class="icon">
+              <span class="ico-chart-4"></span>
+            </div>                    
+            <div class="name">Statistiques</div>
           </a>          
         </li> 
         <!--<li>

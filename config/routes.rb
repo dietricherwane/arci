@@ -193,6 +193,22 @@ Arci::Application.routes.draw do
   get "historique/demandes-rendues/liste-par-qualification" => "reports#departments_returned", as: :demands_returned_per_qualification
   get "historique/demandes-rendues/liste-des-utilisateurs/:qualification_id" => "reports#list_users_returned", as: :users_returned_demands_per_qualification
   get "historique/demandes-rendues/liste-des-demandes/:user_id" => "reports#demands_returned", as: :demands_returned_report
+  
+  get "statistiques-globales-concernant-les-demandes" => "statistics#csadp_bd_statistics", as: :global_statistics
+  get "statistiques-globales-des-demandes-faites-par-mois" => "statistics#global_demands_sent", as: :global_demands_sent
+  get "statistiques-globales-des-demandes-rejetees-par-mois" => "statistics#global_demands_rejected", as: :global_demands_rejected
+  get "statistiques-globales-des-demandes-validees-par-mois" => "statistics#global_demands_validated", as: :global_demands_validated  
+  get "statistiques-globales-du-nombre-de-documents-empruntes-par-mois" => "statistics#global_number_of_documents_taken", as: :global_number_of_documents_taken
+  get "statistiques-globales-du-nombre-de-documents-rendus-par-mois" => "statistics#global_number_of_documents_returned", as: :global_number_of_documents_returned
+  get "statistiques-globales-du-nombre-de-documents-endommages-par-mois" => "statistics#global_number_of_documents_damaged", as: :global_number_of_documents_damaged
+  
+  get "statistiques-personnelles-concernant-les-demandes" => "statistics#lv_statistics", as: :personnal_statistics
+  get "statistiques-personnelles-des-demandes-faites-par-mois" => "statistics#personnal_demands_sent", as: :personnal_demands_sent
+  get "statistiques-personnelles-des-demandes-rejetees-par-mois" => "statistics#personnal_demands_rejected", as: :personnal_demands_rejected
+  get "statistiques-personnelles-des-demandes-validees-par-mois" => "statistics#personnal_demands_validated", as: :personnal_demands_validated  
+  get "statistiques-personnelles-du-nombre-de-documents-empruntes-par-mois" => "statistics#personnal_number_of_documents_taken", as: :personnal_number_of_documents_taken
+  get "statistiques-personnelles-du-nombre-de-documents-rendus-par-mois" => "statistics#personnal_number_of_documents_returned", as: :personnal_number_of_documents_returned
+  get "statistiques-personnelles-du-nombre-de-documents-endommages-par-mois" => "statistics#personnal_number_of_documents_damaged", as: :personnal_number_of_documents_damaged
   #devise_scope :user do
   	#match '/users/sign_out' => 'devise/sessions#destroy'
   	#match 'create_user' => 'devise/registrations#new', :as => :dashboard_administrator
@@ -259,4 +275,6 @@ Arci::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  get '*rogue_url', :to => 'errors#routing'
+  post '*rogue_url', :to => 'errors#routing'
 end

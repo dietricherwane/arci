@@ -1,0 +1,122 @@
+<div class="page-header">
+    <div class="icon">
+        <span class="ico-arrow-right"></span>
+    </div>
+    <h1>Statistiques <small>Statistiques des demandes de documents faites au département banque de données</small></h1>
+</div>
+
+<div class = "row-fluid">
+  <div class = "span12">
+    <%= render 'layouts/flash_messages' %>
+    <% if !@error_messages.blank? %>  
+      <div class = "alert alert-error">         
+        <ul>
+        <% @error_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if !@alert_messages.blank? %>  
+      <div class = "alert alert-info">         
+        <% @alert_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @success %> 
+      <div class = "alert alert-success">         
+        <% @success_messages.each do |msg| %>
+          <%= msg %>
+        <% end %>
+      </div>
+    <% end %>
+     
+    <div class = "block title">
+      <div class = "head">
+        <h2>Liste des demandes</h2>
+      </div>
+      <div class = "widgets">
+        <div class = "widget blue value">
+          <div class = "left">
+            <div class = "icon">
+              <span class="ico-chart-4"></span>
+            </div>                        
+          </div>
+          <div class = "right">
+            
+          </div>
+          <div class = "bottom">
+            <%= link_to "Demandes faites par mois", personnal_demands_sent_path %>
+          </div>
+        </div>
+        <div class = "widget red value">
+          <div class = "left">
+            <div class = "icon">
+              <span class="ico-chart-4"></span>
+            </div>                        
+          </div>
+          <div class = "right">
+            
+          </div>
+          <div class = "bottom">
+            <%= link_to "Demandes rejetées par mois", personnal_demands_rejected_path %>
+          </div>
+        </div>
+        <div class = "widget green value">
+          <div class = "left">
+            <div class = "icon">
+              <span class="ico-chart-4"></span>
+            </div>                        
+          </div>
+          <div class = "right">
+            
+          </div>
+          <div class = "bottom">
+            <%= link_to "Demandes validées par mois", personnal_demands_validated_path %>
+          </div>
+        </div>
+        <div class = "widget yellow value">
+          <div class = "left">
+            <div class = "icon">
+              <span class="ico-chart-4"></span>
+            </div>                        
+          </div>
+          <div class = "right">
+            
+          </div>
+          <div class = "bottom">
+            <%= link_to "Documents empruntés par mois", personnal_number_of_documents_taken_path %>
+          </div>
+        </div>
+        <div class = "widget dblue value">
+          <div class = "left">
+            <div class = "icon">
+              <span class="ico-chart-4"></span>
+            </div>                        
+          </div>
+          <div class = "right">
+            
+          </div>
+          <div class = "bottom">
+            <%= link_to "Documents rendus par mois", personnal_number_of_documents_returned_path %>
+          </div>
+        </div>
+        <div class = "widget purple value">
+          <div class = "left">
+            <div class = "icon">
+              <span class="ico-chart-4"></span>
+            </div>                        
+          </div>
+          <div class = "right">
+            
+          </div>
+          <div class = "bottom">
+            <%= link_to "Documents endommagés par mois", personnal_number_of_documents_damaged_path %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

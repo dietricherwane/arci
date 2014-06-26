@@ -44,8 +44,9 @@
   <%= javascript_include_tag "plugins/shbrush/shBrushJScript", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "plugins/shbrush/shBrushCss", "data-turbolinks-track" => true %>   
   
-  <%= javascript_include_tag "plugins", "data-turbolinks-track" => true %> 
-  <%= javascript_include_tag "charts", "data-turbolinks-track" => true %> 
+  <%= javascript_include_tag "highcharts/highcharts", "data-turbolinks-track" => true %> 
+  <%= javascript_include_tag "highcharts/highstock", "data-turbolinks-track" => true %> 
+  <%= javascript_include_tag "highcharts/themes/gray.js", "data-turbolinks-track" => true %>
   
   <%= javascript_include_tag "actions", "data-turbolinks-track" => true %> 
   <%= csrf_meta_tags %>
@@ -64,7 +65,7 @@
           <li class="active"><%= link_to "En attente", csadp_bd_demands_on_hold_path , class: "blred" %>                      
           <li class="active"><%= link_to "Historique des demandes", global_reports_path, class: "blyellow" %></li>
           <li class="active"><%= link_to "Droits de validation", list_library_agents_path, class: "blpurple" %></li>
-          <li class="active"><%= link_to "Statistiques", demands_statistics_path, class: "blgreen" %></li>
+          <li class="active"><%= link_to "Statistiques", global_statistics_path, class: "blgreen" %></li>
           <!--<li class="active"><%= link_to "Départements", "/departments", class: "blgreen" %></li>
           <li>
             <%= link_to "Paramètres", "#", class: "blgreen" %>
@@ -141,7 +142,7 @@
           </a>          
         </li>
         <li>
-          <a href="<%= demands_statistics_path %>" class="button green">         
+          <a href="<%= global_statistics_path %>" class="button green">         
             <div class="icon">
               <span class="ico-chart-4"></span>
             </div>
