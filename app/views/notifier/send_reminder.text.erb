@@ -1,0 +1,17 @@
+Bonjour <%= @user.full_name %>,
+
+Vous avez conservé les documents suivants pendant plus de 5 jour. Veuillez les retourner au centre de documentation:
+
+<% @demand_ids.each do |demand_id| %>
+  <% @demand = Demand.find_by_id(demand_id) %>
+  Demande du: <%= "#{@demand.created_at.strftime('%d-%m-%y')} à #{@demand.created_at.strftime('%Hh %Mmn')}" %>
+    <% @books_ids = ActiveRecord::Base.connection.execute("SELECT book_id, taken_by_at FROM books_demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL AND taken_by_at < '#{DateTime.now - 5.days}'AND user_id = #{@user.id} AND demand_id = #{@demand.id}").map{ |book_id| book_id["book_id"] } %>
+    <% @books_ids.each do |book_id| %>
+      <% @book = Book.find_by_id(book_id) %>
+      <i><b>[<%= @book.category.name %>]</b></i> <%= @book.title %>
+    <% end %>
+<% end %>
+
+Veuillez cliquer sur le lien ci dessous pour en consulter la liste.
+
+http://xxxxxxxxx.com

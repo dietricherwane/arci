@@ -49,4 +49,12 @@ class Notifier < ActionMailer::Base
     mail :bcc => receiver, :subject => "Retour de documents empruntés", :from => sender_name
   end
   
+  def send_reminder(user)
+    @user = user
+    @demand_ids = ActiveRecord::Base.connection.execute("SELECT DISTINCT demand_id FROM books_demands WHERE taken IS TRUE AND returned IS NULL AND book_damaged IS NULL AND taken_by_at < '#{DateTime.now - 5.days}'AND user_id = #{@user.id}").map{ |book_demand| book_demand["demand_id"] }
+    @demand_ids = @demand_ids.uniq
+    
+    mail :bcc => user.email, :subject => "Retour de documents empruntés", :from => "ARCI"
+  end
+  
 end
